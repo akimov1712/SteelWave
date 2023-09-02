@@ -1,4 +1,4 @@
-package ru.steelwave.steelwave.data.repository
+package ru.steelwave.steelwave.data.repository.project
 
 import android.app.Application
 import android.content.Context
@@ -8,8 +8,9 @@ import ru.steelwave.steelwave.data.database.AppDatabase
 import ru.steelwave.steelwave.data.mapper.ProjectMapper
 import ru.steelwave.steelwave.domain.entity.project.ProjectModel
 import ru.steelwave.steelwave.domain.repository.project.ProjectRepository
+import javax.inject.Inject
 
-class ProjectRepositoryImpl(application: Application): ProjectRepository {
+class ProjectRepositoryImpl @Inject constructor(application: Application): ProjectRepository {
     private val dao = AppDatabase.getInstance(application).projectDao()
     private val mapper = ProjectMapper
 

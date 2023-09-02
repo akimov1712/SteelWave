@@ -2,8 +2,7 @@ package ru.steelwave.steelwave.presentation.main.project
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
-import ru.steelwave.steelwave.data.repository.ProjectRepositoryImpl
+import ru.steelwave.steelwave.data.repository.project.ProjectRepositoryImpl
 import ru.steelwave.steelwave.domain.useCase.project.AddProjectUseCase
 import ru.steelwave.steelwave.domain.useCase.project.GetAllProjectUseCase
 
