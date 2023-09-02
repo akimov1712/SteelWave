@@ -13,7 +13,7 @@ android {
     defaultConfig {
         applicationId "ru.steelwave.steelwave"
         minSdk 24
-        targetSdk 33
+        targetSdk 32
         versionCode 1
         versionName "1.0"
 
@@ -66,6 +66,7 @@ dependencies {
 
 //    View
     implementation 'com.mikhaellopez:circularprogressbar:3.1.0'
+    implementation "com.github.Dhaval2404:ImagePicker:v2.1"
 
 //    Default
     implementation 'androidx.core:core-ktx:1.7.0'

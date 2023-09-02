@@ -101,7 +101,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginHorizontal="20dp"
                 android:visibility="gone"
-                android:background="@drawable/background_stroke_dash"
+                android:background="@drawable/background_choice_image"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/til_type_event">

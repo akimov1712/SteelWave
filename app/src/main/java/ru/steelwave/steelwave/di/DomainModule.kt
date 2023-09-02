@@ -18,22 +18,22 @@ import ru.steelwave.steelwave.domain.repository.user.UserRepository
 @Module
 interface DomainModule {
 
-    @Binds
-    fun bindIncomeRepository(impl: IncomeRepositoryImpl): IncomeRepository
-
-    @Binds
-    fun bindIncomeYearRepository(impl: IncomeYearRepositoryImpl): IncomeYearRepository
-
-    @Binds
-    fun bindLossRepository(impl: LossRepositoryImpl): LossRepository
-
-    @Binds
-    fun bindTargetRepository(impl: TargetRepositoryImpl): TargetRepository
+//    @Binds
+//    fun bindIncomeRepository(impl: IncomeRepositoryImpl): IncomeRepository
+//
+//    @Binds
+//    fun bindIncomeYearRepository(impl: IncomeYearRepositoryImpl): IncomeYearRepository
+//
+//    @Binds
+//    fun bindLossRepository(impl: LossRepositoryImpl): LossRepository
+//
+//    @Binds
+//    fun bindTargetRepository(impl: TargetRepositoryImpl): TargetRepository
 
     @Binds
     fun bindProjectRepository(impl: ProjectRepositoryImpl): ProjectRepository
 
-    @Binds
-    fun bindUserRepository(impl: UserRepositoryImpl): UserRepository
+//    @Binds
+//    fun bindUserRepository(impl: UserRepositoryImpl): UserRepository
 
 }

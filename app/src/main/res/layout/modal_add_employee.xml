@@ -135,7 +135,7 @@
                         android:layout_width="0dp"
                         android:layout_height="180dp"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/background_stroke_dash"
+                        android:background="@drawable/background_choice_image"
                         app:layout_constraintEnd_toEndOf="@+id/et_middlename"
                         app:layout_constraintStart_toStartOf="@+id/et_middlename"
                         app:layout_constraintTop_toBottomOf="@+id/et_middlename">
