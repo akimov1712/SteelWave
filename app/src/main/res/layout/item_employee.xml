@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="4dp"
+    app:cardCornerRadius="20dp"
+    app:cardUseCompatPadding="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginHorizontal="12dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:paddingBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_profile"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/background_avatar"
+            android:padding="15dp"
+            android:src="@drawable/icon_default_avatar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_name_employee"
+            style="@style/sw_textView_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="Ошибка"
+            app:layout_constraintStart_toEndOf="@+id/iv_profile"
+            app:layout_constraintTop_toTopOf="@+id/iv_profile" />
+
+        <TextView
+            android:id="@+id/tv_prof_employee"
+            style="@style/sw_textView_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ошибка"
+            android:textColor="@color/sw_black_transparent"
+            android:textSize="@dimen/small_size"
+            app:layout_constraintStart_toStartOf="@+id/tv_name_employee"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name_employee" />
+
+        <ImageButton
+            android:id="@+id/btn_more"
+            android:layout_width="20dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="15dp"
+            android:background="@null"
+            android:src="@drawable/icon_more_vert"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_profile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/iv_profile" />
+
+        <View
+            android:id="@+id/separate_line"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/sw_purple_transparent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_profile" />
+
+        <TextView
+            android:id="@+id/textView12"
+            style="@style/sw_textView_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/income"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintEnd_toStartOf="@+id/textView11"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/separate_line" />
+
+        <TextView
+            android:id="@+id/tv_income"
+            style="@style/sw_textView_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$0"
+            android:textColor="@color/sw_green"
+            app:layout_constraintEnd_toEndOf="@+id/textView12"
+            app:layout_constraintStart_toStartOf="@+id/textView12"
+            app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+        <TextView
+            android:id="@+id/textView11"
+            style="@style/sw_textView_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/percent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView12"
+            app:layout_constraintTop_toBottomOf="@+id/separate_line" />
+
+        <TextView
+            android:id="@+id/tv_percent"
+            style="@style/sw_textView_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0%"
+            android:textColor="@color/sw_green"
+            app:layout_constraintEnd_toEndOf="@+id/textView11"
+            app:layout_constraintStart_toStartOf="@+id/textView11"
+            app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

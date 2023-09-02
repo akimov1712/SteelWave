@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:elevation="4dp"
+    app:cardCornerRadius="20dp"
+    app:cardUseCompatPadding="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginHorizontal="5dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:paddingBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView2"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:cardCornerRadius="50dp"
+            app:cardElevation="10dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_percent"
+            style="@style/sw_textView_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0%"
+            android:textSize="@dimen/default_size"
+            android:textColor="@color/sw_purple"
+            android:textStyle="bold"
+            android:translationZ="15dp"
+            app:layout_constraintBottom_toBottomOf="@+id/cardView2"
+            app:layout_constraintEnd_toEndOf="@+id/cardView2"
+            app:layout_constraintStart_toStartOf="@+id/cardView2"
+            app:layout_constraintTop_toTopOf="@+id/cardView2" />
+
+        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+            android:id="@+id/circularProgressBar"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            app:cpb_background_progressbar_width="0dp"
+            app:cpb_progress="0"
+            app:cpb_progress_direction="to_right"
+            app:cpb_progressbar_color="@color/sw_purple"
+            app:cpb_progressbar_width="12dp"
+            app:cpb_round_border="true"
+            app:layout_constraintBottom_toBottomOf="@+id/cardView2"
+            app:layout_constraintEnd_toEndOf="@+id/cardView2"
+            app:layout_constraintStart_toStartOf="@+id/cardView2"
+            app:layout_constraintTop_toTopOf="@+id/cardView2" />
+
+        <TextView
+            android:id="@+id/tv_name_target"
+            style="@style/sw_textView_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ошибка"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="@+id/circularProgressBar"
+            app:layout_constraintStart_toStartOf="@+id/circularProgressBar"
+            app:layout_constraintTop_toBottomOf="@+id/circularProgressBar" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/tv_name_target"
+            app:layout_constraintStart_toStartOf="@+id/tv_name_target"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name_target">
+
+            <TextView
+                android:id="@+id/tv_collected"
+                style="@style/sw_textView_normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$0"
+                android:textColor="@color/sw_green"
+                android:textSize="@dimen/small_size"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView6"
+                style="@style/sw_textView_normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="/"
+                android:textSize="@dimen/small_size"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_collected"
+                app:layout_constraintStart_toEndOf="@+id/tv_collected"
+                app:layout_constraintTop_toTopOf="@+id/tv_collected" />
+
+            <TextView
+                android:id="@+id/tv_total"
+                style="@style/sw_textView_normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="$0"
+                android:textColor="@color/sw_black_transparent"
+                android:textSize="@dimen/very_small_size"
+                app:layout_constraintBottom_toBottomOf="@+id/textView6"
+                app:layout_constraintStart_toEndOf="@+id/textView6"
+                app:layout_constraintTop_toTopOf="@+id/textView6" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--    textSize-->
+    <dimen name="very_small_size">12sp</dimen>
+    <dimen name="small_size">14sp</dimen>
+    <dimen name="normal_size">16sp</dimen>
+    <dimen name="default_size">18sp</dimen>
+    <dimen name="big_size">20sp</dimen>
+    <dimen name="very_big_size">25sp</dimen>
+
+<!--    corners-->
+
+    <dimen name="corner_small">7dp</dimen>
+    <dimen name="corner_normal">13dp</dimen>
+    <dimen name="corner_big">20dp</dimen>
+
+</resources>

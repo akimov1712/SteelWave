@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/sw_cardView"
+    android:layout_marginHorizontal="20dp"
+    android:layout_gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_gravity="center"
+        android:minWidth="350dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/sw_textView_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:gravity="center"
+            android:text="@string/control_expenses"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/et_expenses"
+            style="@style/sw_editText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:hint="@string/expenses"
+            android:maxLength="24"
+            android:maxLines="1"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+        <EditText
+            android:id="@+id/et_sum_expenses"
+            style="@style/sw_editText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:hint="@string/sum_expenses"
+            android:inputType="number"
+            android:maxLength="6"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_expenses" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_add"
+            style="@style/sw_button_fill"
+            android:layout_width="230dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/add"
+            app:layout_constraintEnd_toEndOf="@+id/et_sum_expenses"
+            app:layout_constraintStart_toStartOf="@+id/et_sum_expenses"
+            app:layout_constraintTop_toBottomOf="@+id/et_sum_expenses" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_cancel"
+            style="@style/sw_button_empty"
+            android:layout_width="230dp"
+            android:layout_height="50dp"
+            android:text="@string/cancel"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/btn_add"
+            app:layout_constraintStart_toStartOf="@+id/btn_add"
+            app:layout_constraintTop_toBottomOf="@+id/btn_add" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

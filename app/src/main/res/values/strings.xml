@@ -1,0 +1,116 @@
+<resources>
+    <!--    Rules   -->
+    <string name="rules1_title">1. CEO (Генералный директор):</string>
+    <string name="rules1.1">CEO имеет доступ ко всем страницам веб-приложения;</string>
+    <string name="rules1.2">CEO вправе создавать проекты только после совместного согласования с Администраторов веб-приложения и Менеджером компании;</string>
+    <string name="rules1.3">CEO вправе устанавливать финансовые цели, только после совместного согласования с Администраторов веб-приложения и Менеджером компании;</string>
+    <string name="rules1.4">CEO вправе добавлять/изменять/удалять все события в сайдбаре «<font color='#7678ED'>События</font>»;</string>
+    <string name="rules1.5">CEO вправе вести статистику по доходам/расходам компании;</string>
+
+    <string name="rules2_title">2. COO, TeamLead (Администратор веб-приложения, Исполнительный директор):</string>
+    <string name="rules2.1">Администратор веб-приложения имеет доступ к служебным страницам веб-приложения;</string>
+    <string name="rules2.2">Администратор веб-приложения вправе создать проект только после совместного согласования с CEO и Менеджером компании;</string>
+    <string name="rules2.3">Администратор веб-приложения вправе создавать события: Уведомления, Текущие задачи, Мероприятия, в сайдбаре «<font color='#7678ED'>События</font>», последнее только после совместного согласования с CEO;</string>
+    <string name="rules2.4">Администратор веб-приложения вправе предлагать изменения или нововведения в настоящий устав веб-приложения «<font color='#7678ED'>STEELWAVE DEV</font>»;</string>
+
+
+    <string name="app_name">SteelWave</string>
+    <string name="greetings_in_auth">Привет, сотрудник, поздравляем Вас с успешным присоединением к команде <font color='#7678ED'>SteelWave</font>. Перед началом использования приложения, просим ознакомиться с правилами использования веб-приложения.</string>
+    <string name="authorization_in_preview">Авторизоваться</string>
+    <string name="authorization">Авторизация</string>
+    <string name="you_login">Ваш логин</string>
+    <string name="password">Пароль</string>
+    <string name="secret_word">Кодовое слово</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="rules_use_web_app_steelwave">Правила использования\nвеб-приложения\n<font color='#7678ED'>STEELWAVE DEV</font></string>
+
+    <string name="welcome_to_steelwave_dev">Добро пожаловать в <font color='#7678ED'>SteelWave</font> <font color='#55A630'>Dev</font></string>
+    <string name="your_position">Ваша должность:</string>
+    <string name="bet_salary">Ставка заработной платы:</string>
+    <string name="start">Начать!</string>
+    <string name="add_project">Добавить проект</string>
+    <string name="add_employee">Добавить сотрудника</string>
+    <string name="control_expenses">Управление расходами</string>
+    <string name="control_target">Управление целями</string>
+    <string name="control_event">Управление событиями</string>
+    <string name="position_employee">Должность сотрудника</string>
+    <string name="name_project">Название проекта</string>
+    <string name="add">Добавить</string>
+    <string name="cancel">Отмена</string>
+    <string name="employee_login">Логин сотрудника</string>
+    <string name="secret_word_employee">Секретное слово сотрудника</string>
+    <string name="password_employee">Пароль сотрудника</string>
+    <string name="firstname">Имя</string>
+    <string name="lastname">Фамилия</string>
+    <string name="middlename">Отчество</string>
+    <string name="paste_cover">Вставить обложку</string>
+    <string name="paste_photo">Вставить фото</string>
+    <string name="position">Должность</string>
+    <string name="project">Проект</string>
+    <string name="salary_procent">Заработная плата (%)</string>
+    <string name="expenses">Расход</string>
+    <string name="sum_expenses">Сумма расхода</string>
+    <string name="price_target">Стоимость цели</string>
+    <string name="target">Цель</string>
+    <string name="new_partner">Новый партнер</string>
+    <string name="name_service">Название сервиса</string>
+    <string name="salary">Заработная плата</string>
+    <string name="edit">Изменить</string>
+    <string name="you_really_need_exit_from_account">Вы действительно хотите\nвыйти из учетной записи ?</string>
+    <string name="exit_from_account">Выход из учетной записи</string>
+    <string name="exit">Выйти</string>
+    <string name="update">Обновить</string>
+    <string name="new_login">Новый логин</string>
+    <string name="new_password">Новый пароль</string>
+    <string name="new_secret_word">Новое секретное слово</string>
+    <string name="request_update_personal_data">Запрос на обновление\nличных данных</string>
+    <string name="data_will_be_updated_after_approval">Данные будут обновлены после одобрения администратора\n<font color='#7678ED'>SteelWave</font> <font color='#55A630'>Dev</font>, ожидайте :)</string>
+    <string name="ok">Ок</string>
+    <string name="kick">Исключение</string>
+    <string name="you_really_need_kick_user">Вы действительно хотите исключить — </string>
+    <string name="projects">Проекты</string>
+    <string name="finance">Финансы</string>
+    <string name="trafic">Трафик</string>
+    <string name="employees">Сотрудники</string>
+    <string name="ads">Реклама</string>
+    <string name="teamlead">TeamLead — </string>
+    <string name="rules">Правила</string>
+    <string name="profile">Профиль</string>
+    <string name="finances">Финансы —</string>
+    <string name="all_company_project">Все проекты компании</string>
+    <string name="profit_project">Доходность проекта</string>
+    <string name="date_release_project">Дата релиза проекта</string>
+    <string name="income_project">Прибыль проекта</string>
+    <string name="total_income">Общий доход</string>
+    <string name="income_from_ad">Доход от рекламы</string>
+    <string name="income_from_visitors">Доход от посетителей</string>
+    <string name="income_from_partner">Доход от партнерки</string>
+    <string name="project_revenue">Выручка проекта</string>
+    <string name="income_margin">Маржинальная прибыль</string>
+    <string name="income_grass">Валовая прибыль</string>
+    <string name="income_operating">Операционная прибыль</string>
+    <string name="income_net">Чистая прибыль</string>
+    <string name="project_profitability">Рентабельность проекта</string>
+    <string name="expenses_for_the_current_month">Расходы на текущий месяц</string>
+    <string name="add_expenses">Добавить расход</string>
+    <string name="income_stat">Статистика дохода</string>
+    <string name="trafic_title">Трафик —</string>
+    <string name="total_visits">Общая посещаемость</string>
+    <string name="click_stats">Статистика переходов</string>
+    <string name="more_activity_in_site">Подробности активности на сайте</string>
+    <string name="employees_title">Сотрудники —</string>
+    <string name="all_employees">Всего сотрудников</string>
+    <string name="new_employees">Новый сотрудник</string>
+    <string name="income">Доход</string>
+    <string name="percent">Процент</string>
+    <string name="partner_title">Партнеры —</string>
+    <string name="ad_partner_project">Рекламные партнеры проектов</string>
+    <string name="treaty_will_disappear">Договор истечет:</string>
+    <string name="add_partner">Добавить партнера</string>
+    <string name="cooperation_details">Подробности сотрудничества</string>
+    <string name="total_loss">Общий расход</string>
+    <string name="view_more">Показать еще</string>
+    <string name="add_target">Добавить цель</string>
+    <string name="target_company">Цели компании</string>
+
+</resources>

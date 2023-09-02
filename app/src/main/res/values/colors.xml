@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+        <!--    Default    -->
+    <color name="purple_system200">#FFBB86FC</color>
+    <color name="purple_system500">#FF6200EE</color>
+    <color name="purple_system700">#FF3700B3</color>
+    <color name="teal_system200">#FF03DAC5</color>
+    <color name="teal_system700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="logo_background">#FFFFFF</color>
+
+        <!--    Custom    -->
+    <color name="sw_purple">#7678ED</color>
+    <color name="sw_purple_transparent">#4D7678ED</color>
+    <color name="sw_green">#55A630</color>
+    <color name="sw_green_transparent">#4D55A630</color>
+    <color name="sw_red">#E63946</color>
+    <color name="sw_red_transparent">#4DE63946</color>
+    <color name="sw_black">#293241</color>
+    <color name="sw_black_transparent">#80293241</color>
+    <color name="sw_black_transparent_editText">#33293241</color>
+
+
+</resources>

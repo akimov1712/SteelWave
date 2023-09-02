@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:elevation="6dp"
+    app:cardUseCompatPadding="true"
+    app:cardCornerRadius="20dp"
+    android:layout_marginHorizontal="15dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:paddingBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_project"
+            android:layout_width="0dp"
+            android:layout_height="220dp"
+            android:scaleType="center"
+            android:src="@drawable/image_project"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearance="@style/sw_rounding20" />
+
+        <ImageButton
+            android:id="@+id/btn_edit_project"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/background_rounding_7"
+            android:backgroundTint="@color/sw_purple"
+            android:src="@drawable/icon_edit"
+            android:layout_margin="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_name_project"
+            style="@style/sw_textView_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Ошибка"
+            app:layout_constraintEnd_toEndOf="@+id/iv_project"
+            app:layout_constraintStart_toStartOf="@+id/iv_project"
+            app:layout_constraintTop_toBottomOf="@+id/iv_project" />
+
+        <TextView
+            android:id="@+id/textView5"
+            style="@style/sw_textView_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/teamlead"
+            android:textColor="@color/sw_black_transparent"
+            app:layout_constraintEnd_toStartOf="@+id/tv_teamLead"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name_project" />
+
+        <TextView
+            android:id="@+id/tv_teamLead"
+            style="@style/sw_textView_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ошибка"
+            android:textColor="@color/sw_purple"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView5"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name_project" />
+
+        <ImageView
+            android:id="@+id/iv_income"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_coin"
+            android:layout_marginStart="20dp"
+            app:layout_constraintStart_toStartOf="@+id/iv_project"
+            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+        <TextView
+            android:id="@+id/tv_income"
+            style="@style/sw_textView_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/sw_green"
+            android:textStyle="bold"
+            android:textSize="@dimen/very_small_size"
+            android:text="$0"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="7dp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_income"
+            app:layout_constraintStart_toEndOf="@+id/iv_income"
+            app:layout_constraintTop_toTopOf="@+id/iv_income" />
+
+        <ImageView
+            android:id="@+id/iv_visitors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_visitors"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_income"
+            app:layout_constraintStart_toStartOf="@+id/iv_income"
+            app:layout_constraintTop_toBottomOf="@+id/iv_income" />
+
+        <TextView
+            android:id="@+id/tv_visitors"
+            style="@style/sw_textView_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/sw_green"
+            android:textSize="@dimen/very_small_size"
+            android:text="0 ч/с"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="7dp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_visitors"
+            app:layout_constraintStart_toEndOf="@+id/iv_visitors"
+            app:layout_constraintTop_toTopOf="@+id/iv_visitors" />
+
+        <TextView
+            android:id="@+id/tv_release"
+            style="@style/sw_textView_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Релиз:"
+            android:textColor="@color/sw_black_transparent"
+            android:textSize="@dimen/very_small_size"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_visitors"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_visitors" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:elevation="4dp"
+    app:cardCornerRadius="20dp"
+    app:cardUseCompatPadding="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginHorizontal="5dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:paddingBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_logo_partner"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/image_partner_yandex"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_name_partner"
+            style="@style/sw_textView_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:text="Ошибка"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_logo_partner" />
+
+        <TextView
+            android:id="@+id/textView13"
+            style="@style/sw_textView_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/treaty_will_disappear"
+            android:textColor="@color/sw_black_transparent"
+            android:textSize="@dimen/very_small_size"
+            app:layout_constraintStart_toStartOf="@+id/tv_name_partner"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name_partner" />
+
+        <TextView
+            android:id="@+id/tv_time_partner"
+            style="@style/sw_textView_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_marginStart="4dp"
+            android:textColor="@color/sw_green"
+            android:textSize="@dimen/very_small_size"
+            app:layout_constraintBottom_toBottomOf="@+id/textView13"
+            app:layout_constraintStart_toEndOf="@+id/textView13" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

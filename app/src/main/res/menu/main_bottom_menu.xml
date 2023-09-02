@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/projectFragment"
+        android:icon="@drawable/selector_menu_project"
+        android:title="@string/projects"/>
+
+    <item android:id="@+id/financeFragment"
+        android:icon="@drawable/selector_menu_finance"
+        android:title="@string/finance"/>
+
+    <item android:id="@+id/traficFragment"
+        android:icon="@drawable/selector_menu_trafic"
+        android:title="@string/trafic"/>
+
+    <item android:id="@+id/employeesFragment"
+        android:icon="@drawable/selector_menu_employees"
+        android:title="@string/employees"/>
+
+    <item android:id="@+id/adsFragment"
+        android:icon="@drawable/selector_menu_ads"
+        android:title="@string/ads"/>
+
+</menu>

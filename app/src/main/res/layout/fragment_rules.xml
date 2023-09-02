@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".presentation.rules.RulesFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:paddingBottom="30dp">
+
+        <TextView
+            android:id="@+id/tv_rules"
+            style="@style/sw_textView_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginHorizontal="20dp"
+            android:text="@string/rules_use_web_app_steelwave"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_date_update"
+            style="@style/sw_textView_normal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:text="Обновлено: 18.02.2022"
+            android:textColor="@color/sw_black_transparent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_rules" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_rules"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:overScrollMode="never"
+            app:layout_scrollEffect="none"
+            android:nestedScrollingEnabled="false"
+            android:scrollbars="none"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_date_update"
+            tools:listitem="@layout/item_section_rules" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

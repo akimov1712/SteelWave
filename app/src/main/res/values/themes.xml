@@ -1,0 +1,145 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.SteelWave" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/sw_purple</item>
+        <item name="colorPrimaryVariant">@color/sw_purple_transparent</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/sw_purple</item>
+        <item name="colorSecondaryVariant">@color/sw_purple_transparent</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="android:statusBarColor">@color/sw_purple</item>
+        <item name="colorControlNormal">@color/sw_black</item>
+    </style>
+
+
+    <style name="sw_button_fill">
+        <item name="android:background">@drawable/background_button_fill</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/normal_size</item>
+        <item name="android:fontFamily">@font/poppins_semibold</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <style name="sw_button_empty">
+        <item name="android:background">@drawable/background_button_empty</item>
+        <item name="android:textColor">@color/sw_purple</item>
+        <item name="android:textSize">@dimen/normal_size</item>
+        <item name="android:fontFamily">@font/poppins_semibold</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <style name="sw_textView_title">
+        <item name="android:textColor">@color/sw_black</item>
+        <item name="android:textSize">@dimen/big_size</item>
+        <item name="android:fontFamily">@font/poppins_medium</item>
+    </style>
+
+    <style name="sw_textView_normal">
+        <item name="android:textColor">@color/sw_black</item>
+        <item name="android:textSize">@dimen/normal_size</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+    </style>
+
+    <style name="sw_editText">
+        <item name="android:textColor">@color/sw_black</item>
+        <item name="android:textSize">@dimen/default_size</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:textColorHint">@color/sw_black_transparent_editText</item>
+        <item name="android:backgroundTint">@color/sw_purple</item>
+        <item name="android:maxLength">24</item>
+    </style>
+
+    <style name="sw_cardView">
+        <item name="android:minHeight">10dp</item>
+        <item name="cardElevation">3dp</item>
+        <item name="cardUseCompatPadding">true</item>
+        <item name="cardCornerRadius">@dimen/corner_normal</item>
+    </style>
+
+    <style name="sw_til_editText">
+        <item name="android:textColor">@color/sw_black</item>
+        <item name="android:textSize">@dimen/default_size</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:textColorHint">@color/sw_black_transparent_editText</item>
+        <item name="android:maxLength">32</item>
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:paddingEnd">0dp</item>
+    </style>
+
+    <style name="sw_til_dropMenu" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="errorTextColor">@color/sw_red</item>
+        <item name="boxStrokeErrorColor">@color/sw_red</item>
+        <item name="startIconTint">@color/sw_red</item>
+        <item name="android:textColorHint">@color/sw_black_transparent_editText</item>
+        <item name="hintTextColor">@color/sw_black_transparent_editText</item>
+        <item name="endIconDrawable">@drawable/icon_drop</item>
+        <item name="endIconTint">@color/sw_purple</item>
+        <item name="boxStrokeWidth">0dp</item>
+    </style>
+
+    <style name="sw_bottom_menu">
+        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="android:textSize">@dimen/very_small_size</item>
+    </style>
+
+    <style name="sw_rounding20">
+        <item name="cornerSize">20dp</item>
+    </style>
+
+    <style name="sw_button_in_profile_menu" parent="sw_textView_normal">
+        <item name="android:drawablePadding">-10dp</item>
+        <item name="android:background">@null</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:layout_marginHorizontal">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">@dimen/small_size</item>
+    </style>
+
+    <style name="sw_textView_income" parent="sw_textView_title">
+        <item name="android:textColor">@color/sw_green</item>
+        <item name="android:textSize">@dimen/small_size</item>
+        <item name="android:drawableStart">@drawable/icon_income</item>
+        <item name="android:drawablePadding">4dp</item>
+    </style>
+
+    <style name="sw_textView_visits" parent="sw_textView_title">
+        <item name="android:textColor">@color/sw_green</item>
+        <item name="android:textSize">@dimen/small_size</item>
+        <item name="android:drawableStart">@drawable/icon_visits</item>
+        <item name="android:drawablePadding">4dp</item>
+    </style>
+
+    <style name="sw_textView_loss" parent="sw_textView_title">
+        <item name="android:textColor">@color/sw_red</item>
+        <item name="android:textSize">@dimen/small_size</item>
+        <item name="android:drawableStart">@drawable/icon_loss</item>
+        <item name="android:drawablePadding">4dp</item>
+    </style>
+
+    <style name="sw_textView_toggle_income_enabled" parent="sw_textView_normal">
+        <item name="android:textColor">@color/sw_green</item>
+        <item name="android:textSize">@dimen/default_size</item>
+    </style>
+
+    <style name="sw_textView_toggle_income_disabled" parent="sw_textView_normal">
+        <item name="android:textColor">@color/sw_green_transparent</item>
+        <item name="android:textSize">@dimen/small_size</item>
+    </style>
+
+    <style name="sw_textView_toggle_loss_enabled" parent="sw_textView_normal">
+        <item name="android:textColor">@color/sw_red</item>
+        <item name="android:textSize">@dimen/default_size</item>
+    </style>
+
+    <style name="sw_textView_toggle_loss_disabled" parent="sw_textView_normal">
+        <item name="android:textColor">@color/sw_red_transparent</item>
+        <item name="android:textSize">@dimen/small_size</item>
+    </style>
+
+
+</resources>

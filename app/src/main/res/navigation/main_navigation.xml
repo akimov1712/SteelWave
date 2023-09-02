@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/projectFragment">
+
+    <fragment
+        android:id="@+id/projectFragment"
+        android:name="ru.steelwave.steelwave.presentation.main.project.ProjectFragment"
+        android:label="@string/projects"
+        tools:layout="@layout/fragment_project" >
+        <action
+            android:id="@+id/action_projectFragment_to_addProjectModal"
+            app:destination="@id/addProjectModal" />
+    </fragment>
+    <fragment
+        android:id="@+id/financeFragment"
+        android:name="ru.steelwave.steelwave.presentation.main.finance.FinanceFragment"
+        android:label="@string/finance"
+        tools:layout="@layout/fragment_finance" />
+    <fragment
+        android:id="@+id/traficFragment"
+        android:name="ru.steelwave.steelwave.presentation.main.trafic.TraficFragment"
+        android:label="@string/trafic"
+        tools:layout="@layout/fragment_trafic" />
+    <fragment
+        android:id="@+id/employeesFragment"
+        android:name="ru.steelwave.steelwave.presentation.main.employees.EmployeesFragment"
+        android:label="@string/employees"
+        tools:layout="@layout/fragment_employees" />
+    <fragment
+        android:id="@+id/adsFragment"
+        android:name="ru.steelwave.steelwave.presentation.main.ads.AdsFragment"
+        android:label="@string/ads"
+        tools:layout="@layout/fragment_ads" />
+    <fragment
+        android:id="@+id/rulesFragmentInMain"
+        android:name="ru.steelwave.steelwave.presentation.rules.RulesFragment"
+        android:label="fragment_rules"
+        tools:layout="@layout/fragment_rules" />
+    <dialog
+        android:id="@+id/addProjectModal"
+        android:name="ru.steelwave.steelwave.presentation.main.project.AddProjectModal"
+        android:label="AddProjectModal" />
+</navigation>
