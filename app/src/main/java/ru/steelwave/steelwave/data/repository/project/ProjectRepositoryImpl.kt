@@ -5,14 +5,17 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import ru.steelwave.steelwave.data.database.AppDatabase
+import ru.steelwave.steelwave.data.database.dao.ProjectDao
 import ru.steelwave.steelwave.data.mapper.ProjectMapper
 import ru.steelwave.steelwave.domain.entity.project.ProjectModel
 import ru.steelwave.steelwave.domain.repository.project.ProjectRepository
 import javax.inject.Inject
 
-class ProjectRepositoryImpl @Inject constructor(application: Application): ProjectRepository {
-    private val dao = AppDatabase.getInstance(application).projectDao()
-    private val mapper = ProjectMapper
+class ProjectRepositoryImpl @Inject constructor(
+    private val dao: ProjectDao,
+    private val mapper: ProjectMapper
+): ProjectRepository {
+
 
     override suspend fun addProjectUseCase(project: ProjectModel) {
         dao.insertProject(mapper.mapEntityToDbModel(project))

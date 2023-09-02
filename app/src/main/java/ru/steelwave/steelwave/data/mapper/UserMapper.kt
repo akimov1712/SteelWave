@@ -2,8 +2,9 @@ package ru.steelwave.steelwave.data.mapper
 
 import ru.steelwave.steelwave.data.database.model.UserDbModel
 import ru.steelwave.steelwave.domain.entity.user.UserModel
+import javax.inject.Inject
 
-object UserMapper {
+class UserMapper @Inject constructor() {
 
     fun mapEntityToDbModel(user: UserModel) = UserDbModel(
         id = user.id,
@@ -16,7 +17,7 @@ object UserMapper {
         avatar = user.avatar,
         position = user.position,
         salary = user.salary,
-        project = ProjectMapper.mapEntityToDbModel(user.project)
+        project = ProjectMapper().mapEntityToDbModel(user.project)
     )
 
     fun mapDbModelToEntity(user: UserDbModel) = UserModel(
@@ -30,7 +31,7 @@ object UserMapper {
         avatar = user.avatar,
         position = user.position,
         salary = user.salary,
-        project = ProjectMapper.mapDbModelToEntity(user.project)
+        project = ProjectMapper().mapDbModelToEntity(user.project)
     )
 
     fun mapListDbModelToListEntity(userList: List<UserDbModel>) = userList.map {

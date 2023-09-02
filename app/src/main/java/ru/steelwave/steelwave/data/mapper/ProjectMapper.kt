@@ -2,8 +2,9 @@ package ru.steelwave.steelwave.data.mapper
 
 import ru.steelwave.steelwave.data.database.model.ProjectDbModel
 import ru.steelwave.steelwave.domain.entity.project.ProjectModel
+import javax.inject.Inject
 
-object ProjectMapper {
+class ProjectMapper @Inject constructor() {
 
     fun mapEntityToDbModel(project: ProjectModel) =
         ProjectDbModel(
