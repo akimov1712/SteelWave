@@ -12,7 +12,6 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import ru.steelwave.steelwave.R
-import ru.steelwave.steelwave.databinding.ActivityMainBinding
 import ru.steelwave.steelwave.presentation.main.project.AddProjectModal
 import ru.steelwave.steelwave.presentation.modals.ConfirmExitAccountModal
 

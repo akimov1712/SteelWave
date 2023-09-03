@@ -44,10 +44,18 @@
             android:layout_width="0dp"
             android:layout_height="180dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/background_choice_image"
             app:layout_constraintEnd_toEndOf="@+id/et_name_project"
             app:layout_constraintStart_toStartOf="@+id/et_name_project"
             app:layout_constraintTop_toBottomOf="@+id/et_name_project">
+
+            <ImageView
+                android:id="@+id/iv_preview"
+                android:background="@drawable/background_rounding_7"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/background_choice_image"
+                android:translationZ="10dp"/>
 
             <ImageView
                 android:id="@+id/imageView"
