@@ -8,7 +8,7 @@ plugins {
 
 android {
     namespace 'ru.steelwave.steelwave'
-    compileSdk 34
+    compileSdk 33
 
     defaultConfig {
         applicationId "ru.steelwave.steelwave"

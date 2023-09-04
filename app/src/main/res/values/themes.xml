@@ -90,7 +90,11 @@
         <item name="cornerSize">20dp</item>
     </style>
 
-    <style name="sw_roundinge">
+    <style name="sw_rounding7">
+        <item name="cornerSize">7dp</item>
+    </style>
+
+    <style name="sw_rounding3">
         <item name="cornerSize">3dp</item>
     </style>
 
@@ -144,6 +148,5 @@
         <item name="android:textColor">@color/sw_red_transparent</item>
         <item name="android:textSize">@dimen/small_size</item>
     </style>
-
 
 </resources>
