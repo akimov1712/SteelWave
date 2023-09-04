@@ -54,6 +54,7 @@ class AddProjectModal : DialogFragment() {
     private var selectedImageBitmap: Bitmap? = null
     private var dateLong = System.currentTimeMillis()
 
+    @Deprecated("Deprecated in Java")
     override fun onAttach(activity: Activity) {
         component.inject(this)
         super.onAttach(activity)
@@ -81,7 +82,18 @@ class AddProjectModal : DialogFragment() {
     }
 
     private fun observeViewModel(){
+        with(viewModel){
+            errorInputName.observe(viewLifecycleOwner){
 
+            }
+            errorImage.observe(viewLifecycleOwner){
+                Toast.makeText(requireContext(), "Выберите обложку", Toast.LENGTH_SHORT).show()
+                binding.ivError.visibility = View.VISIBLE
+            }
+            shouldCloseScreen.observe(viewLifecycleOwner){
+                dismiss()
+            }
+        }
     }
 
     private fun setDate(date: Long){
@@ -105,8 +117,8 @@ class AddProjectModal : DialogFragment() {
     private fun setListenersInView() {
         with(binding) {
             btnContinue.setOnClickListener {
-                Toast.makeText(requireContext(), "Запись добавлена", Toast.LENGTH_SHORT).show()
-                dismiss()
+                val inputName = binding.etNameProject.text.toString()
+                viewModel.addProject(inputName, selectedImageBitmap, dateLong)
             }
             btnCancel.setOnClickListener {
                 dismiss()

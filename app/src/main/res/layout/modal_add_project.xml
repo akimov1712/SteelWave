@@ -69,6 +69,18 @@
                 android:translationZ="-1dp"
                 app:layout_constraintVertical_chainStyle="packed" />
 
+            <ImageView
+                android:id="@+id/iv_error"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:backgroundTint="@color/sw_red"
+                android:background="@drawable/icon_error"
+                android:layout_margin="12dp"
+                android:translationZ="-1dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/tv_paste_cover"
                 style="@style/sw_textView_normal"

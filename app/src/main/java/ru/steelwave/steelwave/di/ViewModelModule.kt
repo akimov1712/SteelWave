@@ -11,37 +11,38 @@ import ru.steelwave.steelwave.presentation.main.finance.FinanceViewModel
 import ru.steelwave.steelwave.presentation.main.project.ProjectViewModel
 import ru.steelwave.steelwave.presentation.main.trafic.TraficViewModel
 
+
 @Module
 interface ViewModelModule {
 
     @IntoMap
     @ViewModelKey(AdsViewModel::class)
     @Binds
-    fun bindAdsViewModel(viewModel: AdsViewModel): ViewModel
+    fun bindAdsViewModel(impl: AdsViewModel): ViewModel
 
     @IntoMap
     @ViewModelKey(EmployeesViewModel::class)
     @Binds
-    fun bindEmployeesViewModel(viewModel: EmployeesViewModel): ViewModel
+    fun bindEmployeesViewModel(impl: EmployeesViewModel): ViewModel
 
     @IntoMap
     @ViewModelKey(FinanceViewModel::class)
     @Binds
-    fun bindFinanceViewModel(viewModel: FinanceViewModel): ViewModel
+    fun bindFinanceViewModel(impl: FinanceViewModel): ViewModel
 
     @IntoMap
     @ViewModelKey(ProjectViewModel::class)
     @Binds
-    fun bindProjectViewModel(viewModel: ProjectViewModel): ViewModel
+    fun bindProjectViewModel(impl: ProjectViewModel): ViewModel
 
     @IntoMap
     @ViewModelKey(TraficViewModel::class)
     @Binds
-    fun bindTraficViewModel(viewModel: TraficViewModel): ViewModel
+    fun bindTraficViewModel(impl: TraficViewModel): ViewModel
 
     @IntoMap
     @ViewModelKey(AuthViewModel::class)
     @Binds
-    fun bindAuthViewModel(viewModel: AuthViewModel): ViewModel
+    fun bindAuthViewModel(impl: AuthViewModel): ViewModel
 
 }
