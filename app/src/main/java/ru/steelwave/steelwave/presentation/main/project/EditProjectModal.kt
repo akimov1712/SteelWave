@@ -20,25 +20,31 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.datepicker.MaterialDatePicker
 import ru.steelwave.steelwave.App
 import ru.steelwave.steelwave.R
+import ru.steelwave.steelwave.databinding.FragmentProjectBinding
 import ru.steelwave.steelwave.databinding.ModalAddProjectBinding
+import ru.steelwave.steelwave.databinding.ModalEditProjectBinding
 import ru.steelwave.steelwave.presentation.ViewModelFactory
 import java.util.Calendar
 import java.util.Date
 import javax.inject.Inject
 
 
-class AddProjectModal : DialogFragment() {
+class EditProjectModal : BottomSheetDialogFragment() {
+
+    private val args by navArgs<EditProjectModalArgs>()
 
     private val component by lazy{
         (requireActivity().application as App).component
     }
 
-    private var _binding: ModalAddProjectBinding? = null
-    private val binding: ModalAddProjectBinding
-        get() = _binding ?: throw RuntimeException("ModalAddProjectBinding == null")
+    private var _binding: ModalEditProjectBinding? = null
+    private val binding: ModalEditProjectBinding
+        get() = _binding ?: throw RuntimeException("ModalEditProjectBinding == null")
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -67,7 +73,7 @@ class AddProjectModal : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = ModalAddProjectBinding.inflate(inflater, container, false)
+        _binding = ModalEditProjectBinding.inflate(inflater, container, false)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         return binding.root
     }
@@ -80,11 +86,18 @@ class AddProjectModal : DialogFragment() {
 
     private fun setupViews() {
         setListenersInView()
-        setDate(dateLong)
     }
 
     private fun observeViewModel(){
         with(viewModel){
+            getProjectItem(args.projectId)
+            projectItem.observe(viewLifecycleOwner){ project ->
+                binding.etNameProject.setText(project.name)
+                selectedImageBitmap = project.previewImage
+                binding.ivPreview.setImageBitmap(selectedImageBitmap)
+                dateLong = project.dateRelease
+                setDate(dateLong)
+            }
             errorInputName.observe(viewLifecycleOwner){
                 binding.etNameProject.error = "Введите название проекта"
             }
@@ -118,13 +131,6 @@ class AddProjectModal : DialogFragment() {
 
     private fun setListenersInView() {
         with(binding) {
-            btnContinue.setOnClickListener {
-                val inputName = binding.etNameProject.text.toString()
-                viewModel.addProject(inputName, selectedImageBitmap, dateLong)
-            }
-            btnCancel.setOnClickListener {
-                dismiss()
-            }
             clPasteImage.setOnClickListener {
                 imagePickerLauncher.launch(
                     PickVisualMediaRequest(
@@ -134,6 +140,18 @@ class AddProjectModal : DialogFragment() {
             }
             clChoiceDate.setOnClickListener {
                 openDatePicker()
+            }
+            btnEdit.setOnClickListener{
+                val name = binding.etNameProject.text.toString()
+                viewModel.editProject(
+                    inputName = name,
+                    inputImage = selectedImageBitmap,
+                    inputCreatedDate = dateLong
+                )
+            }
+            btnDelete.setOnClickListener {
+                viewModel.deleteProjectItem()
+                dismissNow()
             }
         }
     }

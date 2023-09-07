@@ -57,8 +57,23 @@ class ProjectFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupViews()
         initRecyclerView()
+        setupViewModel()
         with(viewModel){
 
+        }
+    }
+
+    private fun setupViewModel(){
+        observeViewModel()
+
+    }
+
+    private fun observeViewModel(){
+        with(viewModel){
+            projectList.observe(viewLifecycleOwner){
+                projectAdapter.submitList(it)
+                binding.tvCountProjects.text = it.size.toString()
+            }
         }
     }
 
@@ -67,12 +82,17 @@ class ProjectFragment : Fragment() {
     }
 
     private fun initRecyclerView(){
+        setRecyclerViewListeners()
         setupProjectAdapter()
     }
 
+    private fun setRecyclerViewListeners(){
+        projectAdapter.onClickEditProjectListener = {
+            findNavController().navigate(ProjectFragmentDirections.actionProjectFragmentToEditProjectModal(it.id))
+        }
+    }
+
     private fun setupProjectAdapter(){
-        val project = ProjectModel(id = 1, name = "Кинг Мувис", dateRelease = 30654654645,)
-        projectAdapter.submitList(listOf(project))
         binding.rvProjects.adapter = projectAdapter
     }
 

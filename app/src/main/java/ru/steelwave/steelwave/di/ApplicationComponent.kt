@@ -7,20 +7,23 @@ import dagger.BindsInstance
 import dagger.Component
 import ru.steelwave.steelwave.presentation.MainActivity
 import ru.steelwave.steelwave.presentation.main.project.AddProjectModal
+import ru.steelwave.steelwave.presentation.main.project.EditProjectModal
 import ru.steelwave.steelwave.presentation.main.project.ProjectFragment
 
 @ApplicationScope
 @Component(
     modules = [
         DomainModule::class,
-        DataModule::class
+        DataModule::class,
+        ViewModelModule::class
     ]
 )
 interface ApplicationComponent {
 
     fun inject(activity: MainActivity)
     fun inject(fragment: ProjectFragment)
-    fun inject(dialogFragment: DialogFragment)
+    fun inject(dialogFragment: AddProjectModal)
+    fun inject(dialogFragment: EditProjectModal)
 
     @Component.Factory
     interface Factory{

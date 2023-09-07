@@ -8,24 +8,37 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayoutParent"
-        android:paddingBottom="40dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingBottom="40dp">
+
+        <TextView
+            android:id="@+id/tv_choice_project"
+            style="@style/sw_textView_normal"
+            android:text="Выберите проект"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="350dp"
+            android:textColor="@color/sw_black_transparent"
+            android:textSize="@dimen/very_small_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_finance"
             style="@style/sw_textView_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
             android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="30dp"
             android:text="@string/finances"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_project_finance"
+            android:id="@+id/cl_choice_project"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@+id/tv_finance"
@@ -37,10 +50,10 @@
                 style="@style/sw_textView_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ошибка"
                 android:layout_marginStart="4dp"
-                android:textStyle="bold"
+                android:text="Не выбрано"
                 android:textColor="@color/sw_purple"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -49,8 +62,8 @@
                 android:id="@+id/iv_filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_filter"
                 android:layout_marginStart="12dp"
+                android:src="@drawable/icon_filter"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_project_finance"
                 app:layout_constraintStart_toEndOf="@+id/tv_project_finance"
                 app:layout_constraintTop_toTopOf="@+id/tv_project_finance" />
@@ -68,427 +81,439 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_finance" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_choice_date"
-            android:layout_width="wrap_content"
+            android:id="@+id/cl_finance"
+            android:visibility="gone"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_all_projects_company">
 
-            <TextView
-                android:id="@+id/tv_date_day"
-                style="@style/sw_textView_normal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="3dp"
-                android:text="\??"
-                android:textColor="@color/sw_purple"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <View
-                android:id="@+id/view"
-                android:layout_width="2dp"
-                android:layout_height="0dp"
-                android:layout_marginVertical="6dp"
-                android:layout_marginStart="6dp"
-                android:background="@color/sw_purple_transparent"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_date_day"
-                app:layout_constraintStart_toEndOf="@+id/tv_date_day"
-                app:layout_constraintTop_toTopOf="@+id/tv_date_day" />
-
-            <TextView
-                android:id="@+id/tv_date_month"
-                style="@style/sw_textView_normal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:paddingTop="3dp"
-                android:text="\????"
-                android:textColor="@color/sw_purple"
-                app:layout_constraintBottom_toBottomOf="@+id/view"
-                app:layout_constraintStart_toEndOf="@+id/view"
-                app:layout_constraintTop_toTopOf="@+id/view" />
-
-            <View
-                android:id="@+id/view3"
-                android:layout_width="0dp"
-                android:layout_height="2dp"
-                android:background="@color/sw_purple_transparent"
-                app:layout_constraintEnd_toEndOf="@+id/tv_date_month"
-                app:layout_constraintStart_toStartOf="@+id/tv_date_day"
-                app:layout_constraintTop_toBottomOf="@+id/tv_date_month" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_income"
-            style="@style/sw_cardView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="5dp"
-            app:cardElevation="5dp"
-            android:outlineSpotShadowColor="@color/sw_green"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cl_choice_date">
-
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:paddingBottom="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:id="@+id/cl_choice_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayout2"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/tv_date_day"
+                    style="@style/sw_textView_normal"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:paddingTop="3dp"
+                    android:text="01"
+                    android:textColor="@color/sw_purple"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <TextView
-                        android:id="@+id/textView7"
-                        style="@style/sw_textView_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/income_project"
-                        android:textSize="@dimen/normal_size"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <androidx.constraintlayout.widget.Guideline
-                        android:id="@+id/guideline2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        app:layout_constraintGuide_percent="0.5" />
-
-                    <androidx.constraintlayout.widget.Guideline
-                        android:id="@+id/guideline3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        app:layout_constraintGuide_percent="0.7" />
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:background="@color/sw_purple_transparent"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView7"
-                        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-                        app:layout_constraintStart_toStartOf="@+id/guideline2"
-                        app:layout_constraintTop_toTopOf="@+id/textView7" />
-
-                    <TextView
-                        android:id="@+id/tv_income_project"
-                        style="@style/sw_textView_income"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="$4 830"
-                        android:textSize="@dimen/normal_size"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView7"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/textView7" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_income"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    tools:listitem="@layout/item_stats"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginTop="10dp"
-                    tools:itemCount="8"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <View
-                    android:id="@+id/view6"
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_marginVertical="10dp"
-                    android:background="#1A7678ED"
-                    app:layout_constraintEnd_toEndOf="@+id/rv_income"
-                    app:layout_constraintStart_toStartOf="@+id/rv_income"
-                    app:layout_constraintTop_toBottomOf="@+id/rv_income" />
+                    android:id="@+id/view"
+                    android:layout_width="2dp"
+                    android:layout_height="0dp"
+                    android:layout_marginVertical="6dp"
+                    android:layout_marginStart="6dp"
+                    android:background="@color/sw_purple_transparent"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_date_day"
+                    app:layout_constraintStart_toEndOf="@+id/tv_date_day"
+                    app:layout_constraintTop_toTopOf="@+id/tv_date_day" />
 
+                <TextView
+                    android:id="@+id/tv_date_month"
+                    style="@style/sw_textView_normal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:paddingTop="3dp"
+                    android:text="\1970"
+                    android:textColor="@color/sw_purple"
+                    app:layout_constraintBottom_toBottomOf="@+id/view"
+                    app:layout_constraintStart_toEndOf="@+id/view"
+                    app:layout_constraintTop_toTopOf="@+id/view" />
+
+                <View
+                    android:id="@+id/view3"
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:background="@color/sw_purple_transparent"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_date_month"
+                    app:layout_constraintStart_toStartOf="@+id/tv_date_day"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_date_month" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_income"
+                style="@style/sw_cardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="5dp"
+                android:outlineSpotShadowColor="@color/sw_green"
+                app:cardElevation="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cl_choice_date">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayout3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
-                    app:layout_constraintStart_toStartOf="@+id/constraintLayout2"
-                    app:layout_constraintTop_toBottomOf="@+id/view6">
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="20dp">
 
-                    <TextView
-                        android:id="@+id/textView17"
-                        style="@style/sw_textView_normal"
-                        android:layout_width="wrap_content"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayout2"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/project_profitability"
-                        android:textColor="@color/sw_black_transparent"
-                        android:textSize="@dimen/small_size"
+                        android:layout_margin="20dp"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent">
 
-                    <androidx.constraintlayout.widget.Guideline
-                        android:id="@+id/guideline22"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        app:layout_constraintGuide_percent="0.53" />
+                        <TextView
+                            android:id="@+id/textView7"
+                            style="@style/sw_textView_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/income_project"
+                            android:textSize="@dimen/normal_size"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                    <androidx.constraintlayout.widget.Guideline
-                        android:id="@+id/guideline23"
-                        android:layout_width="wrap_content"
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.5" />
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.7" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:background="@color/sw_purple_transparent"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView7"
+                            app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                            app:layout_constraintStart_toStartOf="@+id/guideline2"
+                            app:layout_constraintTop_toTopOf="@+id/textView7" />
+
+                        <TextView
+                            android:id="@+id/tv_income_project"
+                            style="@style/sw_textView_income"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="$0"
+                            android:textSize="@dimen/normal_size"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView7"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/textView7" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_income"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        app:layout_constraintGuide_percent="0.7" />
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="10dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+                        tools:itemCount="8"
+                        tools:listitem="@layout/item_stats" />
 
                     <View
+                        android:id="@+id/view6"
                         android:layout_width="0dp"
                         android:layout_height="1dp"
-                        android:background="@color/sw_purple_transparent"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView17"
-                        app:layout_constraintEnd_toStartOf="@+id/guideline23"
-                        app:layout_constraintStart_toStartOf="@+id/guideline22"
-                        app:layout_constraintTop_toTopOf="@+id/textView17" />
+                        android:layout_marginVertical="10dp"
+                        android:background="#1A7678ED"
+                        app:layout_constraintEnd_toEndOf="@+id/rv_income"
+                        app:layout_constraintStart_toStartOf="@+id/rv_income"
+                        app:layout_constraintTop_toBottomOf="@+id/rv_income" />
 
-                    <TextView
-                        android:id="@+id/tv_project_profitability"
-                        style="@style/sw_textView_normal"
-                        android:layout_width="wrap_content"
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayout3"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="68%"
-                        android:textColor="@color/sw_purple"
-                        android:textSize="@dimen/small_size"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView17"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/textView17" />
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
+                        app:layout_constraintStart_toStartOf="@+id/constraintLayout2"
+                        app:layout_constraintTop_toBottomOf="@+id/view6">
+
+                        <TextView
+                            android:id="@+id/textView17"
+                            style="@style/sw_textView_normal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/project_profitability"
+                            android:textColor="@color/sw_black_transparent"
+                            android:textSize="@dimen/small_size"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline22"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.53" />
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline23"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.7" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:background="@color/sw_purple_transparent"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView17"
+                            app:layout_constraintEnd_toStartOf="@+id/guideline23"
+                            app:layout_constraintStart_toStartOf="@+id/guideline22"
+                            app:layout_constraintTop_toTopOf="@+id/textView17" />
+
+                        <TextView
+                            android:id="@+id/tv_project_profitability"
+                            style="@style/sw_textView_normal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0%"
+                            android:textColor="@color/sw_purple"
+                            android:textSize="@dimen/small_size"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView17"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/textView17" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
 
-        </androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/tv_month_expenses"
+                style="@style/sw_textView_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="30dp"
+                android:text="@string/expenses_for_the_current_month"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cv_income" />
 
-        <TextView
-            android:id="@+id/tv_month_expenses"
-            style="@style/sw_textView_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="30dp"
-            android:text="@string/expenses_for_the_current_month"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cv_income" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_loss"
-            style="@style/sw_cardView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="5dp"
-            app:cardElevation="5dp"
-            android:outlineSpotShadowColor="@color/sw_red"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_month_expenses">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:paddingBottom="20dp"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_loss"
+                style="@style/sw_cardView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="5dp"
+                android:outlineSpotShadowColor="@color/sw_red"
+                app:cardElevation="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_month_expenses">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayout4"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:layout_height="match_parent"
+                    android:paddingBottom="20dp">
 
-                    <TextView
-                        android:id="@+id/textView8"
-                        style="@style/sw_textView_title"
-                        android:layout_width="wrap_content"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayout4"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/total_loss"
-                        android:textSize="@dimen/normal_size"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <androidx.constraintlayout.widget.Guideline
-                        android:id="@+id/guideline7"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        app:layout_constraintGuide_percent="0.5" />
-
-                    <androidx.constraintlayout.widget.Guideline
-                        android:id="@+id/guideline6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        app:layout_constraintGuide_percent="0.7" />
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:background="@color/sw_purple_transparent"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView8"
-                        app:layout_constraintEnd_toStartOf="@+id/guideline6"
-                        app:layout_constraintStart_toEndOf="@+id/guideline7"
-                        app:layout_constraintTop_toTopOf="@+id/textView8" />
-
-                    <TextView
-                        android:id="@+id/tv_loss_project"
-                        style="@style/sw_textView_loss"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="$4 830"
-                        android:textSize="@dimen/normal_size"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView8"
+                        android:layout_margin="20dp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/textView8" />
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/textView8"
+                            style="@style/sw_textView_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/total_loss"
+                            android:textSize="@dimen/normal_size"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline7"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.5" />
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.7" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:background="@color/sw_purple_transparent"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView8"
+                            app:layout_constraintEnd_toStartOf="@+id/guideline6"
+                            app:layout_constraintStart_toEndOf="@+id/guideline7"
+                            app:layout_constraintTop_toTopOf="@+id/textView8" />
+
+                        <TextView
+                            android:id="@+id/tv_loss_project"
+                            style="@style/sw_textView_loss"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="$0"
+                            android:textSize="@dimen/normal_size"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView8"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/textView8" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_loss"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="10dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout4"
+                        tools:itemCount="4"
+                        tools:listitem="@layout/item_loss" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_loss"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginTop="10dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout4"
-                    tools:itemCount="4"
-                    tools:listitem="@layout/item_loss" />
+            </androidx.cardview.widget.CardView>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_add_expenses"
+                style="@style/sw_button_fill"
+                android:layout_width="230dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/add_expenses"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cv_loss" />
 
-        </androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/tv_target"
+                style="@style/sw_textView_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="30dp"
+                android:text="@string/target_company"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_add_expenses" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_add_expenses"
-            style="@style/sw_button_fill"
-            android:layout_width="230dp"
-            android:layout_height="50dp"
-            android:text="@string/add_expenses"
-            android:layout_marginTop="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cv_loss" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_target"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_target"
+                tools:listitem="@layout/item_target" />
 
-        <TextView
-            android:id="@+id/tv_target"
-            style="@style/sw_textView_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="30dp"
-            android:text="@string/target_company"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_add_expenses" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_add_target"
+                style="@style/sw_button_fill"
+                android:layout_width="230dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/add_target"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rv_target" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_target"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_target"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_target" />
+            <TextView
+                android:id="@+id/tv_stat_income"
+                style="@style/sw_textView_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="30dp"
+                android:text="@string/income_stat"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_add_target" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_add_target"
-            style="@style/sw_button_fill"
-            android:layout_width="230dp"
-            android:layout_height="50dp"
-            android:text="@string/add_target"
-            android:layout_marginTop="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rv_target" />
+            <TextView
+                android:id="@+id/tv_choice_year_stat"
+                style="@style/sw_textView_normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:drawableEnd="@drawable/icon_drop"
+                android:drawablePadding="5dp"
+                android:text="2023"
+                android:textColor="@color/sw_purple"
+                android:textStyle=""
+                app:layout_constraintBottom_toBottomOf="@+id/tv_stat_income"
+                app:layout_constraintStart_toEndOf="@+id/tv_stat_income"
+                app:layout_constraintTop_toTopOf="@+id/tv_stat_income" />
 
-        <TextView
-            android:id="@+id/tv_stat_income"
-            style="@style/sw_textView_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="30dp"
-            android:text="@string/income_stat"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_add_target" />
-
-        <TextView
-            android:id="@+id/tv_choice_year_stat"
-            style="@style/sw_textView_normal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:drawableEnd="@drawable/icon_drop"
-            android:drawablePadding="5dp"
-            android:text="2023"
-            android:textColor="@color/sw_purple"
-            android:textStyle=""
-            app:layout_constraintBottom_toBottomOf="@+id/tv_stat_income"
-            app:layout_constraintStart_toEndOf="@+id/tv_stat_income"
-            app:layout_constraintTop_toTopOf="@+id/tv_stat_income" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_stat_income"
-            style="@style/sw_cardView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            app:cardElevation="5dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_stat_income">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_stat_income"
+                style="@style/sw_cardView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingBottom="20dp">
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                app:cardElevation="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_stat_income">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_stat_income"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginVertical="20dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:itemCount="4"
-                    tools:listitem="@layout/item_income_year" />
+                    android:layout_height="match_parent"
+                    android:paddingBottom="20dp">
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_stat_income"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginVertical="20dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:itemCount="4"
+                        tools:listitem="@layout/item_income_year" />
 
-        </androidx.cardview.widget.CardView>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

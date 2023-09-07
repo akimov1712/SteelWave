@@ -13,6 +13,8 @@ import ru.steelwave.unonew.utils.convertLongToDate
 
 class ProjectAdapter: ListAdapter<ProjectModel, ProjectAdapterViewHolder>(ProjectDiffCallback()) {
 
+    var onClickEditProjectListener: ((ProjectModel) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProjectAdapterViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemProjectBinding.inflate(inflater, parent, false)
@@ -26,9 +28,11 @@ class ProjectAdapter: ListAdapter<ProjectModel, ProjectAdapterViewHolder>(Projec
             tvRelease.text = convertLongToDate(item.dateRelease)
             tvIncome.text = "$" + item.income.toString()
             tvVisitors.text = item.trafic.toString() + " ч/c"
-//            ivProject.setImageBitmap(item.previewImage)
+            ivProject.setImageBitmap(item.previewImage)
             btnEditProject.setOnClickListener {
+                onClickEditProjectListener?.invoke(item)
             }
         }
     }
+
 }

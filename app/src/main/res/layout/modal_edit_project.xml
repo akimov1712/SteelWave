@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:paddingBottom="30dp">
+
+    <View
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:background="@drawable/background_rounding_7"
+        android:backgroundTint="@color/sw_black"
+        app:layout_constraintBottom_toTopOf="@+id/tv_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/sw_textView_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:text="Изменить проект"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/et_name_project"
+        style="@style/sw_editText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="@string/name_project"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/tv_title"
+        app:layout_constraintStart_toStartOf="@+id/tv_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_paste_image"
+        android:layout_width="0dp"
+        android:layout_height="180dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/et_name_project"
+        app:layout_constraintStart_toStartOf="@+id/et_name_project"
+        app:layout_constraintTop_toBottomOf="@+id/et_name_project">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_preview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/background_choice_image"
+            app:shapeAppearance="@style/sw_rounding3" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/image_paste_cover"
+            android:translationZ="-1dp"
+            app:layout_constraintBottom_toTopOf="@+id/tv_paste_cover"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <ImageView
+            android:id="@+id/iv_error"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="12dp"
+            android:background="@drawable/icon_error"
+            android:backgroundTint="@color/sw_red"
+            android:translationZ="-1dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_paste_cover"
+            style="@style/sw_textView_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/paste_cover"
+            android:textColor="@color/sw_black_transparent"
+            android:textSize="@dimen/small_size"
+            android:translationZ="-1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textView4"
+        style="@style/sw_textView_normal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/date_release_project"
+        android:textSize="@dimen/default_size"
+        app:layout_constraintStart_toStartOf="@+id/cl_paste_image"
+        app:layout_constraintTop_toBottomOf="@+id/cl_paste_image" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_choice_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/textView4">
+
+        <TextView
+            android:id="@+id/tv_date_day"
+            style="@style/sw_textView_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="3dp"
+            android:text="21"
+            android:textColor="@color/sw_purple"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="2dp"
+            android:layout_height="0dp"
+            android:layout_marginVertical="6dp"
+            android:layout_marginStart="6dp"
+            android:background="@color/sw_purple_transparent"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_date_day"
+            app:layout_constraintStart_toEndOf="@+id/tv_date_day"
+            app:layout_constraintTop_toTopOf="@+id/tv_date_day" />
+
+        <TextView
+            android:id="@+id/tv_date_month"
+            style="@style/sw_textView_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:paddingTop="3dp"
+            android:text="01"
+            android:textColor="@color/sw_purple"
+            app:layout_constraintBottom_toBottomOf="@+id/view"
+            app:layout_constraintStart_toEndOf="@+id/view"
+            app:layout_constraintTop_toTopOf="@+id/view" />
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="2dp"
+            android:layout_height="0dp"
+            android:layout_marginVertical="6dp"
+            android:layout_marginStart="6dp"
+            android:background="@color/sw_purple_transparent"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_date_day"
+            app:layout_constraintStart_toEndOf="@+id/tv_date_month"
+            app:layout_constraintTop_toTopOf="@+id/tv_date_day" />
+
+        <TextView
+            android:id="@+id/tv_date_year"
+            style="@style/sw_textView_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:paddingTop="3dp"
+            android:text="2022"
+            android:textColor="@color/sw_purple"
+            app:layout_constraintBottom_toBottomOf="@+id/view"
+            app:layout_constraintStart_toEndOf="@+id/view2"
+            app:layout_constraintTop_toTopOf="@+id/view" />
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:background="@color/sw_purple_transparent"
+            app:layout_constraintEnd_toEndOf="@+id/tv_date_year"
+            app:layout_constraintStart_toStartOf="@+id/tv_date_day"
+            app:layout_constraintTop_toBottomOf="@+id/tv_date_month" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_edit"
+        style="@style/sw_button_fill"
+        android:layout_width="220dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/edit"
+        app:layout_constraintEnd_toStartOf="@+id/btn_delete"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cl_choice_date" />
+
+    <ImageButton
+        android:id="@+id/btn_delete"
+        style="@style/sw_button_fill"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="10dp"
+        android:backgroundTint="@color/sw_red"
+        android:src="@drawable/icon_delete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_edit"
+        app:layout_constraintTop_toTopOf="@+id/btn_edit" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

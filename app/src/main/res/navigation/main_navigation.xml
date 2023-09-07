@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_projectFragment_to_addProjectModal"
             app:destination="@id/addProjectModal" />
+        <action
+            android:id="@+id/action_projectFragment_to_editProjectModal"
+            app:destination="@id/editProjectModal" />
     </fragment>
     <fragment
         android:id="@+id/financeFragment"
@@ -43,4 +46,12 @@
         android:id="@+id/addProjectModal"
         android:name="ru.steelwave.steelwave.presentation.main.project.AddProjectModal"
         android:label="AddProjectModal" />
+    <dialog
+        android:id="@+id/editProjectModal"
+        android:name="ru.steelwave.steelwave.presentation.main.project.EditProjectModal"
+        android:label="EditProjectModal" >
+        <argument
+            android:name="projectId"
+            app:argType="integer" />
+    </dialog>
 </navigation>

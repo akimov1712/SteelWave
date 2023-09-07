@@ -9,8 +9,18 @@
         <item name="colorOnSecondary">@color/black</item>
         <item name="android:statusBarColor">@color/sw_purple</item>
         <item name="colorControlNormal">@color/sw_black</item>
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
     </style>
 
+    <style name="AppBottomSheetDialogTheme"
+        parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
+
+    <style name="AppModalStyle"
+        parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/background_bottom_sheet</item>
+    </style>
 
     <style name="sw_button_fill">
         <item name="android:background">@drawable/background_button_fill</item>
@@ -148,5 +158,13 @@
         <item name="android:textColor">@color/sw_red_transparent</item>
         <item name="android:textSize">@dimen/small_size</item>
     </style>
+
+    <style name="sw_recyclerView_disable_scroll_effect">
+        <item name="android:overScrollMode">never</item>
+        <item name="android:nestedScrollingEnabled">false</item>
+        <item name="android:scrollbars">none</item>
+        <item name="layout_scrollEffect">none</item>
+    </style>
+
 
 </resources>

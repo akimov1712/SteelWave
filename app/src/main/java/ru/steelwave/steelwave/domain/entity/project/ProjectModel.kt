@@ -1,6 +1,8 @@
 package ru.steelwave.steelwave.domain.entity.project
 
 import android.graphics.Bitmap
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import ru.steelwave.steelwave.domain.entity.user.UserModel
 
 data class ProjectModel(
