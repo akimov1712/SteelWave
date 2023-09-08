@@ -9,6 +9,7 @@ data class ProjectModel(
     var name: String,
     var previewImage: Bitmap? = null,
     val dateRelease: Long,
+    var teamLead: UserModel? = null,
     var trafic: Int = 0,
     var income: Int = 0,
     val id: Int = UNDEFINED_ID,

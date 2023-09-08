@@ -29,6 +29,11 @@ class ProjectAdapter: ListAdapter<ProjectModel, ProjectAdapterViewHolder>(Projec
             tvIncome.text = "$" + item.income.toString()
             tvVisitors.text = item.trafic.toString() + " ч/c"
             ivProject.setImageBitmap(item.previewImage)
+            if (item.teamLead == null){
+                tvTeamLead.text = "Не назначен"
+            } else {
+                tvTeamLead.text = item.teamLead!!.firstName + item.teamLead!!.secondName
+            }
             btnEditProject.setOnClickListener {
                 onClickEditProjectListener?.invoke(item)
             }

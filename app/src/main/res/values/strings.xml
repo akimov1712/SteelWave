@@ -112,5 +112,7 @@
     <string name="view_more">Показать еще</string>
     <string name="add_target">Добавить цель</string>
     <string name="target_company">Цели компании</string>
+    <string name="choice">Выбрать</string>
+    <string name="choice_project">Выберите проект</string>
 
 </resources>
