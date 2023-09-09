@@ -21,7 +21,15 @@
         android:id="@+id/financeFragment"
         android:name="ru.steelwave.steelwave.presentation.main.finance.FinanceFragment"
         android:label="@string/finance"
-        tools:layout="@layout/fragment_finance" />
+        tools:layout="@layout/fragment_finance" >
+        <action
+            android:id="@+id/action_financeFragment_to_choiceProjectModal"
+            app:destination="@id/choiceProjectModal" />
+        <argument
+            android:name="projectId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
     <fragment
         android:id="@+id/traficFragment"
         android:name="ru.steelwave.steelwave.presentation.main.trafic.TraficFragment"
@@ -53,5 +61,14 @@
         <argument
             android:name="projectId"
             app:argType="integer" />
+    </dialog>
+    <dialog
+        android:id="@+id/choiceProjectModal"
+        android:name="ru.steelwave.steelwave.presentation.main.finance.ChoiceProjectModal"
+        android:label="ChoiceProjectModal" >
+        <action
+            android:id="@+id/action_choiceProjectModal_to_financeFragment"
+            app:destination="@id/financeFragment"
+            app:launchSingleTop="true" />
     </dialog>
 </navigation>

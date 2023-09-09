@@ -38,7 +38,7 @@ class AddLossModal: DialogFragment() {
     private fun setListenersInView(){
         with(binding){
             btnAdd.setOnClickListener {
-                Toast.makeText(requireContext(), "Расход добавлена", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Расход добавлен", Toast.LENGTH_SHORT).show()
                 dismiss()
             }
             btnCancel.setOnClickListener {

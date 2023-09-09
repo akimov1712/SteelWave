@@ -149,7 +149,6 @@ class AddProjectModal : DialogFragment() {
             dateLong = selectedDate
             setDate(dateLong)
         }
-
     }
 
     private fun setImage(uri: Uri) {
