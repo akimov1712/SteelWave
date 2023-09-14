@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cv_target"
     android:layout_width="300dp"
     android:layout_height="wrap_content"
     android:elevation="4dp"
@@ -45,6 +46,7 @@
             android:layout_width="110dp"
             android:layout_height="110dp"
             app:cpb_background_progressbar_width="0dp"
+            app:cpb_background_progressbar_color="@color/transparent"
             app:cpb_progress="0"
             app:cpb_progress_direction="to_right"
             app:cpb_progressbar_color="@color/sw_purple"

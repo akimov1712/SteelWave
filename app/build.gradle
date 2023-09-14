@@ -67,6 +67,8 @@ dependencies {
 //    View
     implementation 'com.mikhaellopez:circularprogressbar:3.1.0'
     implementation "com.github.Dhaval2404:ImagePicker:v2.1"
+    implementation 'com.github.kal72:RackMonthPicker:1.6.1'
+
 
 //    Default
     implementation 'androidx.core:core-ktx:1.10.1'

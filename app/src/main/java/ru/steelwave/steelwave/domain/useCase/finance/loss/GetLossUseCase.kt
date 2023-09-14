@@ -6,6 +6,7 @@ import javax.inject.Inject
 
 class GetLossUseCase @Inject constructor(private val repository: LossRepository) {
 
-    suspend operator fun invoke(lossDate: Date) = repository.getLossUseCase(lossDate)
+    suspend operator fun invoke(projectId: Int, lossDate: Date) =
+        repository.getLossUseCase(projectId, lossDate)
 
 }

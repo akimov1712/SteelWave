@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:scrollbars="none"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.main.project.ProjectFragment">
 
@@ -221,6 +222,7 @@
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_income"
+                        style="@style/sw_recyclerView_disable_scroll_effect"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="20dp"
@@ -393,6 +395,7 @@
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_loss"
+                        style="@style/sw_recyclerView_disable_scroll_effect"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="20dp"
@@ -466,7 +469,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/btn_add_target" />
 
             <TextView
-                android:id="@+id/tv_choice_year_stat"
+                android:id="@+id/tv_choice_year_income"
                 style="@style/sw_textView_normal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -481,7 +484,7 @@
                 app:layout_constraintTop_toTopOf="@+id/tv_stat_income" />
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cv_stat_income"
+                android:id="@+id/cv_year_income"
                 style="@style/sw_cardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -497,7 +500,8 @@
                     android:paddingBottom="20dp">
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_stat_income"
+                        android:id="@+id/rv_year_income"
+                        style="@style/sw_recyclerView_disable_scroll_effect"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="20dp"

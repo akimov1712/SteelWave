@@ -5,8 +5,7 @@ import java.sql.Date
 data class IncomeModel(
     val id: Int = UNDEFINED_ID,
     val projectId: Int,
-    val date: Date,
-    val totalIncome: Int,
+    val date: Long,
     val projectProfit: Int,
     val detailedIncome: List<TransactionModel>
 ) {

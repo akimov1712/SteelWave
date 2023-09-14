@@ -6,6 +6,7 @@ import javax.inject.Inject
 
 class GetIncomeUseCase @Inject constructor(private val repository: IncomeRepository) {
 
-    suspend operator fun invoke(incomeDate: Date) = repository.getIncomeUseCase(incomeDate)
+    suspend operator fun invoke(projectId: Int, incomeDate: Date) =
+        repository.getIncomeUseCase(projectId, incomeDate)
 
 }

@@ -1,15 +1,13 @@
 package ru.steelwave.steelwave.di
 
 import android.app.Application
-import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
 import dagger.BindsInstance
 import dagger.Component
 import ru.steelwave.steelwave.presentation.MainActivity
-import ru.steelwave.steelwave.presentation.main.finance.ChoiceProjectModal
+import ru.steelwave.steelwave.presentation.main.finance.modals.ChoiceProjectModal
 import ru.steelwave.steelwave.presentation.main.finance.FinanceFragment
-import ru.steelwave.steelwave.presentation.main.project.AddProjectModal
-import ru.steelwave.steelwave.presentation.main.project.EditProjectModal
+import ru.steelwave.steelwave.presentation.main.project.modals.AddProjectModal
+import ru.steelwave.steelwave.presentation.main.project.modals.EditProjectModal
 import ru.steelwave.steelwave.presentation.main.project.ProjectFragment
 
 @ApplicationScope

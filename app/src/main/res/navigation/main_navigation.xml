@@ -29,6 +29,9 @@
             android:name="projectId"
             app:argType="integer"
             android:defaultValue="-1" />
+        <action
+            android:id="@+id/action_financeFragment_to_addLossModal"
+            app:destination="@id/addLossModal" />
     </fragment>
     <fragment
         android:id="@+id/traficFragment"
@@ -52,11 +55,11 @@
         tools:layout="@layout/fragment_rules" />
     <dialog
         android:id="@+id/addProjectModal"
-        android:name="ru.steelwave.steelwave.presentation.main.project.AddProjectModal"
+        android:name="ru.steelwave.steelwave.presentation.main.project.modals.AddProjectModal"
         android:label="AddProjectModal" />
     <dialog
         android:id="@+id/editProjectModal"
-        android:name="ru.steelwave.steelwave.presentation.main.project.EditProjectModal"
+        android:name="ru.steelwave.steelwave.presentation.main.project.modals.EditProjectModal"
         android:label="EditProjectModal" >
         <argument
             android:name="projectId"
@@ -64,11 +67,18 @@
     </dialog>
     <dialog
         android:id="@+id/choiceProjectModal"
-        android:name="ru.steelwave.steelwave.presentation.main.finance.ChoiceProjectModal"
+        android:name="ru.steelwave.steelwave.presentation.main.finance.modals.ChoiceProjectModal"
         android:label="ChoiceProjectModal" >
         <action
             android:id="@+id/action_choiceProjectModal_to_financeFragment"
             app:destination="@id/financeFragment"
             app:launchSingleTop="true" />
+    </dialog>
+    <dialog
+        android:id="@+id/addLossModal"
+        android:name="ru.steelwave.steelwave.presentation.main.finance.modals.AddLossModal"
+        android:label="AddLossModal" >
+        <argument android:name="projectId"
+            app:argType="integer" />
     </dialog>
 </navigation>

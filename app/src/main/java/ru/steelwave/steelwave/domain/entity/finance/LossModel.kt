@@ -5,8 +5,7 @@ import java.sql.Date
 data class LossModel(
     val id: Int = UNDEFINED_ID,
     val projectId: Int,
-    val date: Date,
-    var totalLoss: Int,
+    val date: Long,
     var detailedIncome: List<TransactionModel>
 ){
     companion object{

@@ -1,15 +1,11 @@
 package ru.steelwave.steelwave.presentation.main.employees
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.FragmentEmployeesBinding
-import ru.steelwave.steelwave.presentation.main.project.AddProjectModal
-import ru.steelwave.steelwave.presentation.main.project.ProjectFragment
 
 class EmployeesFragment : Fragment() {
 

@@ -5,6 +5,6 @@ import java.sql.Date
 
 interface IncomeRepository {
 
-    suspend fun getIncomeUseCase(incomeDate: Date): IncomeModel
+    suspend fun getIncomeUseCase(projectId: Int, incomeDate: Date): IncomeModel
 
 }
