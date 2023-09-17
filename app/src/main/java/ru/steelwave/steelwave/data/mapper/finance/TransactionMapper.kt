@@ -8,12 +8,12 @@ class TransactionMapper @Inject constructor() {
 
     private fun mapEntityToDbModel(transaction: TransactionModel) = TransactionDbModel(
         name = transaction.name,
-        count = transaction.count
+        count = transaction.count,
     )
 
     private fun mapDbModelToEntity(transaction: TransactionDbModel) = TransactionModel(
         name = transaction.name,
-        count = transaction.count
+        count = transaction.count,
     )
 
     fun mapListEntityToListDbModel(transactionList: List<TransactionModel>) = transactionList.map {
@@ -21,7 +21,7 @@ class TransactionMapper @Inject constructor() {
     }
 
     fun mapListDbModelToListEntity(transactionList: List<TransactionDbModel>) = transactionList.map {
-        mapDbModelToEntity(it)
-    }
+            mapDbModelToEntity(it)
+        } as MutableList<TransactionModel>
 
 }

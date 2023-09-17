@@ -37,7 +37,7 @@ import ru.steelwave.steelwave.data.database.model.user.UserDbModel
         TargetDbModel::class,
         YearIncomeDbModel::class,
     ],
-    version = 3,
+    version = 11,
     exportSchema = false
 )
 @TypeConverters(

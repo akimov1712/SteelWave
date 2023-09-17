@@ -78,7 +78,11 @@
         android:id="@+id/addLossModal"
         android:name="ru.steelwave.steelwave.presentation.main.finance.modals.AddLossModal"
         android:label="AddLossModal" >
-        <argument android:name="projectId"
+        <argument
+            android:name="projectId"
             app:argType="integer" />
+        <argument
+            android:name="date"
+            app:argType="long" />
     </dialog>
 </navigation>

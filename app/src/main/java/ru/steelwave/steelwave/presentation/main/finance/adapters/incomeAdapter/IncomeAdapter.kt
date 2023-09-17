@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import ru.steelwave.steelwave.databinding.ItemStatsBinding
 import ru.steelwave.steelwave.domain.entity.finance.TransactionModel
-import ru.steelwave.steelwave.utils.formatNumber
+import ru.steelwave.steelwave.utils.formatPrice
 
 class IncomeAdapter: ListAdapter<TransactionModel, IncomeViewHolder>(IncomeDiffCallback()) {
 
@@ -19,7 +19,7 @@ class IncomeAdapter: ListAdapter<TransactionModel, IncomeViewHolder>(IncomeDiffC
         val item = getItem(position)
         with(holder.binding){
             tvNameIncome.text = item.name
-            tvIncome.text = "$" + formatNumber(item.count)
+            tvIncome.text = "$" + formatPrice(item.count)
         }
     }
 }

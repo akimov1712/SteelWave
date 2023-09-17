@@ -10,5 +10,5 @@ data class IncomeDbModel(
     val projectId: Int,
     val date: Long,
     val projectProfit: Int,
-    val detailedIncome: List<TransactionDbModel>
+    var transactionList: List<TransactionDbModel> = listOf()
 )

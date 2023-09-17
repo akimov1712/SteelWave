@@ -2,12 +2,14 @@ package ru.steelwave.steelwave.data.database.model.finance
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.sql.Date
+import androidx.room.Transaction
+import ru.steelwave.steelwave.domain.entity.finance.TransactionModel
+
 @Entity(tableName = "losses")
 data class LossDbModel(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val projectId: Int,
     val date: Long,
-    var detailedIncome: List<TransactionDbModel>
+    var transactionList: List<TransactionDbModel> = listOf()
 )

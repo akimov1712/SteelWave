@@ -1,14 +1,15 @@
 package ru.steelwave.steelwave.domain.entity.finance
 
-import java.sql.Date
-
 data class IncomeModel(
     val id: Int = UNDEFINED_ID,
     val projectId: Int,
     val date: Long,
-    val projectProfit: Int,
-    val detailedIncome: List<TransactionModel>
+    val projectProfit: Int = 0,
+    var transactionList: MutableList<TransactionModel> = mutableListOf()
 ) {
+    fun addTransaction(transaction: TransactionModel){
+        transactionList.add(transaction)
+    }
     companion object{
         private const val UNDEFINED_ID = 0
     }

@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import ru.steelwave.steelwave.databinding.ItemLossBinding
 import ru.steelwave.steelwave.domain.entity.finance.TransactionModel
-import ru.steelwave.steelwave.utils.formatNumber
+import ru.steelwave.steelwave.utils.formatPrice
 
 class LossAdapter: ListAdapter<TransactionModel, LossViewHolder>(LossDiffCallback()) {
 
@@ -19,7 +19,7 @@ class LossAdapter: ListAdapter<TransactionModel, LossViewHolder>(LossDiffCallbac
         val item = getItem(position)
         with(holder.binding){
             tvNameIncome.text = item.name
-            tvIncome.text = "$" + formatNumber(item.count)
+            tvIncome.text = "$" + formatPrice(item.count)
         }
     }
 }

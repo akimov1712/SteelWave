@@ -8,18 +8,24 @@ class YearIncomeMapper @Inject constructor(
     private val mapper: TransactionMapper
 ){
 
-    fun mapEntityToDbModel(yearIncome: YearIncomeModel) = YearIncomeDbModel(
-        id = yearIncome.id,
-        projectId = yearIncome.projectId,
-        year = yearIncome.year,
-        yearIncomeList = mapper.mapListEntityToListDbModel(yearIncome.yearIncomeList)
-    )
+    fun mapEntityToDbModel(yearIncome: YearIncomeModel?) = yearIncome?.let {
+        YearIncomeDbModel(
+            id = yearIncome.id,
+            projectId = yearIncome.projectId,
+            year = yearIncome.year,
+        )
+    }?: null
 
-    fun mapDbModelToEntity(yearIncome: YearIncomeDbModel) = YearIncomeModel(
-        id = yearIncome.id,
-        projectId = yearIncome.projectId,
-        year = yearIncome.year,
-        yearIncomeList = mapper.mapListDbModelToListEntity(yearIncome.yearIncomeList)
-    )
+
+
+    fun mapDbModelToEntity(yearIncome: YearIncomeDbModel?) = yearIncome?.let {
+        YearIncomeModel(
+            id = yearIncome.id,
+            projectId = yearIncome.projectId,
+            year = yearIncome.year,
+        )
+    }?: null
+
+
 
 }

@@ -1,5 +1,7 @@
 package ru.steelwave.steelwave.data.repository.finance
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 import ru.steelwave.steelwave.data.database.dao.finance.IncomeDao
 import ru.steelwave.steelwave.data.mapper.finance.IncomeMapper
 import ru.steelwave.steelwave.domain.entity.finance.IncomeModel
@@ -12,10 +14,9 @@ class IncomeRepositoryImpl @Inject constructor(
     private val mapper: IncomeMapper
 ) : IncomeRepository {
 
-    override suspend fun getIncomeUseCase(projectId: Int,incomeDate: Date): IncomeModel {
+    override suspend fun getIncomeUseCase(projectId: Int, incomeDate: Date): IncomeModel? {
         val dateLong = incomeDate.time
-        val income = dao.getIncome(projectId, dateLong)
-        return mapper.mapDbModelToEntity(income)
+        return mapper.mapDbModelToEntity(dao.getIncome(projectId, dateLong))
     }
 
 }

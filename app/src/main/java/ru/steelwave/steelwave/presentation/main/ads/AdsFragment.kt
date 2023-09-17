@@ -6,6 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.FragmentAdsBinding
 import ru.steelwave.steelwave.databinding.FragmentProjectBinding
@@ -26,6 +30,23 @@ class AdsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupViews()
+    }
+
+    private fun setupViews(){
+        refreshFragment()
+    }
+
+    private fun refreshFragment(){
+        with(binding.swipeRefresh){
+            setColorSchemeResources(ru.steelwave.steelwave.R.color.sw_purple)
+            setOnRefreshListener {
+                CoroutineScope(Dispatchers.IO).launch{
+                    delay(300)
+                    isRefreshing = false
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {

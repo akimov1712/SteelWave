@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import ru.steelwave.steelwave.databinding.ItemTargetBinding
 import ru.steelwave.steelwave.domain.entity.finance.TargetModel
-import ru.steelwave.steelwave.utils.formatNumber
+import ru.steelwave.steelwave.utils.formatPrice
 
 class TargetAdapter: ListAdapter<TargetModel, TargetViewHolder>(TargetDiffCallback()) {
 
@@ -27,8 +27,8 @@ class TargetAdapter: ListAdapter<TargetModel, TargetViewHolder>(TargetDiffCallba
                 layoutParams.setMargins(0,0,120,0)
             }
             tvNameTarget.text = item.name
-            tvCollected.text = "$" + formatNumber(item.collectedPrice)
-            tvTotal.text = "$" + formatNumber(item.totalPrice)
+            tvCollected.text = "$" + formatPrice(item.collectedPrice)
+            tvTotal.text = "$" + formatPrice(item.totalPrice)
             val percent = ((item.collectedPrice.toFloat() / item.totalPrice.toFloat()) * 100).toInt()
             tvPercent.text = percent.toString() + "%"
             circularProgressBar.progress = percent.toFloat()

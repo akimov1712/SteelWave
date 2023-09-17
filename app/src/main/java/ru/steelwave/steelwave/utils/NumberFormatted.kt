@@ -1,6 +1,6 @@
 package ru.steelwave.steelwave.utils
 
-fun formatNumber(number: Int): String {
+fun formatPrice(number: Int): String {
     val numberString = number.toString()
 
     val formattedNumber = StringBuilder()

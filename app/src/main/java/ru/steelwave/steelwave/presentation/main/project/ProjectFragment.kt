@@ -11,7 +11,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import ru.steelwave.steelwave.App
+import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.FragmentProjectBinding
 import ru.steelwave.steelwave.domain.entity.project.ProjectModel
 import ru.steelwave.steelwave.domain.entity.user.UserModel
@@ -79,6 +84,7 @@ class ProjectFragment : Fragment() {
 
     private fun setupViews(){
         setListenersInView()
+        refreshFragment()
     }
 
     private fun initRecyclerView(){
@@ -94,6 +100,18 @@ class ProjectFragment : Fragment() {
 
     private fun setupProjectAdapter(){
         binding.rvProjects.adapter = projectAdapter
+    }
+
+    private fun refreshFragment(){
+        with(binding.swipeRefresh){
+            setColorSchemeResources(R.color.sw_purple)
+            setOnRefreshListener {
+                CoroutineScope(Dispatchers.IO).launch{
+                    delay(300)
+                    isRefreshing = false
+                }
+            }
+        }
     }
 
     private fun setListenersInView(){

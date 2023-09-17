@@ -5,6 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import ru.steelwave.steelwave.databinding.FragmentEmployeesBinding
 
 class EmployeesFragment : Fragment() {
@@ -28,6 +32,19 @@ class EmployeesFragment : Fragment() {
 
     private fun setupViews(){
         setListenersInView()
+        refreshFragment()
+    }
+
+    private fun refreshFragment(){
+        with(binding.swipeRefresh){
+            setColorSchemeResources(ru.steelwave.steelwave.R.color.sw_purple)
+            setOnRefreshListener {
+                CoroutineScope(Dispatchers.IO).launch{
+                    delay(300)
+                    isRefreshing = false
+                }
+            }
+        }
     }
 
     private fun setListenersInView(){
