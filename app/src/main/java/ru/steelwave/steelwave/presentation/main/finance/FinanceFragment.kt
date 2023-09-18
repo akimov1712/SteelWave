@@ -62,9 +62,6 @@ class FinanceFragment : Fragment(){
     private var selectedDate = Date(currentDate.year, currentDate.month, 1)
     private var selectedYear = Date(currentDate.year, 1, 1)
 
-    private var incomeId: Int? = null
-    private var lossId: Int? = null
-
     override fun onAttach(context: Context) {
         component.inject(this)
         super.onAttach(context)
@@ -91,6 +88,7 @@ class FinanceFragment : Fragment(){
             if (projectId != UNDEFINED_ID) {
                 getProjectItem(projectId)
                 getData(args.projectId, selectedDate, selectedYear)
+//                getTransactionList()
             }
             projectItem.observe(viewLifecycleOwner) {
                 switchScreensAdding()
@@ -98,29 +96,26 @@ class FinanceFragment : Fragment(){
                     tvProjectFinance.text = it.name
                 }
             }
-            incomeItem.observe(viewLifecycleOwner){
-                incomeId = it.id
+            incomeList.observe(viewLifecycleOwner){
                 var totalIncome = 0
-                it.transactionList.forEach { transaction ->
+                it.forEach { transaction ->
                     totalIncome += transaction.count
                 }
                 with(binding){
                     tvIncomeProject.text = formatPrice(totalIncome)
-                    incomeAdapter.submitList(it.transactionList)
-                    tvProjectProfitability.text = it.projectProfit.toString()
+                    incomeAdapter.submitList(it)
                     clIncomeContent.visibility = View.VISIBLE
                     inclErrorIncome.clError.visibility = View.GONE
                 }
             }
-            lossItem.observe(viewLifecycleOwner){
-                lossId = it.id
+            lossList.observe(viewLifecycleOwner){
                 var totalLoss = 0
-                it.transactionList.forEach { transaction ->
+                it.forEach { transaction ->
                     totalLoss += transaction.count
                 }
                 with(binding){
                     tvLossProject.text = formatPrice(totalLoss)
-                    lossAdapter.submitList(it.transactionList)
+                    lossAdapter.submitList(it)
                     clLossContent.visibility = View.VISIBLE
                     inclErrorLoss.clError.visibility = View.GONE
                 }
@@ -136,7 +131,6 @@ class FinanceFragment : Fragment(){
             }
             incomeItemError.observe(viewLifecycleOwner){
                 with(binding){
-                    incomeId = Consts.ERROR_ID
                     clIncomeContent.visibility = View.GONE
                     inclErrorIncome.clError.visibility = View.VISIBLE
                 }
@@ -150,14 +144,14 @@ class FinanceFragment : Fragment(){
             }
             lossItemError.observe(viewLifecycleOwner){
                 with(binding){
-                    lossId = Consts.ERROR_ID
                     clLossContent.visibility = View.GONE
                     inclErrorLoss.clError.visibility = View.VISIBLE
                 }
             }
-            shouldRefreshData.observe(viewLifecycleOwner) {
-                Loger.log("обновление данных")
-                viewModel.getData(projectId, selectedDate, selectedYear)
+            transactionList.observe(viewLifecycleOwner){
+                it.forEach{
+                    Toast.makeText(requireContext(), "${it}", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }

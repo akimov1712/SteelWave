@@ -79,14 +79,15 @@ class AddLossModal : DialogFragment() {
             btnAdd.setOnClickListener {
                 val name = etExpenses.text.toString()
                 val count = etSumExpenses.text.toString()
-                viewModel.addLoss(
+                viewModel.addTransaction(
                     projectId = args.projectId,
                     inputDate = args.date,
                     inputName = name,
-                    inputCount = count
+                    inputCount = count,
+                    isIncome = false
                 )
                 dismiss()
-                viewModel.notifyDataRefreshNeeded()
+                // TODO(сделать закрытие через наблюдатель)
             }
             btnCancel.setOnClickListener {
                 dismiss()

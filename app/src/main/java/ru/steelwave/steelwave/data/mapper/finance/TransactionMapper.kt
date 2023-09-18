@@ -2,26 +2,31 @@ package ru.steelwave.steelwave.data.mapper.finance
 
 import ru.steelwave.steelwave.data.database.model.finance.TransactionDbModel
 import ru.steelwave.steelwave.domain.entity.finance.TransactionModel
+import java.sql.Date
 import javax.inject.Inject
 
 class TransactionMapper @Inject constructor() {
 
-    private fun mapEntityToDbModel(transaction: TransactionModel) = TransactionDbModel(
+     fun mapEntityToDbModel(transaction: TransactionModel) = TransactionDbModel(
+        id = transaction.id,
+        projectId = transaction.projectId,
+        date = transaction.date.time,
+        isIncome = transaction.isIncome,
         name = transaction.name,
-        count = transaction.count,
+        count = transaction.count
     )
 
     private fun mapDbModelToEntity(transaction: TransactionDbModel) = TransactionModel(
+        id = transaction.id,
+        projectId = transaction.projectId,
+        date = Date(transaction.date),
+        isIncome = transaction.isIncome,
         name = transaction.name,
-        count = transaction.count,
+        count = transaction.count
     )
-
-    fun mapListEntityToListDbModel(transactionList: List<TransactionModel>) = transactionList.map {
-        mapEntityToDbModel(it)
-    }
 
     fun mapListDbModelToListEntity(transactionList: List<TransactionDbModel>) = transactionList.map {
             mapDbModelToEntity(it)
-        } as MutableList<TransactionModel>
+        }
 
 }

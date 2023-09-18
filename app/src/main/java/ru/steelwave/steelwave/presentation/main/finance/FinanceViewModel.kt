@@ -7,18 +7,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.steelwave.steelwave.Loger
-import ru.steelwave.steelwave.domain.entity.finance.IncomeModel
-import ru.steelwave.steelwave.domain.entity.finance.LossModel
 import ru.steelwave.steelwave.domain.entity.finance.TargetModel
 import ru.steelwave.steelwave.domain.entity.finance.TransactionModel
 import ru.steelwave.steelwave.domain.entity.finance.YearIncomeModel
 import ru.steelwave.steelwave.domain.entity.project.ProjectModel
-import ru.steelwave.steelwave.domain.useCase.finance.income.GetIncomeUseCase
 import ru.steelwave.steelwave.domain.useCase.finance.incomeYear.GetYearIncomeUseCase
-import ru.steelwave.steelwave.domain.useCase.finance.loss.AddLossUseCase
-import ru.steelwave.steelwave.domain.useCase.finance.loss.GetLossUseCase
 import ru.steelwave.steelwave.domain.useCase.finance.target.AddTargetUseCase
 import ru.steelwave.steelwave.domain.useCase.finance.target.GetAllTargetUseCase
+import ru.steelwave.steelwave.domain.useCase.finance.transaction.AddTransactionUseCase
+import ru.steelwave.steelwave.domain.useCase.finance.transaction.GetTransactionListUseCase
 import ru.steelwave.steelwave.domain.useCase.project.GetAllProjectUseCase
 import ru.steelwave.steelwave.domain.useCase.project.GetProjectUseCase
 import java.sql.Date
@@ -27,21 +24,28 @@ import javax.inject.Inject
 class FinanceViewModel @Inject constructor(
     private val getAllProjectUseCase: GetAllProjectUseCase,
     private val getProjectUseCase: GetProjectUseCase,
-    private val getIncomeUseCase: GetIncomeUseCase,
     private val getYearIncomeUseCase: GetYearIncomeUseCase,
-    private val addLossUseCase: AddLossUseCase,
-    private val getLossUseCase: GetLossUseCase,
     private val addTargetUseCase: AddTargetUseCase,
     private val getAllTargetUseCase: GetAllTargetUseCase,
-    ) : ViewModel() {
+    private val getTransactionListUseCase: GetTransactionListUseCase,
+    private val addTransactionUseCase: AddTransactionUseCase,
+) : ViewModel() {
 
     private val _projectItem = MutableLiveData<ProjectModel>()
     val projectItem: LiveData<ProjectModel>
         get() = _projectItem
 
-    private val _incomeItem = MutableLiveData<IncomeModel>()
-    val incomeItem: LiveData<IncomeModel>
-        get() = _incomeItem
+//    private val _transactionList = MutableLiveData<List<TransactionModel>>()
+//    val transactionList: LiveData<List<TransactionModel>>
+//        get() = _transactionList
+
+    private val _incomeList = MutableLiveData<List<TransactionModel>>()
+    val incomeList: LiveData<List<TransactionModel>>
+        get() = _incomeList
+
+    private val _lossList = MutableLiveData<List<TransactionModel>>()
+    val lossList: LiveData<List<TransactionModel>>
+        get() = _lossList
 
     private val _incomeItemError = MutableLiveData<Unit>()
     val incomeItemError: LiveData<Unit>
@@ -54,10 +58,6 @@ class FinanceViewModel @Inject constructor(
     private val _yearIncomeItemError = MutableLiveData<Unit>()
     val yearIncomeItemError: LiveData<Unit>
         get() = _yearIncomeItemError
-
-    private val _lossItem = MutableLiveData<LossModel>()
-    val lossItem: LiveData<LossModel>
-        get() = _lossItem
 
     private val _lossItemError = MutableLiveData<Unit>()
     val lossItemError: LiveData<Unit>
@@ -79,11 +79,8 @@ class FinanceViewModel @Inject constructor(
     val errorInputCount: LiveData<Boolean>
         get() = _errorInputCount
 
-    private val _shouldRefreshData = MutableLiveData<Unit>()
-    val shouldRefreshData: LiveData<Unit>
-        get() = _shouldRefreshData
-
     val projectList = getAllProjectUseCase()
+    val transactionList = getTransactionListUseCase()
 
 
     private fun validateInput(name: String, count: Int): Boolean {
@@ -111,26 +108,49 @@ class FinanceViewModel @Inject constructor(
         return inputName?.trim() ?: ""
     }
 
-    fun addLoss(projectId: Int, inputDate: Long, inputName: String?, inputCount: String?){
+    fun getTransactionList() {
+        val resultList = getTransactionListUseCase()
+//        _transactionList.value = resultList.value
+//            Loger.log(resultList.toString() + " со значениями projectId: $projectId, date: ${date.time}")
+//            val incomeList = resultList?.filter {
+//                it.isIncome
+//            }
+//            val lossList = resultList?.filter {
+//                !it.isIncome
+//            }
+//            if (incomeList != null) {
+//                _incomeList.value = incomeList!!
+//            } else {
+//                _incomeItemError.value = Unit
+//            }
+//            if (lossList != null) {
+//                _lossList.value = lossList!!
+//            } else {
+//                _lossItemError.value = Unit
+//            }
+    }
+
+    fun addTransaction(
+        projectId: Int,
+        inputDate: Long,
+        isIncome: Boolean,
+        inputName: String?,
+        inputCount: String?
+    ) {
         val name = parseName(inputName)
         val count = parseCount(inputCount)
         val fieldsValid = validateInput(name, count)
-        if (fieldsValid){
+        if (fieldsValid) {
             viewModelScope.launch {
-                val transaction = TransactionModel(name,count)
                 val date = Date(inputDate)
-                val lossItem = getLossUseCase(projectId, date)
-                if (lossItem == null){
-                    val loss = LossModel(projectId = projectId, date = inputDate)
-                    loss.addTransaction(transaction)
-                    addLossUseCase(loss)
-                } else {
-                    lossItem?.let {
-                        val loss = lossItem.copy()
-                        loss.addTransaction(transaction)
-                        addLossUseCase(loss)
-                    }
-                }
+                val transaction = TransactionModel(
+                    projectId = projectId,
+                    date = date,
+                    isIncome = isIncome,
+                    name = name,
+                    count = count
+                )
+                addTransactionUseCase(transaction)
             }
         }
     }
@@ -139,28 +159,6 @@ class FinanceViewModel @Inject constructor(
         viewModelScope.launch {
             val item = getProjectUseCase(projectItemId)
             _projectItem.value = item
-        }
-    }
-
-    fun getIncomeItem(projectId: Int, date: Date) {
-        viewModelScope.launch {
-            val item = getIncomeUseCase(projectId, date)
-            if(item == null){
-                _incomeItemError.value = Unit
-            }else{
-                _incomeItem.value = item!!
-            }
-        }
-    }
-
-    fun getLossItem(projectId: Int, date: Date) {
-        viewModelScope.launch {
-            val item = getLossUseCase(projectId, date)
-            if(item == null){
-                _lossItemError.value = Unit
-            }else{
-                _lossItem.value = item!!
-            }
         }
     }
 
@@ -175,23 +173,18 @@ class FinanceViewModel @Inject constructor(
         viewModelScope.launch {
             val year = inputYear.year + 1900
             val item = getYearIncomeUseCase(projectId, year)
-            if(item == null){
+            if (item == null) {
                 _yearIncomeItemError.value = Unit
-            }else{
+            } else {
                 _yearIncomeItem.value = item!!
             }
         }
     }
 
-    fun getData(projectId: Int, inputDate:Date, inputYear: Date){
-        getIncomeItem(projectId, inputDate)
-        getLossItem(projectId, inputDate)
+    fun getData(projectId: Int, inputDate: Date, inputYear: Date) {
+//        getTransactionList(projectId, inputDate)
         getTargetList(projectId)
         getYearIncomeItem(projectId, inputYear)
-    }
-
-    fun notifyDataRefreshNeeded() {
-        _shouldRefreshData.value = Unit
     }
 
 }
