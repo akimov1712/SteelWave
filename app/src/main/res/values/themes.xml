@@ -4,12 +4,13 @@
         <item name="colorPrimary">@color/sw_purple</item>
         <item name="colorPrimaryVariant">@color/sw_purple_transparent</item>
         <item name="colorOnPrimary">@color/white</item>
-        <item name="colorSecondary">@color/white</item>
+        <item name="colorSecondary">@color/sw_purple</item>
         <item name="colorSecondaryVariant">@color/sw_purple_transparent</item>
         <item name="colorOnSecondary">@color/black</item>
         <item name="android:statusBarColor">@color/sw_purple</item>
         <item name="colorControlNormal">@color/sw_black</item>
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
+        <item name="itemTextAppearance">@style/sw_textView_title</item>
     </style>
 
     <style name="AppBottomSheetDialogTheme"
@@ -78,6 +79,16 @@
         <item name="android:maxLength">32</item>
         <item name="android:paddingStart">0dp</item>
         <item name="android:paddingEnd">0dp</item>
+    </style>
+
+    <style name="sw_editText_number" parent="sw_editText">
+        <item name="android:gravity">end|bottom</item>
+        <item name="android:inputType">number</item>
+        <item name="android:maxLength">7</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingEnd">10dp</item>
+        <item name="android:textSize">@dimen/very_big_size</item>
     </style>
 
     <style name="sw_til_dropMenu" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">

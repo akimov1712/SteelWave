@@ -7,7 +7,7 @@ import javax.inject.Inject
 class AddTargetUseCase @Inject constructor(private val repository: TargetRepository) {
 
     suspend operator fun invoke(target: TargetModel){
-        repository.addTargetUseCase(target)
+        repository.addTarget(target)
     }
 
 }

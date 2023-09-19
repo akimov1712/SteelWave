@@ -63,9 +63,6 @@ class ProjectFragment : Fragment() {
         setupViews()
         initRecyclerView()
         setupViewModel()
-        with(viewModel){
-
-        }
     }
 
     private fun setupViewModel(){

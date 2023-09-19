@@ -6,7 +6,7 @@ import java.sql.Date
 
 interface TransactionRepository {
 
-    fun getTransactionList(): LiveData<List<TransactionModel>>
+    fun getTransactionList(projectId: Int, date: Date): LiveData<List<TransactionModel>>
     suspend fun addTransaction(transaction: TransactionModel)
 
 }

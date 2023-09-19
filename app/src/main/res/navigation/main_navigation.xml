@@ -32,6 +32,12 @@
         <action
             android:id="@+id/action_financeFragment_to_addLossModal"
             app:destination="@id/addLossModal" />
+        <action
+            android:id="@+id/action_financeFragment_to_addTargetModal"
+            app:destination="@id/addTargetModal" />
+        <action
+            android:id="@+id/action_financeFragment_to_refillTargetModal"
+            app:destination="@id/refillTargetModal" />
     </fragment>
     <fragment
         android:id="@+id/traficFragment"
@@ -84,5 +90,21 @@
         <argument
             android:name="date"
             app:argType="long" />
+    </dialog>
+    <dialog
+        android:id="@+id/addTargetModal"
+        android:name="ru.steelwave.steelwave.presentation.main.finance.modals.AddTargetModal"
+        android:label="AddTargetModal" >
+        <argument
+            android:name="projectId"
+            app:argType="integer" />
+    </dialog>
+    <dialog
+        android:id="@+id/refillTargetModal"
+        android:name="ru.steelwave.steelwave.presentation.main.finance.modals.choiceProjectAdapter.RefillTargetModal"
+        android:label="RefillTargetModal" >
+        <argument
+            android:name="targetId"
+            app:argType="integer" />
     </dialog>
 </navigation>

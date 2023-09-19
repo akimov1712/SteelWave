@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -88,7 +89,6 @@ class FinanceFragment : Fragment(){
             if (projectId != UNDEFINED_ID) {
                 getProjectItem(projectId)
                 getData(args.projectId, selectedDate, selectedYear)
-//                getTransactionList()
             }
             projectItem.observe(viewLifecycleOwner) {
                 switchScreensAdding()
@@ -148,17 +148,19 @@ class FinanceFragment : Fragment(){
                     inclErrorLoss.clError.visibility = View.VISIBLE
                 }
             }
-            transactionList.observe(viewLifecycleOwner){
-                it.forEach{
-                    Toast.makeText(requireContext(), "${it}", Toast.LENGTH_SHORT).show()
-                }
-            }
         }
     }
 
     private fun switchScreensAdding() {
-        binding.tvChoiceProject.visibility = View.GONE
-        binding.clFinance.visibility = View.VISIBLE
+        with(binding){
+            if (projectId != UNDEFINED_ID){
+                tvChoiceProject.visibility = View.GONE
+                clFinance.visibility = View.VISIBLE
+            } else {
+                tvChoiceProject.visibility = View.GONE
+                clFinance.visibility = View.VISIBLE
+            }
+        }
     }
 
     private fun setValueFromArgs() {
@@ -166,6 +168,7 @@ class FinanceFragment : Fragment(){
     }
 
     private fun setupViews() {
+//        switchScreensAdding()
         setListenersInView()
         setDate(selectedDate)
         setRecyclerViews()
@@ -219,6 +222,40 @@ class FinanceFragment : Fragment(){
     private fun setTargetAdapter(){
         LinearSnapHelper().attachToRecyclerView(binding.rvTarget)
         binding.rvTarget.adapter = targetAdapter
+        targetAdapter.onClickBtnMoreListener = { targetId, anchorView ->
+            setOpenMenuInTarget(anchorView, targetId)
+        }
+    }
+
+    private fun setOpenMenuInTarget(anchorView: View, targetId: Int) {
+        val popup = PopupMenu(requireContext(), anchorView)
+        popup.menuInflater.inflate(R.menu.target_menu, popup.menu)
+        popup.setForceShowIcon(true)
+        popup.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.menu_edit -> {
+                    openModalEditTarget(targetId)
+                    true
+                }
+
+                R.id.menu_delete -> {
+                    openModalDeleteTarget(targetId)
+                    true
+                }
+                else -> {
+                    false
+                }
+            }
+        }
+        popup.show()
+    }
+
+    private fun openModalEditTarget(targetId: Int){
+
+    }
+
+    private fun openModalDeleteTarget(targetId: Int){
+
     }
 
     private fun setYearIncomeAdapter(){
@@ -227,20 +264,25 @@ class FinanceFragment : Fragment(){
 
     private fun setListenersInView() {
         with(binding) {
-            btnAddExpenses.setOnClickListener {
-                val date = Date(selectedDate.year, selectedDate.month, 1)
-                findNavController().navigate(
-                    FinanceFragmentDirections.actionFinanceFragmentToAddLossModal(
-                        args.projectId,
-                        date.time
+            if (projectId != null && projectId != UNDEFINED_ID){
+                btnAddExpenses.setOnClickListener {
+                    val date = Date(selectedDate.year, selectedDate.month, 1)
+                    findNavController().navigate(
+                        FinanceFragmentDirections.actionFinanceFragmentToAddLossModal(
+                            args.projectId,
+                            date.time
+                        )
                     )
-                )
+                }
+                btnAddTarget.setOnClickListener{
+                    findNavController().navigate(FinanceFragmentDirections.actionFinanceFragmentToAddTargetModal(projectId))
+                }
+                clChoiceDate.setOnClickListener {
+                    openMonthPicker()
+                }
             }
             tvProjectFinance.setOnClickListener {
                 findNavController().navigate(FinanceFragmentDirections.actionFinanceFragmentToChoiceProjectModal())
-            }
-            clChoiceDate.setOnClickListener {
-                openMonthPicker()
             }
         }
     }
@@ -275,6 +317,14 @@ class FinanceFragment : Fragment(){
             tvDateYear.text = year.toString()
         }
     }
+//
+//    private fun cleanArgs(){
+//        val projectIdArgs = FinanceFragmentArgs.fromBundle(requireArguments()).projectId
+//        if (projectId == projectIdArgs){
+//            requireArguments().clear()
+//            projectId = UNDEFINED_ID
+//        }
+//    }
 
     override fun onDestroyView() {
         super.onDestroyView()

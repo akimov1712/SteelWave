@@ -2,6 +2,7 @@ package ru.steelwave.steelwave.data.database.dao.finance
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -13,7 +14,14 @@ interface TargetDao {
 
     @Query("SELECT * FROM targets WHERE projectId=:projectId")
     fun getAllTarget(projectId: Int): LiveData<List<TargetDbModel>>
+
+    @Query("SELECT * FROM targets WHERE id=:targetId LIMIT 1")
+    fun getTargetItem(targetId: Int): TargetDbModel
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addTarget(target: TargetDbModel)
+
+    @Delete
+    suspend fun deleteTarget(target: TargetDbModel)
 
 }

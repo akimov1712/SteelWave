@@ -13,13 +13,21 @@ class TargetRepositoryImpl @Inject constructor(
     private val mapper: TargetMapper
 ): TargetRepository{
 
-    override suspend fun addTargetUseCase(target: TargetModel) {
+    override suspend fun addTarget(target: TargetModel) {
         dao.addTarget(mapper.mapEntityToDbModel(target))
     }
 
-    override fun getAllTargetUseCase(projectId: Int): LiveData<List<TargetModel>> {
+    override fun getAllTarget(projectId: Int): LiveData<List<TargetModel>> {
         return Transformations.map(dao.getAllTarget(projectId)){
             mapper.mapDbModelToEntity(it)
         }
+    }
+
+    override suspend fun getTargetItem(targetId: Int): TargetModel {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun deleteTarget(targetId: Int) {
+        TODO("Not yet implemented")
     }
 }

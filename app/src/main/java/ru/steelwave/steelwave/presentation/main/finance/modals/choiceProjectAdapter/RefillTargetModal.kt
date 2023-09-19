@@ -1,4 +1,4 @@
-package ru.steelwave.steelwave.presentation.main.finance.modals
+package ru.steelwave.steelwave.presentation.main.finance.modals.choiceProjectAdapter
 
 import android.content.Context
 import android.graphics.Color
@@ -11,22 +11,22 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import ru.steelwave.steelwave.App
-import ru.steelwave.steelwave.databinding.ModalControlLossBinding
+import ru.steelwave.steelwave.databinding.ModalRefillTargetBinding
 import ru.steelwave.steelwave.presentation.ViewModelFactory
 import ru.steelwave.steelwave.presentation.main.finance.FinanceViewModel
 import javax.inject.Inject
 
-class AddLossModal : DialogFragment() {
+class RefillTargetModal : DialogFragment() {
 
     private val component by lazy {
         (requireActivity().application as App).component
     }
 
-    private val args by navArgs<AddLossModalArgs>()
+    private val args by navArgs<RefillTargetModalArgs>()
 
-    private var _binding: ModalControlLossBinding? = null
-    private val binding: ModalControlLossBinding
-        get() = _binding ?: throw RuntimeException("ModalControlLossBinding == null")
+    private var _binding: ModalRefillTargetBinding? = null
+    private val binding: ModalRefillTargetBinding
+        get() = _binding ?: throw RuntimeException("ModalRefillTargetBinding == null")
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -45,7 +45,7 @@ class AddLossModal : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = ModalControlLossBinding.inflate(inflater, container, false)
+        _binding = ModalRefillTargetBinding.inflate(inflater, container, false)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         return binding.root
     }
@@ -56,16 +56,20 @@ class AddLossModal : DialogFragment() {
         observeViewModel()
     }
 
-    private fun observeViewModel(){
-        with(viewModel){
-            errorInputNameAddLoss.observe(viewLifecycleOwner){
-                binding.etExpenses.error = "Введите название расхода"
-            }
-            errorInputCount.observe(viewLifecycleOwner){
-                binding.etExpenses.error = "Введите сумму расхода"
-            }
-            shouldCloseAddLossModal.observe(viewLifecycleOwner) {
+    private fun observeViewModel() {
+        with(viewModel) {
+            shouldCloseAddTargetModal.observe(viewLifecycleOwner) {
                 dismiss()
+            }
+            errorInputNameAddTarget.observe(viewLifecycleOwner) {
+                binding.etNameTarget.error = "Проверьте поле."
+            }
+            errorInputEndPrice.observe(viewLifecycleOwner) {
+                binding.etEndPrice.error = "Число не может быть меньше нуля."
+            }
+            errorInputStartPrice.observe(viewLifecycleOwner) {
+                binding.etStartPrice.error =
+                    "Число не может быть меньше нуля и больше конечной ставки."
             }
         }
     }
@@ -77,14 +81,14 @@ class AddLossModal : DialogFragment() {
     private fun setListenersInView() {
         with(binding) {
             btnAdd.setOnClickListener {
-                val name = etExpenses.text.toString()
-                val count = etSumExpenses.text.toString()
-                viewModel.addTransaction(
-                    projectId = args.projectId,
-                    inputDate = args.date,
-                    inputName = name,
-                    inputCount = count,
-                    isIncome = false
+                val nameTarget = etNameTarget.text.toString()
+                val startPrice = etStartPrice.text.toString()
+                val endPrice = etEndPrice.text.toString()
+                viewModel.addTarget(
+                    args.projectId,
+                    nameTarget,
+                    startPrice,
+                    endPrice
                 )
             }
             btnCancel.setOnClickListener {

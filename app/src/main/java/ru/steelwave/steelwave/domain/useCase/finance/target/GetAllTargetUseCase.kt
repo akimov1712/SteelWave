@@ -5,6 +5,6 @@ import javax.inject.Inject
 
 class GetAllTargetUseCase @Inject constructor(private val repository: TargetRepository) {
 
-    operator fun invoke(projectId: Int) = repository.getAllTargetUseCase(projectId)
+    operator fun invoke(projectId: Int) = repository.getAllTarget(projectId)
 
 }

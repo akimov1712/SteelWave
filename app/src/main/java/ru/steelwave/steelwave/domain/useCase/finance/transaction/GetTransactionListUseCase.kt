@@ -8,7 +8,7 @@ class GetTransactionListUseCase @Inject constructor(
     private val repository: TransactionRepository
 ){
 
-    operator fun invoke() =
-        repository.getTransactionList()
+    operator fun invoke(projectId: Int, date: Date) =
+        repository.getTransactionList(projectId, date)
 
 }

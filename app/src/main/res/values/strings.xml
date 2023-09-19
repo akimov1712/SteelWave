@@ -67,7 +67,8 @@
     <string name="data_will_be_updated_after_approval">Данные будут обновлены после одобрения администратора\n<font color='#7678ED'>SteelWave</font> <font color='#55A630'>Dev</font>, ожидайте :)</string>
     <string name="ok">Ок</string>
     <string name="kick">Исключение</string>
-    <string name="you_really_need_kick_user">Вы действительно хотите исключить — </string>
+    <string name="you_really_need_kick_user"><font color='#80293241'>Вы действительно хотите исключить — </font></string>
+    <string name="you_really_need_delete_target"><font color='#80293241'>Вы действительно хотите удалить цель — </font></string>
     <string name="projects">Проекты</string>
     <string name="finance">Финансы</string>
     <string name="trafic">Трафик</string>
@@ -114,5 +115,9 @@
     <string name="target_company">Цели компании</string>
     <string name="choice">Выбрать</string>
     <string name="choice_project">Выберите проект</string>
+    <string name="target_name">Название цели</string>
+    <string name="refill_target">Пополнить цель</string>
+    <string name="delete_target">Удалить цель</string>
+    <string name="delete">Удалить</string>
 
 </resources>

@@ -14,10 +14,13 @@ import java.sql.Date
 interface TransactionDao {
 
 
-    @Query("SELECT * FROM transactions")
-    fun getTransactionList(): LiveData<List<TransactionDbModel>>
+    @Query("SELECT * FROM transactions WHERE projectId=:projectId AND date=:date")
+    fun getTransactionList(projectId: Int, date: Long): LiveData<List<TransactionDbModel>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addTransaction(transaction: TransactionDbModel)
+
+    @Query("DELETE FROM transactions WHERE projectId=:projectId")
+    suspend fun deleteTransaction(projectId: Int)
 
 }

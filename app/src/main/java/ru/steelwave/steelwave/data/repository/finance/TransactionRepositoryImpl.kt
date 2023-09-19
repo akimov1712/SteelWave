@@ -16,8 +16,10 @@ class TransactionRepositoryImpl @Inject constructor(
 ): TransactionRepository {
 
     override fun getTransactionList(
+        projectId: Int,
+        date: Date
     ): LiveData<List<TransactionModel>> {
-        return Transformations.map(dao.getTransactionList()){
+        return Transformations.map(dao.getTransactionList(projectId, date.time)){
             mapper.mapListDbModelToListEntity(it)
         }
     }

@@ -46,13 +46,12 @@
             app:layout_constraintStart_toStartOf="@+id/tv_name_employee"
             app:layout_constraintTop_toBottomOf="@+id/tv_name_employee" />
 
-        <ImageButton
+        <include
             android:id="@+id/btn_more"
             android:layout_width="20dp"
             android:layout_height="30dp"
             android:layout_marginEnd="15dp"
-            android:background="@null"
-            android:src="@drawable/icon_more_vert"
+            layout="@layout/include_btn_more"
             app:layout_constraintBottom_toBottomOf="@+id/iv_profile"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/iv_profile" />

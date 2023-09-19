@@ -26,6 +26,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <include
+            android:id="@+id/btn_more"
+            layout="@layout/include_btn_more"
+            android:layout_width="20dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/circularProgressBar" />
+
         <TextView
             android:id="@+id/tv_percent"
             style="@style/sw_textView_normal"
