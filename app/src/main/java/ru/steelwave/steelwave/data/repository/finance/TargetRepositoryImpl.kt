@@ -23,11 +23,10 @@ class TargetRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getTargetItem(targetId: Int): TargetModel {
-        TODO("Not yet implemented")
-    }
+    override suspend fun getTargetItem(targetId: Int) =
+        mapper.mapDbModelToEntity(dao.getTargetItem(targetId))
 
     override suspend fun deleteTarget(targetId: Int) {
-        TODO("Not yet implemented")
+        dao.deleteTarget(targetId)
     }
 }

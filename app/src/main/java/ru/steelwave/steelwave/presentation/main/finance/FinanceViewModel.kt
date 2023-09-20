@@ -12,7 +12,9 @@ import ru.steelwave.steelwave.domain.entity.finance.YearIncomeModel
 import ru.steelwave.steelwave.domain.entity.project.ProjectModel
 import ru.steelwave.steelwave.domain.useCase.finance.incomeYear.GetYearIncomeUseCase
 import ru.steelwave.steelwave.domain.useCase.finance.target.AddTargetUseCase
+import ru.steelwave.steelwave.domain.useCase.finance.target.DeleteTargetUseCase
 import ru.steelwave.steelwave.domain.useCase.finance.target.GetAllTargetUseCase
+import ru.steelwave.steelwave.domain.useCase.finance.target.GetTargetItemUseCase
 import ru.steelwave.steelwave.domain.useCase.finance.transaction.AddTransactionUseCase
 import ru.steelwave.steelwave.domain.useCase.finance.transaction.GetTransactionListUseCase
 import ru.steelwave.steelwave.domain.useCase.project.GetAllProjectUseCase
@@ -26,6 +28,8 @@ class FinanceViewModel @Inject constructor(
     private val getYearIncomeUseCase: GetYearIncomeUseCase,
     private val addTargetUseCase: AddTargetUseCase,
     private val getAllTargetUseCase: GetAllTargetUseCase,
+    private val getTargetItemUseCase: GetTargetItemUseCase,
+    private val deleteTargetUseCase: DeleteTargetUseCase,
     private val getTransactionListUseCase: GetTransactionListUseCase,
     private val addTransactionUseCase: AddTransactionUseCase,
 ) : ViewModel() {
@@ -38,10 +42,6 @@ class FinanceViewModel @Inject constructor(
     val projectItem: LiveData<ProjectModel>
         get() = _projectItem
 
-    private val _transactionList = MutableLiveData<List<TransactionModel>>()
-    val transactionList: LiveData<List<TransactionModel>>
-        get() = _transactionList
-
     private val _incomeList = MutableLiveData<List<TransactionModel>>()
     val incomeList: LiveData<List<TransactionModel>>
         get() = _incomeList
@@ -53,6 +53,10 @@ class FinanceViewModel @Inject constructor(
     private val _targetList = MutableLiveData<List<TargetModel>>()
     val targetList: LiveData<List<TargetModel>>
         get() = _targetList
+
+    private val _targetItem = MutableLiveData<TargetModel>()
+    val targetItem: LiveData<TargetModel>
+        get() = _targetItem
 
     private val _yearIncomeItem = MutableLiveData<YearIncomeModel>()
     val yearIncomeItem: LiveData<YearIncomeModel>
@@ -151,6 +155,15 @@ class FinanceViewModel @Inject constructor(
         return result
     }
 
+    private fun validateInputRefillTarget(count: Int): Boolean {
+        var result = true
+        if (count <= 0) {
+            _errorInputRefill.value = true
+            result = false
+        }
+        return result
+    }
+
     private fun parseCount(inputCount: String?): Int {
         return try {
             inputCount?.trim()?.toInt() ?: 0
@@ -166,7 +179,6 @@ class FinanceViewModel @Inject constructor(
     fun getTransactionList(projectId: Int, date: Date) {
         viewModelScope.launch {
             getTransactionListUseCase(projectId, date).observeForever { resultList ->
-                _transactionList.postValue(resultList)
                 val incomeList = resultList.filter {
                     it.isIncome
                 }
@@ -234,6 +246,27 @@ class FinanceViewModel @Inject constructor(
         }
     }
 
+    fun updateTarget(targetId: Int, inputName: String?, inputCollectedPrice: String?, inputTotalPrice: String?){
+        viewModelScope.launch {
+            val name = parseName(inputName)
+            val collectedPrice = parseCount(inputCollectedPrice)
+            val totalPrice = parseCount(inputTotalPrice)
+            val isFinished = collectedPrice == totalPrice
+            val fieldsValid = validateInputAddTarget(name, collectedPrice, totalPrice)
+            if (fieldsValid){
+                val oldTarget = getTargetItemUseCase(targetId)
+                val newTarget = oldTarget.copy(
+                    name = name,
+                    collectedPrice = collectedPrice,
+                    totalPrice = totalPrice,
+                    isFinished = isFinished
+                )
+                addTargetUseCase(newTarget)
+                _shouldCloseAddTargetModal.value = Unit
+            }
+        }
+    }
+
     fun getProjectItem(projectItemId: Int) {
         viewModelScope.launch {
             val item = getProjectUseCase(projectItemId)
@@ -244,18 +277,41 @@ class FinanceViewModel @Inject constructor(
     fun getTargetList(projectId: Int) {
         viewModelScope.launch {
             getAllTargetUseCase(projectId).observeForever { resultList ->
-                if (resultList.isNotEmpty()){
-                    _targetList.value = resultList
-                } else{
+                if (resultList.isNotEmpty()) {
+                    _targetList.value = resultList!!
+                } else {
                     _targetListError.value = Unit
                 }
             }
         }
     }
 
-    fun updateTargetList(targetId: Int) {
+    fun getTargetItem(targetId: Int) {
         viewModelScope.launch {
-            // TODO(отслася здесь, нужно сделать удлание и пополрение)
+            val item = getTargetItemUseCase(targetId)
+            _targetItem.value = item
+        }
+    }
+
+    fun refillTarget(targetId: Int, inputCount: String?) {
+        viewModelScope.launch {
+            val oldItem = getTargetItemUseCase(targetId)
+            val count = parseCount(inputCount)
+            val fieldsValid = validateInputRefillTarget(count)
+            if (fieldsValid){
+                val refillPrice = oldItem.collectedPrice + count
+                val newItem = oldItem.copy(collectedPrice = refillPrice)
+                if (refillPrice > newItem.totalPrice) newItem.isFinished = true
+                addTargetUseCase(newItem)
+                _shouldCloseRefillTargetModal.value = Unit
+            }
+        }
+    }
+
+    fun deleteTarget(targetId: Int) {
+        viewModelScope.launch {
+            deleteTargetUseCase(targetId)
+            _shouldCloseDeleteTargetModal.value = Unit
         }
     }
 

@@ -37,6 +37,8 @@ class AddTargetModal : DialogFragment() {
         ViewModelProvider(this, viewModelFactory)[FinanceViewModel::class.java]
     }
 
+    private var screenMode: String = Consts.MODE_UNKNOWN
+
     override fun onAttach(context: Context) {
         component.inject(this)
         super.onAttach(context)
@@ -54,8 +56,63 @@ class AddTargetModal : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        parseArgs()
         setupViews()
+        choiceMode()
         observeViewModel()
+    }
+
+    private fun parseArgs(){
+        screenMode = args.screenMode
+    }
+
+    private fun choiceMode(){
+        when(screenMode){
+            Consts.MODE_ADD -> runModeAdd()
+            Consts.MODE_EDIT -> runModeEdit()
+        }
+    }
+
+    private fun runModeEdit(){
+        with(binding) {
+            var targetId: Int? = null
+            viewModel.getTargetItem(args.targetId)
+            viewModel.targetItem.observe(viewLifecycleOwner) {
+                targetId = it.id
+                etNameTarget.setText(it.name)
+                etStartPrice.setText(it.collectedPrice.toString())
+                etEndPrice.setText(it.totalPrice.toString())
+            }
+            btnAdd.setOnClickListener {
+                val nameTarget = etNameTarget.text.toString()
+                val startPrice = etStartPrice.text.toString()
+                val endPrice = etEndPrice.text.toString()
+                targetId?.let {
+                    viewModel.updateTarget(
+                        it,
+                        nameTarget,
+                        startPrice,
+                        endPrice
+                    )
+                }
+            }
+        }
+    }
+
+    private fun runModeAdd(){
+        with(binding) {
+            btnAdd.setOnClickListener {
+                val nameTarget = etNameTarget.text.toString()
+                val startPrice = etStartPrice.text.toString()
+                val endPrice = etEndPrice.text.toString()
+                viewModel.addTarget(
+                    args.projectId,
+                    nameTarget,
+                    startPrice,
+                    endPrice
+                )
+            }
+        }
     }
 
     private fun observeViewModel(){
@@ -81,19 +138,26 @@ class AddTargetModal : DialogFragment() {
 
     private fun setListenersInView() {
         with(binding) {
-            btnAdd.setOnClickListener {
-                val nameTarget = etNameTarget.text.toString()
-                val startPrice = etStartPrice.text.toString()
-                val endPrice = etEndPrice.text.toString()
-                viewModel.addTarget(
-                    args.projectId,
-                    nameTarget,
-                    startPrice,
-                    endPrice
-                )
-            }
             btnCancel.setOnClickListener {
                 dismiss()
+            }
+            etStartPrice.setOnFocusChangeListener { _, hasFocus ->
+                if (hasFocus && etStartPrice.text.toString() == "0") {
+                    etStartPrice.text.clear()
+                } else {
+                    if (etStartPrice.text.toString() == ""){
+                        etStartPrice.setText("0")
+                    }
+                }
+            }
+            etEndPrice.setOnFocusChangeListener { _, hasFocus ->
+                if (hasFocus && etEndPrice.text.toString() == "0") {
+                    etEndPrice.text.clear()
+                } else {
+                    if (etEndPrice.text.toString() == ""){
+                        etEndPrice.setText("0")
+                    }
+                }
             }
         }
     }
@@ -102,4 +166,5 @@ class AddTargetModal : DialogFragment() {
         super.onDestroyView()
         _binding = null
     }
+
 }

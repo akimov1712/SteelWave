@@ -33,6 +33,7 @@
             android:layout_width="230dp"
             android:layout_height="wrap_content"
             android:text="0"
+            android:maxLength="8"
             android:layout_marginTop="30dp"
             app:layout_constraintEnd_toEndOf="@+id/tv_title"
             app:layout_constraintHorizontal_bias="0.5"

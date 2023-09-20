@@ -38,6 +38,9 @@
         <action
             android:id="@+id/action_financeFragment_to_refillTargetModal"
             app:destination="@id/refillTargetModal" />
+        <action
+            android:id="@+id/action_financeFragment_to_deleteTargetModal"
+            app:destination="@id/deleteTargetModal" />
     </fragment>
     <fragment
         android:id="@+id/traficFragment"
@@ -98,13 +101,27 @@
         <argument
             android:name="projectId"
             app:argType="integer" />
+        <argument
+            android:name="screenMode"
+            app:argType="string" />
+        <argument
+            android:name="targetId"
+            app:argType="integer" />
     </dialog>
     <dialog
         android:id="@+id/refillTargetModal"
-        android:name="ru.steelwave.steelwave.presentation.main.finance.modals.choiceProjectAdapter.RefillTargetModal"
+        android:name="ru.steelwave.steelwave.presentation.main.finance.modals.RefillTargetModal"
         android:label="RefillTargetModal" >
         <argument
             android:name="targetId"
             app:argType="integer" />
+    </dialog>
+    <dialog
+        android:id="@+id/deleteTargetModal"
+        android:name="ru.steelwave.steelwave.presentation.main.finance.modals.DeleteTargetModal"
+        android:label="DeleteTargetModal" >
+        <argument
+            android:name="target"
+            app:argType="ru.steelwave.steelwave.domain.entity.finance.TargetModel" />
     </dialog>
 </navigation>

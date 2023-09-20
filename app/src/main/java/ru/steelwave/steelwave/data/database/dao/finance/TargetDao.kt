@@ -16,12 +16,12 @@ interface TargetDao {
     fun getAllTarget(projectId: Int): LiveData<List<TargetDbModel>>
 
     @Query("SELECT * FROM targets WHERE id=:targetId LIMIT 1")
-    fun getTargetItem(targetId: Int): TargetDbModel
+    suspend fun getTargetItem(targetId: Int): TargetDbModel
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addTarget(target: TargetDbModel)
 
-    @Delete
-    suspend fun deleteTarget(target: TargetDbModel)
+    @Query("DELETE FROM targets WHERE id =:targetId")
+    suspend fun deleteTarget(targetId: Int)
 
 }

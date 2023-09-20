@@ -8,7 +8,8 @@ import ru.steelwave.steelwave.presentation.main.finance.modals.ChoiceProjectModa
 import ru.steelwave.steelwave.presentation.main.finance.FinanceFragment
 import ru.steelwave.steelwave.presentation.main.finance.modals.AddLossModal
 import ru.steelwave.steelwave.presentation.main.finance.modals.AddTargetModal
-import ru.steelwave.steelwave.presentation.main.finance.modals.choiceProjectAdapter.RefillTargetModal
+import ru.steelwave.steelwave.presentation.main.finance.modals.DeleteTargetModal
+import ru.steelwave.steelwave.presentation.main.finance.modals.RefillTargetModal
 import ru.steelwave.steelwave.presentation.main.project.modals.AddProjectModal
 import ru.steelwave.steelwave.presentation.main.project.modals.EditProjectModal
 import ru.steelwave.steelwave.presentation.main.project.ProjectFragment
@@ -34,7 +35,7 @@ interface ApplicationComponent {
     fun inject(dialogFragment: AddLossModal)
     fun inject(dialogFragment: AddTargetModal)
     fun inject(dialogFragment: RefillTargetModal)
-//    fun inject(dialogFragment: AddTargetModal)
+    fun inject(dialogFragment: DeleteTargetModal)
 
     @Component.Factory
     interface Factory{

@@ -2,7 +2,6 @@ package ru.steelwave.steelwave.presentation.main.finance
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,9 +19,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.steelwave.steelwave.App
 import ru.steelwave.steelwave.Consts
-import ru.steelwave.steelwave.Loger
 import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.FragmentFinanceBinding
+import ru.steelwave.steelwave.domain.entity.finance.TargetModel
 import ru.steelwave.steelwave.presentation.ViewModelFactory
 import ru.steelwave.steelwave.presentation.main.finance.adapters.incomeAdapter.IncomeAdapter
 import ru.steelwave.steelwave.presentation.main.finance.adapters.lossAdapter.LossAdapter
@@ -122,11 +121,21 @@ class FinanceFragment : Fragment(){
             }
             targetList.observe(viewLifecycleOwner){
                 targetAdapter.submitList(it)
+                with(binding){
+                    rvTarget.visibility = View.VISIBLE
+                    inclErrorTarget.clError.visibility = View.GONE
+                }
             }
             yearIncomeItem.observe(viewLifecycleOwner){
                 with(binding){
                     clYearIncomeContent.visibility = View.VISIBLE
                     inclErrorYearIncome.clError.visibility = View.GONE
+                }
+            }
+            targetListError.observe(viewLifecycleOwner){
+                with(binding){
+                    rvTarget.visibility = View.GONE
+                    inclErrorTarget.clError.visibility = View.VISIBLE
                 }
             }
             incomeItemError.observe(viewLifecycleOwner){
@@ -222,24 +231,32 @@ class FinanceFragment : Fragment(){
     private fun setTargetAdapter(){
         LinearSnapHelper().attachToRecyclerView(binding.rvTarget)
         binding.rvTarget.adapter = targetAdapter
-        targetAdapter.onClickBtnMoreListener = { targetId, anchorView ->
-            setOpenMenuInTarget(anchorView, targetId)
+        targetAdapter.onClickBtnMoreListener = { target, anchorView ->
+            setOpenMenuInTarget(anchorView, target)
         }
     }
 
-    private fun setOpenMenuInTarget(anchorView: View, targetId: Int) {
+    private fun setOpenMenuInTarget(anchorView: View, target: TargetModel) {
         val popup = PopupMenu(requireContext(), anchorView)
         popup.menuInflater.inflate(R.menu.target_menu, popup.menu)
         popup.setForceShowIcon(true)
         popup.setOnMenuItemClickListener {
             when (it.itemId) {
+                R.id.menu_add -> {
+                    if (target.isFinished){
+                        Toast.makeText(requireContext(), "Цель достигнута", Toast.LENGTH_SHORT).show()
+                        false
+                    } else{
+                        openModalAddTarget(target.id)
+                        true
+                    }
+                }
                 R.id.menu_edit -> {
-                    openModalEditTarget(targetId)
+                    openModalEditTarget(target)
                     true
                 }
-
                 R.id.menu_delete -> {
-                    openModalDeleteTarget(targetId)
+                    openModalDeleteTarget(target)
                     true
                 }
                 else -> {
@@ -250,12 +267,23 @@ class FinanceFragment : Fragment(){
         popup.show()
     }
 
-    private fun openModalEditTarget(targetId: Int){
-
+    private fun openModalEditTarget(target: TargetModel) {
+        findNavController().navigate(
+            FinanceFragmentDirections
+                .actionFinanceFragmentToAddTargetModal(
+                    projectId = projectId,
+                    screenMode = Consts.MODE_EDIT,
+                    targetId = target.id
+                )
+        )
     }
 
-    private fun openModalDeleteTarget(targetId: Int){
+    private fun openModalAddTarget(targetId: Int){
+        findNavController().navigate(FinanceFragmentDirections.actionFinanceFragmentToRefillTargetModal(targetId))
+    }
 
+    private fun openModalDeleteTarget(target: TargetModel){
+        findNavController().navigate(FinanceFragmentDirections.actionFinanceFragmentToDeleteTargetModal(target))
     }
 
     private fun setYearIncomeAdapter(){
@@ -275,7 +303,12 @@ class FinanceFragment : Fragment(){
                     )
                 }
                 btnAddTarget.setOnClickListener{
-                    findNavController().navigate(FinanceFragmentDirections.actionFinanceFragmentToAddTargetModal(projectId))
+                    findNavController().navigate(FinanceFragmentDirections
+                        .actionFinanceFragmentToAddTargetModal(
+                            projectId = projectId,
+                            screenMode = Consts.MODE_ADD,
+                            targetId = UNDEFINED_ID
+                        ))
                 }
                 clChoiceDate.setOnClickListener {
                     openMonthPicker()

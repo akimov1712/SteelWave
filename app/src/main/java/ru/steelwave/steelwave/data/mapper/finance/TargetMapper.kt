@@ -16,7 +16,7 @@ class TargetMapper @Inject constructor(
         isFinished = target.isFinished
     )
 
-    private fun mapDbModelToEntity(target: TargetDbModel) = TargetModel(
+    fun mapDbModelToEntity(target: TargetDbModel) = TargetModel(
         id = target.id,
         projectId = target.projectId,
         name = target.name,
