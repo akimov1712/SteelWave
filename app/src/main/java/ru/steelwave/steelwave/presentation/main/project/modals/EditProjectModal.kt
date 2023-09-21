@@ -19,6 +19,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.datepicker.MaterialDatePicker
 import ru.steelwave.steelwave.App
 import ru.steelwave.steelwave.databinding.ModalEditProjectBinding
+import ru.steelwave.steelwave.presentation.CustomToast
 import ru.steelwave.steelwave.presentation.ViewModelFactory
 import ru.steelwave.steelwave.presentation.main.project.ProjectViewModel
 import java.util.Calendar
@@ -94,7 +95,7 @@ class EditProjectModal : BottomSheetDialogFragment() {
                 binding.etNameProject.error = "Введите название проекта"
             }
             errorImage.observe(viewLifecycleOwner){
-                Toast.makeText(requireContext(), "Выберите обложку", Toast.LENGTH_SHORT).show()
+                CustomToast.toastDefault(requireContext(), "Выберите обложку")
                 binding.ivError.visibility = View.VISIBLE
             }
             shouldCloseScreen.observe(viewLifecycleOwner){

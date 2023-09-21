@@ -1,4 +1,4 @@
-package ru.steelwave.steelwave.presentation.main.finance.modals
+package ru.steelwave.steelwave.presentation.modals
 
 import android.content.Context
 import android.graphics.Color
@@ -10,12 +10,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import ru.steelwave.steelwave.App
+import ru.steelwave.steelwave.Const
 import ru.steelwave.steelwave.databinding.ModalChoiceProjectBinding
 import ru.steelwave.steelwave.domain.entity.project.ProjectModel
 import ru.steelwave.steelwave.presentation.ViewModelFactory
 import ru.steelwave.steelwave.presentation.main.finance.FinanceViewModel
-import ru.steelwave.steelwave.presentation.main.finance.modals.choiceProjectAdapter.ChoiceProjectAdapter
+import ru.steelwave.steelwave.presentation.modals.choiceProjectAdapter.ChoiceProjectAdapter
 import javax.inject.Inject
 
 
@@ -24,6 +26,8 @@ class ChoiceProjectModal : DialogFragment() {
     private val component by lazy{
         (requireActivity().application as App).component
     }
+
+    private val args by navArgs<ChoiceProjectModalArgs>()
 
     private var _binding: ModalChoiceProjectBinding? = null
     private val binding: ModalChoiceProjectBinding
@@ -87,7 +91,23 @@ class ChoiceProjectModal : DialogFragment() {
     private fun setChoiceProjectAdapter(){
         binding.rvProjects.adapter = choiceProjectAdapter
         choiceProjectAdapter.onChoiceProjectClickListener = {
-            findNavController().navigate(ChoiceProjectModalDirections.actionChoiceProjectModalToFinanceFragment(it))
+            choiceModeProject(it)
+        }
+    }
+
+    private fun choiceModeProject(projectId: Int) {
+        when (args.screenMode) {
+            Const.MODE_CHOICE_PROJECT_FINANCE -> {
+                findNavController().navigate(
+                    ChoiceProjectModalDirections.actionChoiceProjectModalToFinanceFragment(projectId)
+                )
+            }
+
+            Const.MODE_CHOICE_PROJECT_TRAFFIC -> {
+                findNavController().navigate(
+                    ChoiceProjectModalDirections.actionChoiceProjectModalToTraficFragment(projectId)
+                )
+            }
         }
     }
 

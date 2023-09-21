@@ -7,12 +7,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import ru.steelwave.steelwave.App
-import ru.steelwave.steelwave.Consts
+import ru.steelwave.steelwave.Const
 import ru.steelwave.steelwave.databinding.ModalAddTargetBinding
 import ru.steelwave.steelwave.presentation.ViewModelFactory
 import ru.steelwave.steelwave.presentation.main.finance.FinanceViewModel
@@ -37,7 +36,7 @@ class AddTargetModal : DialogFragment() {
         ViewModelProvider(this, viewModelFactory)[FinanceViewModel::class.java]
     }
 
-    private var screenMode: String = Consts.MODE_UNKNOWN
+    private var screenMode: String = Const.MODE_UNKNOWN
 
     override fun onAttach(context: Context) {
         component.inject(this)
@@ -68,8 +67,8 @@ class AddTargetModal : DialogFragment() {
 
     private fun choiceMode(){
         when(screenMode){
-            Consts.MODE_ADD -> runModeAdd()
-            Consts.MODE_EDIT -> runModeEdit()
+            Const.MODE_ADD_TARGET -> runModeAdd()
+            Const.MODE_EDIT_TARGET -> runModeEdit()
         }
     }
 

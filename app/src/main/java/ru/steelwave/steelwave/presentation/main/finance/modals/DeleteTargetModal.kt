@@ -6,17 +6,14 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
-import android.text.style.BackgroundColorSpan
 import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import ru.steelwave.steelwave.App
-import ru.steelwave.steelwave.Consts
 import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.ModalConfirmDeleteTargetBinding
 import ru.steelwave.steelwave.presentation.ViewModelFactory

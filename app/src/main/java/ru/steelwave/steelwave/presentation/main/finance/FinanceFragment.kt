@@ -18,10 +18,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.steelwave.steelwave.App
-import ru.steelwave.steelwave.Consts
+import ru.steelwave.steelwave.Const
 import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.FragmentFinanceBinding
 import ru.steelwave.steelwave.domain.entity.finance.TargetModel
+import ru.steelwave.steelwave.presentation.CustomToast
 import ru.steelwave.steelwave.presentation.ViewModelFactory
 import ru.steelwave.steelwave.presentation.main.finance.adapters.incomeAdapter.IncomeAdapter
 import ru.steelwave.steelwave.presentation.main.finance.adapters.lossAdapter.LossAdapter
@@ -36,7 +37,7 @@ import javax.inject.Inject
 class FinanceFragment : Fragment(){
 
     private val args by navArgs<FinanceFragmentArgs>()
-    private var projectId = UNDEFINED_ID
+    private var projectId = Const.UNDEFINED_ID
 
     private val component by lazy {
         (requireActivity().application as App).component
@@ -85,7 +86,7 @@ class FinanceFragment : Fragment(){
 
     private fun observeViewModel() {
         with(viewModel) {
-            if (projectId != UNDEFINED_ID) {
+            if (projectId != Const.UNDEFINED_ID) {
                 getProjectItem(projectId)
                 getData(args.projectId, selectedDate, selectedYear)
             }
@@ -162,7 +163,7 @@ class FinanceFragment : Fragment(){
 
     private fun switchScreensAdding() {
         with(binding){
-            if (projectId != UNDEFINED_ID){
+            if (projectId != Const.UNDEFINED_ID){
                 tvChoiceProject.visibility = View.GONE
                 clFinance.visibility = View.VISIBLE
             } else {
@@ -188,7 +189,7 @@ class FinanceFragment : Fragment(){
     private fun refreshFragment(){
         with(binding.swipeRefresh){
             isEnabled = false
-            if (projectId != UNDEFINED_ID){
+            if (projectId != Const.UNDEFINED_ID){
                 isEnabled = true
             }
             setColorSchemeResources(R.color.sw_purple)
@@ -206,6 +207,7 @@ class FinanceFragment : Fragment(){
         with(binding){
             inclErrorLoss.tvNotFound.text = "Расходов за данный\nмесяц не обнаружено"
             inclErrorYearIncome.tvNotFound.text = "Cтатистики за данный\nгод не обнаружено"
+            inclErrorTarget.tvNotFound.text = "Целей у проекта\nне обнаружено"
         }
     }
 
@@ -244,7 +246,7 @@ class FinanceFragment : Fragment(){
             when (it.itemId) {
                 R.id.menu_add -> {
                     if (target.isFinished){
-                        Toast.makeText(requireContext(), "Цель достигнута", Toast.LENGTH_SHORT).show()
+                        CustomToast.toastDefault(requireContext(), "Цель достигнута")
                         false
                     } else{
                         openModalAddTarget(target.id)
@@ -272,7 +274,7 @@ class FinanceFragment : Fragment(){
             FinanceFragmentDirections
                 .actionFinanceFragmentToAddTargetModal(
                     projectId = projectId,
-                    screenMode = Consts.MODE_EDIT,
+                    screenMode = Const.MODE_EDIT_TARGET,
                     targetId = target.id
                 )
         )
@@ -292,7 +294,7 @@ class FinanceFragment : Fragment(){
 
     private fun setListenersInView() {
         with(binding) {
-            if (projectId != null && projectId != UNDEFINED_ID){
+            if (projectId != null && projectId != Const.UNDEFINED_ID){
                 btnAddExpenses.setOnClickListener {
                     val date = Date(selectedDate.year, selectedDate.month, 1)
                     findNavController().navigate(
@@ -306,8 +308,8 @@ class FinanceFragment : Fragment(){
                     findNavController().navigate(FinanceFragmentDirections
                         .actionFinanceFragmentToAddTargetModal(
                             projectId = projectId,
-                            screenMode = Consts.MODE_ADD,
-                            targetId = UNDEFINED_ID
+                            screenMode = Const.MODE_ADD_TARGET,
+                            targetId = Const.UNDEFINED_ID
                         ))
                 }
                 clChoiceDate.setOnClickListener {
@@ -315,7 +317,9 @@ class FinanceFragment : Fragment(){
                 }
             }
             tvProjectFinance.setOnClickListener {
-                findNavController().navigate(FinanceFragmentDirections.actionFinanceFragmentToChoiceProjectModal())
+                findNavController().navigate(
+                    FinanceFragmentDirections.
+                    actionFinanceFragmentToChoiceProjectModal(Const.MODE_CHOICE_PROJECT_FINANCE))
             }
         }
     }
@@ -355,17 +359,13 @@ class FinanceFragment : Fragment(){
 //        val projectIdArgs = FinanceFragmentArgs.fromBundle(requireArguments()).projectId
 //        if (projectId == projectIdArgs){
 //            requireArguments().clear()
-//            projectId = UNDEFINED_ID
+//            projectId = Const.UNDEFINED_ID
 //        }
 //    }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    companion object {
-        private const val UNDEFINED_ID = -1
     }
 
 }

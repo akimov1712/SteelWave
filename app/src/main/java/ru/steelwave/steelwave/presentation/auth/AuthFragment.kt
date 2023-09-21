@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.FragmentAuthBinding
+import ru.steelwave.steelwave.presentation.CustomToast
 import ru.steelwave.steelwave.presentation.MainActivity
 
 class AuthFragment : Fragment() {
@@ -48,7 +49,7 @@ class AuthFragment : Fragment() {
                 Intent(requireContext(), MainActivity::class.java).also {
                     startActivity(it)
                     requireActivity().finish()
-                    Toast.makeText(requireContext(), "Вы успешно авторизованы", Toast.LENGTH_SHORT).show()
+                    CustomToast.toastDefault(requireContext(), "Вы успешно авторизованы")
                 }
             }
             btnBack.setOnClickListener{

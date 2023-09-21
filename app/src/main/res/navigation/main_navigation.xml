@@ -44,9 +44,17 @@
     </fragment>
     <fragment
         android:id="@+id/traficFragment"
-        android:name="ru.steelwave.steelwave.presentation.main.trafic.TraficFragment"
+        android:name="ru.steelwave.steelwave.presentation.main.traffic.TrafficFragment"
         android:label="@string/trafic"
-        tools:layout="@layout/fragment_trafic" />
+        tools:layout="@layout/fragment_traffic" >
+        <argument
+            android:name="projectId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+        <action
+            android:id="@+id/action_traficFragment_to_choiceProjectModal"
+            app:destination="@id/choiceProjectModal" />
+    </fragment>
     <fragment
         android:id="@+id/employeesFragment"
         android:name="ru.steelwave.steelwave.presentation.main.employees.EmployeesFragment"
@@ -76,12 +84,18 @@
     </dialog>
     <dialog
         android:id="@+id/choiceProjectModal"
-        android:name="ru.steelwave.steelwave.presentation.main.finance.modals.ChoiceProjectModal"
+        android:name="ru.steelwave.steelwave.presentation.modals.ChoiceProjectModal"
         android:label="ChoiceProjectModal" >
         <action
             android:id="@+id/action_choiceProjectModal_to_financeFragment"
             app:destination="@id/financeFragment"
             app:launchSingleTop="true" />
+        <argument
+            android:name="screen_mode"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_choiceProjectModal_to_traficFragment"
+            app:destination="@id/traficFragment" />
     </dialog>
     <dialog
         android:id="@+id/addLossModal"

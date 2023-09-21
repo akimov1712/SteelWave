@@ -1,4 +1,4 @@
-package ru.steelwave.steelwave.presentation.main.finance.modals.choiceProjectAdapter
+package ru.steelwave.steelwave.presentation.modals.choiceProjectAdapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

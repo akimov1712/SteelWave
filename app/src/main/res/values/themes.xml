@@ -49,6 +49,12 @@
         <item name="android:fontFamily">@font/poppins_medium</item>
     </style>
 
+    <style name="sw_textView_toast" parent="sw_textView_title">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/default_size</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
     <style name="sw_textView_normal">
         <item name="android:textColor">@color/sw_black</item>
         <item name="android:textSize">@dimen/normal_size</item>
@@ -59,6 +65,7 @@
         <item name="android:textColor">@color/sw_black</item>
         <item name="android:textSize">@dimen/default_size</item>
         <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:textCursorDrawable">@drawable/background_color_cursor</item>
         <item name="android:textColorHint">@color/sw_black_transparent_editText</item>
         <item name="android:backgroundTint">@color/sw_purple</item>
         <item name="android:maxLength">24</item>

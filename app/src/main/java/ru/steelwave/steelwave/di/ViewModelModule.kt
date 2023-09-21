@@ -9,7 +9,7 @@ import ru.steelwave.steelwave.presentation.main.ads.AdsViewModel
 import ru.steelwave.steelwave.presentation.main.employees.EmployeesViewModel
 import ru.steelwave.steelwave.presentation.main.finance.FinanceViewModel
 import ru.steelwave.steelwave.presentation.main.project.ProjectViewModel
-import ru.steelwave.steelwave.presentation.main.trafic.TraficViewModel
+import ru.steelwave.steelwave.presentation.main.traffic.TrafficViewModel
 
 
 @Module
@@ -36,9 +36,9 @@ interface ViewModelModule {
     fun bindProjectViewModel(impl: ProjectViewModel): ViewModel
 
     @IntoMap
-    @ViewModelKey(TraficViewModel::class)
+    @ViewModelKey(TrafficViewModel::class)
     @Binds
-    fun bindTraficViewModel(impl: TraficViewModel): ViewModel
+    fun bindTraficViewModel(impl: TrafficViewModel): ViewModel
 
     @IntoMap
     @ViewModelKey(AuthViewModel::class)

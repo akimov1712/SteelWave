@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import ru.steelwave.steelwave.databinding.ModalAddEmployeeBinding
+import ru.steelwave.steelwave.presentation.CustomToast
 
 class AddEmployeeModal: DialogFragment() {
 
@@ -44,7 +45,7 @@ class AddEmployeeModal: DialogFragment() {
                 btnAdd.visibility = View.VISIBLE
             }
             btnAdd.setOnClickListener{
-                Toast.makeText(requireContext(), "Пользователь добавлен", Toast.LENGTH_SHORT).show()
+                CustomToast.toastDefault(requireContext(), "Пользователь добавлен")
                 dismiss()
             }
             btnCancel.setOnClickListener {
