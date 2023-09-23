@@ -1,4 +1,4 @@
-package ru.steelwave.steelwave.domain.useCase.finance.incomeYear
+package ru.steelwave.steelwave.domain.useCase.finance
 
 import ru.steelwave.steelwave.domain.repository.finance.YearIncomeRepository
 import javax.inject.Inject

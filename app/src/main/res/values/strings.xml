@@ -119,5 +119,8 @@
     <string name="refill_target">Пополнить цель</string>
     <string name="delete_target">Удалить цель</string>
     <string name="delete">Удалить</string>
+    <string name="view_pages">Просмотри страницы</string>
+    <string name="page_view_visit">Просмотр страницы за визит</string>
+    <string name="average_time">Среднее время на сайте</string>
 
 </resources>

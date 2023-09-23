@@ -20,6 +20,7 @@ import ru.steelwave.steelwave.Const
 import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.FragmentTrafficBinding
 import ru.steelwave.steelwave.presentation.ViewModelFactory
+import ru.steelwave.steelwave.utils.formatPrice
 import java.sql.Date
 import java.util.Calendar
 import javax.inject.Inject
@@ -66,21 +67,42 @@ class TrafficFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setValueFromArgs()
         setupViews()
+        observeViewModel()
     }
 
     private fun setupViews(){
         refreshFragment()
         setRecyclerViews()
-        switchScreensAdding()
         setListenersInView()
+        setViewErrors()
     }
 
     private fun setRecyclerViews(){
 
     }
 
+    private fun observeViewModel() {
+        with(viewModel) {
+            if (projectId != Const.UNDEFINED_ID) {
+                getProjectItem(projectId)
+            }
+            projectItem.observe(viewLifecycleOwner) {
+                switchScreensAdding()
+                binding.apply {
+                    tvProjectTrafic.text = it.name
+                }
+            }
+        }
+    }
+
     private fun setValueFromArgs() {
         projectId = args.projectId
+    }
+
+    private fun setViewErrors(){
+        with(binding){
+            inclErrorVisition.tvNotFound.text = "Посетителей за данный\nмесяц не обнаружено"
+        }
     }
 
     private fun refreshFragment(){

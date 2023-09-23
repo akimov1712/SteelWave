@@ -1,4 +1,4 @@
-package ru.steelwave.steelwave.domain.useCase.finance.transaction
+package ru.steelwave.steelwave.domain.useCase.finance
 
 import ru.steelwave.steelwave.domain.entity.finance.TransactionModel
 import ru.steelwave.steelwave.domain.repository.finance.TransactionRepository

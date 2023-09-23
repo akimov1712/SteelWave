@@ -6,10 +6,14 @@ import ru.steelwave.steelwave.data.repository.finance.TargetRepositoryImpl
 import ru.steelwave.steelwave.data.repository.finance.TransactionRepositoryImpl
 import ru.steelwave.steelwave.data.repository.finance.YearIncomeRepositoryImpl
 import ru.steelwave.steelwave.data.repository.project.ProjectRepositoryImpl
+import ru.steelwave.steelwave.data.repository.traffic.TransferRepositoryImpl
+import ru.steelwave.steelwave.data.repository.traffic.VisitionRepositoryImpl
 import ru.steelwave.steelwave.domain.repository.finance.TargetRepository
 import ru.steelwave.steelwave.domain.repository.finance.TransactionRepository
 import ru.steelwave.steelwave.domain.repository.finance.YearIncomeRepository
 import ru.steelwave.steelwave.domain.repository.project.ProjectRepository
+import ru.steelwave.steelwave.domain.repository.traffic.TransferRepository
+import ru.steelwave.steelwave.domain.repository.traffic.VisitionRepository
 
 @Module
 interface DomainModule {
@@ -25,6 +29,12 @@ interface DomainModule {
 
     @Binds
     fun bindProjectRepository(impl: ProjectRepositoryImpl): ProjectRepository
+
+    @Binds
+    fun bindTransferRepository(impl: TransferRepositoryImpl): TransferRepository
+
+    @Binds
+    fun bindVisitionRepository(impl: VisitionRepositoryImpl): VisitionRepository
 
 
 //    @Binds
