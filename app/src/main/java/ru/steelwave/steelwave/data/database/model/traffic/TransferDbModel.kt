@@ -12,6 +12,5 @@ data class TransferDbModel(
     val projectId: Int,
     val name: String,
     val count: Int,
-    val startDate: Long,
-    val endDate: Long,
+    val date: Long,
 )

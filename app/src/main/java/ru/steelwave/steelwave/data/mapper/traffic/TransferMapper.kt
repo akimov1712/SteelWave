@@ -12,8 +12,7 @@ class TransferMapper @Inject constructor() {
         projectId = transfer.projectId,
         name = transfer.name,
         count = transfer.count,
-        startDate = transfer.startDate.time,
-        endDate = transfer.endDate.time
+        date = transfer.date.time,
     )
 
     fun mapDbModelToEntity(transfer: TransferDbModel) = TransferModel(
@@ -21,8 +20,7 @@ class TransferMapper @Inject constructor() {
         projectId = transfer.projectId,
         name = transfer.name,
         count = transfer.count,
-        startDate = Date(transfer.startDate),
-        endDate = Date(transfer.endDate)
+        date = Date(transfer.date),
     )
 
     fun mapListDbModelToListEntity(transferList: List<TransferDbModel>) = transferList.map{

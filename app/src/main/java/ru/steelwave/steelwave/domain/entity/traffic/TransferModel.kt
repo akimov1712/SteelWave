@@ -8,6 +8,5 @@ data class TransferModel(
     val projectId: Int,
     val name: String,
     val count: Int,
-    val startDate: Date,
-    val endDate: Date,
+    val date: Date,
 )

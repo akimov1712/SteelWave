@@ -11,7 +11,7 @@ import java.util.Date
 @Dao
 interface TransferDao {
 
-    @Query("SELECT * FROM transfers WHERE projectId = :projectId AND startDate = :startDate AND endDate = :endDate")
+    @Query("SELECT * FROM transfers WHERE projectId = :projectId AND date >= :startDate AND date <= :endDate")
     fun getTransferList(
         projectId: Int,
         startDate: Long,
