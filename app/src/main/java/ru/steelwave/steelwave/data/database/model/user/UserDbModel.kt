@@ -1,5 +1,6 @@
 package ru.steelwave.steelwave.data.database.model.user
 
+import android.graphics.Bitmap
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import ru.steelwave.steelwave.data.database.model.project.ProjectDbModel
@@ -17,7 +18,7 @@ data class UserDbModel(
     var secondName: String,
     var middleName: String,
 
-    var avatar: String? = null,
+    var avatar: Bitmap?,
     var position: String,
     var project: ProjectDbModel,
     var salary: Int

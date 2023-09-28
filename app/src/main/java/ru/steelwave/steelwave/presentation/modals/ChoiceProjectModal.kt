@@ -102,10 +102,19 @@ class ChoiceProjectModal : DialogFragment() {
                     ChoiceProjectModalDirections.actionChoiceProjectModalToFinanceFragment(projectId)
                 )
             }
-
             Const.MODE_CHOICE_PROJECT_TRAFFIC -> {
                 findNavController().navigate(
                     ChoiceProjectModalDirections.actionChoiceProjectModalToTraficFragment(projectId)
+                )
+            }
+            Const.MODE_CHOICE_PROJECT_EMPLOYEES -> {
+                findNavController().navigate(
+                    ChoiceProjectModalDirections.actionChoiceProjectModalToEmployeesFragment(projectId)
+                )
+            }
+            Const.MODE_CHOICE_PROJECT_ADS -> {
+                findNavController().navigate(
+                    ChoiceProjectModalDirections.actionChoiceProjectModalToAdsFragment(projectId)
                 )
             }
         }

@@ -1,4 +1,4 @@
-package ru.steelwave.steelwave.presentation.main.employees
+package ru.steelwave.steelwave.presentation.main.employees.modals
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable

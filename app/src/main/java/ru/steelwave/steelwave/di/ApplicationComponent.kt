@@ -4,6 +4,8 @@ import android.app.Application
 import dagger.BindsInstance
 import dagger.Component
 import ru.steelwave.steelwave.presentation.MainActivity
+import ru.steelwave.steelwave.presentation.main.ads.AdsFragment
+import ru.steelwave.steelwave.presentation.main.employees.EmployeesFragment
 import ru.steelwave.steelwave.presentation.modals.ChoiceProjectModal
 import ru.steelwave.steelwave.presentation.main.finance.FinanceFragment
 import ru.steelwave.steelwave.presentation.main.finance.modals.AddLossModal
@@ -30,6 +32,8 @@ interface ApplicationComponent {
     fun inject(fragment: ProjectFragment)
     fun inject(fragment: FinanceFragment)
     fun inject(fragment: TrafficFragment)
+    fun inject(fragment: EmployeesFragment)
+    fun inject(fragment: AdsFragment)
 
     fun inject(dialogFragment: AddProjectModal)
     fun inject(dialogFragment: EditProjectModal)

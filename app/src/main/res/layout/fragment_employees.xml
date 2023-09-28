@@ -19,6 +19,20 @@
             android:paddingBottom="40dp">
 
             <TextView
+                android:id="@+id/tv_choice_project"
+                style="@style/sw_textView_normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="350dp"
+                android:text="Выберите проект"
+                android:textColor="@color/sw_black_transparent"
+                android:textSize="@dimen/very_small_size"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
                 android:id="@+id/tv_employees"
                 style="@style/sw_textView_title"
                 android:layout_width="wrap_content"
@@ -44,7 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:text="Unotes"
+                    android:text="Не выбрано"
                     android:textColor="@color/sw_purple"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -63,60 +77,73 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/textView10"
-                style="@style/sw_textView_normal"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_employees"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/all_employees"
-                android:textColor="@color/sw_black_transparent"
-                app:layout_constraintStart_toStartOf="@+id/tv_employees"
-                app:layout_constraintTop_toBottomOf="@+id/tv_employees" />
-
-            <TextView
-                android:id="@+id/tv_count_employees"
-                style="@style/sw_textView_normal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="5"
-                android:textColor="@color/sw_purple"
-                app:layout_constraintBottom_toBottomOf="@+id/textView10"
-                app:layout_constraintStart_toEndOf="@+id/textView10" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_employees"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView10"
-                tools:listitem="@layout/item_employee" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_employees">
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_add_employees"
-                style="@style/sw_button_fill"
-                android:layout_width="230dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="20dp"
-                android:text="@string/new_employees"
-                app:layout_constraintEnd_toEndOf="@+id/rv_employees"
-                app:layout_constraintStart_toStartOf="@+id/rv_employees"
-                app:layout_constraintTop_toBottomOf="@+id/rv_employees" />
+                <TextView
+                    android:id="@+id/textView10"
+                    style="@style/sw_textView_normal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/all_employees"
+                    android:layout_marginStart="20dp"
+                    android:textColor="@color/sw_black_transparent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_view_more"
-                style="@style/sw_button_empty"
-                android:layout_width="230dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/view_more"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="@+id/btn_add_employees"
-                app:layout_constraintStart_toStartOf="@+id/btn_add_employees"
-                app:layout_constraintTop_toBottomOf="@+id/btn_add_employees" />
+                <TextView
+                    android:id="@+id/tv_count_employees"
+                    style="@style/sw_textView_normal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="0"
+                    android:textColor="@color/sw_purple"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView10"
+                    app:layout_constraintStart_toEndOf="@+id/textView10" />
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_employees"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textView10"
+                    tools:listitem="@layout/item_employee" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_add_employees"
+                    style="@style/sw_button_fill"
+                    android:layout_width="230dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/new_employees"
+                    app:layout_constraintEnd_toEndOf="@+id/rv_employees"
+                    app:layout_constraintStart_toStartOf="@+id/rv_employees"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_employees" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_view_more"
+                    style="@style/sw_button_empty"
+                    android:layout_width="230dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/view_more"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@+id/btn_add_employees"
+                    app:layout_constraintStart_toStartOf="@+id/btn_add_employees"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_add_employees" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

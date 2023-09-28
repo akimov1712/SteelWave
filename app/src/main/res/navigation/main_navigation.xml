@@ -59,12 +59,28 @@
         android:id="@+id/employeesFragment"
         android:name="ru.steelwave.steelwave.presentation.main.employees.EmployeesFragment"
         android:label="@string/employees"
-        tools:layout="@layout/fragment_employees" />
+        tools:layout="@layout/fragment_employees" >
+        <action
+            android:id="@+id/action_employeesFragment_to_choiceProjectModal"
+            app:destination="@id/choiceProjectModal" />
+        <argument
+            android:name="projectId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
     <fragment
         android:id="@+id/adsFragment"
         android:name="ru.steelwave.steelwave.presentation.main.ads.AdsFragment"
         android:label="@string/ads"
-        tools:layout="@layout/fragment_ads" />
+        tools:layout="@layout/fragment_ads" >
+        <action
+            android:id="@+id/action_adsFragment_to_choiceProjectModal"
+            app:destination="@id/choiceProjectModal" />
+        <argument
+            android:name="projectId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
     <fragment
         android:id="@+id/rulesFragmentInMain"
         android:name="ru.steelwave.steelwave.presentation.rules.RulesFragment"
@@ -96,6 +112,12 @@
         <action
             android:id="@+id/action_choiceProjectModal_to_traficFragment"
             app:destination="@id/traficFragment" />
+        <action
+            android:id="@+id/action_choiceProjectModal_to_employeesFragment"
+            app:destination="@id/employeesFragment" />
+        <action
+            android:id="@+id/action_choiceProjectModal_to_adsFragment"
+            app:destination="@id/adsFragment" />
     </dialog>
     <dialog
         android:id="@+id/addLossModal"

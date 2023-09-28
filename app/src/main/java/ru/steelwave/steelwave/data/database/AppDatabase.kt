@@ -21,6 +21,7 @@ import ru.steelwave.steelwave.data.database.dao.project.ProjectDao
 import ru.steelwave.steelwave.data.database.dao.finance.YearIncomeDao
 import ru.steelwave.steelwave.data.database.dao.traffic.TransferDao
 import ru.steelwave.steelwave.data.database.dao.traffic.VisitionDao
+import ru.steelwave.steelwave.data.database.dao.user.UserDao
 import ru.steelwave.steelwave.data.database.model.finance.TargetDbModel
 import ru.steelwave.steelwave.data.database.model.finance.TransactionDbModel
 import ru.steelwave.steelwave.data.database.model.finance.YearIncomeDbModel
@@ -40,7 +41,7 @@ import ru.steelwave.steelwave.data.database.model.user.UserDbModel
         TransferDbModel::class,
         VisitionDbModel::class
     ],
-    version = 16,
+    version = 17,
     exportSchema = false
 )
 @TypeConverters(
@@ -60,6 +61,7 @@ abstract class AppDatabase: RoomDatabase() {
     abstract fun transactionDao(): TransactionDao
     abstract fun transferDao(): TransferDao
     abstract fun visitionDao(): VisitionDao
+    abstract fun userDao(): UserDao
 
     companion object{
         private var INSTANCE: AppDatabase? = null

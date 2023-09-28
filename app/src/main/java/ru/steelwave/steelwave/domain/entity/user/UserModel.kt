@@ -1,5 +1,6 @@
 package ru.steelwave.steelwave.domain.entity.user
 
+import android.graphics.Bitmap
 import ru.steelwave.steelwave.domain.entity.project.ProjectModel
 
 data class UserModel(
@@ -13,7 +14,7 @@ data class UserModel(
     var secondName: String,
     var middleName: String,
 
-    var avatar: String? = null,
+    var avatar: Bitmap? = null,
     var position: String,
     var project: ProjectModel,
     var salary: Int

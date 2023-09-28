@@ -12,5 +12,7 @@ object Const {
 
     const val MODE_CHOICE_PROJECT_FINANCE = "mode_choice_project_finance"
     const val MODE_CHOICE_PROJECT_TRAFFIC = "mode_choice_project_traffic"
+    const val MODE_CHOICE_PROJECT_EMPLOYEES = "mode_choice_project_employees"
+    const val MODE_CHOICE_PROJECT_ADS = "mode_choice_project_ads"
 
 }

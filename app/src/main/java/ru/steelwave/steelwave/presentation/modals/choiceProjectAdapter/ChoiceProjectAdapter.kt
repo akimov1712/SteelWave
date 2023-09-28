@@ -26,6 +26,7 @@ class ChoiceProjectAdapter: ListAdapter<ProjectModel, ChoiceProjectViewHolder>(
             ivProject.setOnClickListener {
                 onChoiceProjectClickListener?.invoke(item.id)
             }
+            tvNameProject.text = item.name
         }
     }
 }
