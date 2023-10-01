@@ -1,8 +1,11 @@
 package ru.steelwave.steelwave.domain.entity.user
 
 import android.graphics.Bitmap
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import ru.steelwave.steelwave.domain.entity.project.ProjectModel
 
+@Parcelize
 data class UserModel(
     val id: Int,
 
@@ -18,4 +21,4 @@ data class UserModel(
     var position: String,
     var project: ProjectModel,
     var salary: Int
-)
+): Parcelable

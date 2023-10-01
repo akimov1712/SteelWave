@@ -45,16 +45,17 @@ class ProjectViewModel @Inject constructor(
         }
     }
 
-    fun deleteProjectItem(){
+    fun deleteProjectItem(projectId: Int){
         viewModelScope.launch {
-            _projectItem.value?.let { deleteProjectUseCase(it) }
+            deleteProjectUseCase(projectId)
+            finishWork()
         }
     }
 
     fun addProject(inputName: String?, inputImage: Bitmap?, inputCreatedDate: Long?) {
         val name = parseName(inputName)
         val createdDate = parseCreatedDate(inputCreatedDate)
-        val fieldsValid = validateInput(name, inputImage, createdDate)
+        val fieldsValid = validateInput(name, inputImage)
         if (fieldsValid){
             viewModelScope.launch {
                 val projectItem = ProjectModel(name = name, previewImage = inputImage, dateRelease = createdDate)
@@ -67,7 +68,7 @@ class ProjectViewModel @Inject constructor(
     fun editProject(inputName: String?, inputImage: Bitmap?, inputCreatedDate: Long?) {
         val name = parseName(inputName)
         val createdDate = parseCreatedDate(inputCreatedDate)
-        val fieldsValid = validateInput(name, inputImage, createdDate)
+        val fieldsValid = validateInput(name, inputImage)
         if (fieldsValid){
             _projectItem.value?.let {
                 viewModelScope.launch {
@@ -87,7 +88,7 @@ class ProjectViewModel @Inject constructor(
         return createdDate ?: System.currentTimeMillis()
     }
 
-    private fun validateInput(name: String, image: Bitmap?, createdDate: Long): Boolean {
+    private fun validateInput(name: String, image: Bitmap?): Boolean {
         var result = true
         if (name.isBlank()) {
             _errorInputName.value = true
@@ -98,10 +99,6 @@ class ProjectViewModel @Inject constructor(
             result = false
         }
         return result
-    }
-
-    fun resetErrorInputName() {
-        _errorInputName.value = false
     }
 
     private fun finishWork() {

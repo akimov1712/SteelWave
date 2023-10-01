@@ -15,6 +15,7 @@ import ru.steelwave.steelwave.presentation.main.finance.modals.RefillTargetModal
 import ru.steelwave.steelwave.presentation.main.project.modals.AddProjectModal
 import ru.steelwave.steelwave.presentation.main.project.modals.EditProjectModal
 import ru.steelwave.steelwave.presentation.main.project.ProjectFragment
+import ru.steelwave.steelwave.presentation.main.project.modals.DeleteProjectModal
 import ru.steelwave.steelwave.presentation.main.traffic.TrafficFragment
 
 @ApplicationScope
@@ -42,6 +43,7 @@ interface ApplicationComponent {
     fun inject(dialogFragment: AddTargetModal)
     fun inject(dialogFragment: RefillTargetModal)
     fun inject(dialogFragment: DeleteTargetModal)
+    fun inject(dialogFragment: DeleteProjectModal)
 
     @Component.Factory
     interface Factory{

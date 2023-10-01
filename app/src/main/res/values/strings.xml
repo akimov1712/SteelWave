@@ -69,6 +69,7 @@
     <string name="kick">Исключение</string>
     <string name="you_really_need_kick_user"><font color='#80293241'>Вы действительно хотите исключить — </font></string>
     <string name="you_really_need_delete_target">Вы действительно хотите удалить цель — </string>
+    <string name="you_really_need_delete_project">Вы действительно хотите удалить проект — </string>
     <string name="projects">Проекты</string>
     <string name="finance">Финансы</string>
     <string name="trafic">Трафик</string>
@@ -122,5 +123,6 @@
     <string name="view_pages">Просмотри страницы</string>
     <string name="page_view_visit">Просмотр страницы за визит</string>
     <string name="average_time">Среднее время на сайте</string>
+    <string name="delete_project">Удалить проект</string>
 
 </resources>

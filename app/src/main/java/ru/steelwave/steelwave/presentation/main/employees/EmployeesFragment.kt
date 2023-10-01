@@ -126,6 +126,11 @@ class EmployeesFragment : Fragment() {
                     )
                 )
             }
+            btnAddEmployees.setOnClickListener {
+                findNavController().navigate(
+                    EmployeesFragmentDirections.actionEmployeesFragmentToAddEmployeeModal()
+                )
+            }
         }
     }
 

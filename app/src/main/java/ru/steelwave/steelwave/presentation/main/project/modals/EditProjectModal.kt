@@ -10,15 +10,21 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.datepicker.MaterialDatePicker
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import ru.steelwave.steelwave.App
+import ru.steelwave.steelwave.Const
 import ru.steelwave.steelwave.databinding.ModalEditProjectBinding
+import ru.steelwave.steelwave.domain.entity.project.ProjectModel
 import ru.steelwave.steelwave.presentation.CustomToast
 import ru.steelwave.steelwave.presentation.ViewModelFactory
 import ru.steelwave.steelwave.presentation.main.project.ProjectViewModel
@@ -53,6 +59,8 @@ class EditProjectModal : BottomSheetDialogFragment() {
             it?.let { setImage(it) }
         }
 
+    private var choiceProject: ProjectModel? = null
+
     private var selectedImageBitmap: Bitmap? = null
     private var selectedDate = System.currentTimeMillis()
 
@@ -81,10 +89,12 @@ class EditProjectModal : BottomSheetDialogFragment() {
         setListenersInView()
     }
 
+
     private fun observeViewModel(){
         with(viewModel){
             getProjectItem(args.projectId)
             projectItem.observe(viewLifecycleOwner){ project ->
+                choiceProject = project
                 binding.etNameProject.setText(project.name)
                 selectedImageBitmap = project.previewImage
                 binding.ivPreview.setImageBitmap(selectedImageBitmap)
@@ -99,15 +109,14 @@ class EditProjectModal : BottomSheetDialogFragment() {
                 binding.ivError.visibility = View.VISIBLE
             }
             shouldCloseScreen.observe(viewLifecycleOwner){
-                dismiss()
+                dismissNow()
             }
         }
     }
 
     private fun setDate(date: Long){
-        val date = Date(date)
         val calendar = Calendar.getInstance()
-        calendar.time = date
+        calendar.time = Date(date)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
         val month = calendar.get(Calendar.MONTH) + 1
         val year = calendar.get(Calendar.YEAR)
@@ -143,11 +152,15 @@ class EditProjectModal : BottomSheetDialogFragment() {
                 )
             }
             btnDelete.setOnClickListener {
-                viewModel.deleteProjectItem()
-                dismissNow()
+                choiceProject?.let {
+                    findNavController().navigate(
+                        EditProjectModalDirections.actionEditProjectModalToDeleteProjectModal(it)
+                    )
+                }
             }
         }
     }
+
 
     private fun openDatePicker(){
         val picker = MaterialDatePicker.Builder.datePicker()

@@ -5,6 +5,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import ru.steelwave.steelwave.domain.entity.user.UserModel
 
+@Parcelize
 data class ProjectModel(
     var name: String,
     var previewImage: Bitmap? = null,
@@ -13,7 +14,7 @@ data class ProjectModel(
     var trafic: Int = 0,
     var income: Int = 0,
     val id: Int = UNDEFINED_ID,
-){
+):Parcelable{
     companion object{
         private const val UNDEFINED_ID = 0
     }

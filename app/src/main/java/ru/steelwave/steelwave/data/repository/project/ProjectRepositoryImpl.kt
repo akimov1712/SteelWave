@@ -20,9 +20,9 @@ class ProjectRepositoryImpl @Inject constructor(
         projectDao.insertProject(mapper.mapEntityToDbModel(project))
     }
 
-    override suspend fun deleteProjectUseCase(project: ProjectModel) {
-        projectDao.deleteProject(mapper.mapEntityToDbModel(project))
-        transactionDao.deleteTransaction(project.id)
+    override suspend fun deleteProjectUseCase(projectId: Int) {
+        projectDao.deleteProject(projectId)
+        transactionDao.deleteTransaction(projectId)
     }
 
     override suspend fun getProjectUseCase(projectId: Int): ProjectModel {

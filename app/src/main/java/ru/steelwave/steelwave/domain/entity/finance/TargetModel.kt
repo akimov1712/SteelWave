@@ -11,7 +11,7 @@ data class TargetModel(
     var collectedPrice: Int = 0,
     var totalPrice: Int,
     var isFinished: Boolean = false
-): Parcelable{
+):Parcelable{
     companion object{
         private const val UNDEFINED_ID = 0
     }

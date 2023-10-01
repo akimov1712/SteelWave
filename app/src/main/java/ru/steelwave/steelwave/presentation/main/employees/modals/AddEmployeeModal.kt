@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import ru.steelwave.steelwave.databinding.ModalAddEmployeeBinding
 import ru.steelwave.steelwave.presentation.CustomToast
@@ -39,10 +40,15 @@ class AddEmployeeModal: DialogFragment() {
     private fun setListenersInView(){
         with(binding){
             btnContinue.setOnClickListener {
-                clRegistration.visibility = View.GONE
-                clPersonalData.visibility = View.VISIBLE
-                btnContinue.visibility = View.GONE
-                btnAdd.visibility = View.VISIBLE
+                if (clPersonalData.isVisible){
+                    clPersonalData.visibility = View.GONE
+                    clPosition.visibility = View.VISIBLE
+                } else {
+                    clPosition.visibility = View.GONE
+                    clRegistration.visibility = View.VISIBLE
+                    btnContinue.visibility = View.GONE
+                    btnAdd.visibility = View.VISIBLE
+                }
             }
             btnAdd.setOnClickListener{
                 CustomToast.toastDefault(requireContext(), "Пользователь добавлен")

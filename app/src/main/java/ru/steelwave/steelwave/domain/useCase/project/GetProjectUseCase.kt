@@ -5,6 +5,6 @@ import javax.inject.Inject
 
 class GetProjectUseCase @Inject constructor(private val repository: ProjectRepository) {
 
-    suspend operator fun invoke(userId: Int) = repository.getProjectUseCase(userId)
+    suspend operator fun invoke(projectId: Int) = repository.getProjectUseCase(projectId)
 
 }
