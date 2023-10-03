@@ -124,5 +124,6 @@
     <string name="page_view_visit">Просмотр страницы за визит</string>
     <string name="average_time">Среднее время на сайте</string>
     <string name="delete_project">Удалить проект</string>
+    <string name="requestPermissionInAlertDialog">Вы запретили разрешение.\nДля корректной работы следует перейти в настройки приложения и лично дать разрешение устройству на использование функций устройства.</string>
 
 </resources>

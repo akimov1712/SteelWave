@@ -1,22 +1,29 @@
 package ru.steelwave.steelwave.presentation.main.project.modals
 
+import android.Manifest
+import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.datepicker.MaterialDatePicker
 import ru.steelwave.steelwave.App
+import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.ModalAddProjectBinding
 import ru.steelwave.steelwave.presentation.CustomToast
 import ru.steelwave.steelwave.presentation.ViewModelFactory
@@ -49,6 +56,11 @@ class AddProjectModal : DialogFragment() {
         ) {
             it?.let { setImage(it) }
         }
+
+    private val storagePermissionRequestLauncher = registerForActivityResult(
+        RequestPermission(),
+        ::onGotPermissionResultForStorage
+    )
 
     private var selectedImageBitmap: Bitmap? = null
     private var selectedDate = System.currentTimeMillis()
@@ -123,11 +135,7 @@ class AddProjectModal : DialogFragment() {
                 dismiss()
             }
             clPasteImage.setOnClickListener {
-                imagePickerLauncher.launch(
-                    PickVisualMediaRequest(
-                        ActivityResultContracts.PickVisualMedia.ImageOnly
-                    )
-                )
+                storagePermissionRequestLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
             }
             clChoiceDate.setOnClickListener {
                 openDatePicker()
@@ -148,11 +156,53 @@ class AddProjectModal : DialogFragment() {
         }
     }
 
+    private fun pickImage(){
+        imagePickerLauncher.launch(
+            PickVisualMediaRequest(
+                ActivityResultContracts.PickVisualMedia.ImageOnly
+            )
+        )
+    }
+
     private fun setImage(uri: Uri) {
         selectedImageBitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
         binding.ivPreview.setImageBitmap(selectedImageBitmap)
     }
 
+    private fun onGotPermissionResultForStorage(granted: Boolean){
+        if (granted){
+            pickImage()
+        } else {
+            if (!shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE)){
+                askUserOpenAppSettingsPermission()
+            } else {
+                CustomToast.toastDefault(requireContext(), "Permission denied")
+            }
+        }
+
+    }
+
+    private fun askUserOpenAppSettingsPermission(){
+        val appSettingIntent = Intent(
+            Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+            Uri.fromParts("package", requireContext().packageName, null)
+        )
+        if (requireContext().packageManager.resolveActivity(
+                appSettingIntent,
+                PackageManager.MATCH_DEFAULT_ONLY
+        ) == null){
+            CustomToast.toastDefault(requireContext(), "Permission are denied forever")
+        } else {
+            AlertDialog.Builder(requireContext())
+                .setTitle("Разрешение отменено")
+                .setMessage(getString(R.string.requestPermissionInAlertDialog))
+                .setPositiveButton("Open"){ _, _ ->
+                    startActivity(appSettingIntent)
+                }.create()
+                .show()
+        }
+
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
