@@ -125,5 +125,36 @@
     <string name="average_time">Среднее время на сайте</string>
     <string name="delete_project">Удалить проект</string>
     <string name="requestPermissionInAlertDialog">Вы запретили разрешение.\nДля корректной работы следует перейти в настройки приложения и лично дать разрешение устройству на использование функций устройства.</string>
-
+    <string-array name="proffesionArray">
+        <item>Верстальщик (Frontend Developer)</item>
+        <item>Бэкенд разработчик (Backend Developer)</item>
+        <item>Разработчик мобильных приложений (Mobile App Developer)</item>
+        <item>iOS разработчик (iOS Developer)</item>
+        <item>Android разработчик (Android Developer)</item>
+        <item>Full Stack Developer (Full Stack Разработчик)</item>
+        <item>Инженер DevOps (DevOps Engineer)</item>
+        <item>Дизайнер пользовательского интерфейса (UI Designer)</item>
+        <item>Дизайнер пользовательского опыта (UX Designer)</item>
+        <item>Графический дизайнер (Graphic Designer)</item>
+        <item>Аналитик данных (Data Analyst)</item>
+        <item>Аналитик больших данных (Big Data Analyst)</item>
+        <item>Аналитик машинного обучения (Machine Learning Analyst)</item>
+        <item>Data Scientist (Data Scientist)</item>
+        <item>Системный администратор (System Administrator)</item>
+        <item>Инженер по кибербезопасности (Cybersecurity Engineer)</item>
+        <item>Сетевой инженер (Network Engineer)</item>
+        <item>Администратор баз данных (Database Administrator)</item>
+        <item>Продуктовый менеджер (Product Manager)</item>
+        <item>Менеджер проекта (Project Manager)</item>
+        <item>Специалист по поисковой оптимизации (SEO Specialist)</item>
+        <item>Специалист по маркетингу в социальных сетях (Social Media Marketing Specialist)</item>
+        <item>Маркетинговый аналитик (Marketing Analyst)</item>
+        <item>Контент-менеджер (Content Manager)</item>
+        <item>Инженер по искусственному интеллекту (AI Engineer)</item>
+        <item>Машинное обучение (Machine Learning Engineer)</item>
+        <item>Специалист по технической поддержке (Technical Support Specialist)</item>
+        <item>Администратор системы (System Administrator)</item>
+        <item>Робототехник (Roboticist)</item>
+        <item>Инженер автоматизации (Automation Engineer)</item>
+    </string-array>
 </resources>

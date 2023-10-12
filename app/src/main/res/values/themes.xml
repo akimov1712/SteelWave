@@ -98,7 +98,7 @@
         <item name="android:textSize">@dimen/very_big_size</item>
     </style>
 
-    <style name="sw_til_dropMenu" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+    <style name="sw_til_dropMenu" >
         <item name="errorTextColor">@color/sw_red</item>
         <item name="boxStrokeErrorColor">@color/sw_red</item>
         <item name="startIconTint">@color/sw_red</item>

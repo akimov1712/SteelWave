@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
+import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.ModalAddEmployeeBinding
 import ru.steelwave.steelwave.presentation.CustomToast
 
@@ -31,6 +32,7 @@ class AddEmployeeModal: DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupViews()
+        binding.etProffesion.setSimpleItems(R.array.proffesionArray)
     }
 
     private fun setupViews(){

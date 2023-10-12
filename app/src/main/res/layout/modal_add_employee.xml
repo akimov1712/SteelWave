@@ -2,6 +2,7 @@
 <ScrollView
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
@@ -39,12 +40,13 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_registration"
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:visibility="gone">
 
                     <EditText
                         android:id="@+id/et_login"
@@ -92,7 +94,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:visibility="gone">
 
                     <EditText
                         android:id="@+id/et_firstname"
@@ -179,16 +182,17 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:visibility="visible">
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/til_position"
                         style="@style/sw_til_dropMenu"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
+                        android:layout_marginHorizontal="20dp"
                         android:layout_marginTop="10dp"
                         android:paddingHorizontal="2dp"
-                        android:layout_marginHorizontal="20dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -196,8 +200,9 @@
                         <com.google.android.material.textfield.MaterialAutoCompleteTextView
                             android:id="@+id/et_proffesion"
                             style="@style/sw_til_editText"
+                            android:layout_marginTop="10dp"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:background="@drawable/background_til_underline"
                             android:hint="@string/position" />
 
@@ -208,8 +213,8 @@
                         style="@style/sw_til_dropMenu"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
-                        android:paddingHorizontal="2dp"
                         android:layout_marginTop="8dp"
+                        android:paddingHorizontal="2dp"
                         app:layout_constraintEnd_toEndOf="@+id/til_position"
                         app:layout_constraintStart_toStartOf="@+id/til_position"
                         app:layout_constraintTop_toBottomOf="@+id/til_position">
@@ -218,7 +223,8 @@
                             android:id="@+id/et_project"
                             style="@style/sw_til_editText"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
+                            android:paddingTop="10dp"
                             android:background="@drawable/background_til_underline"
                             android:hint="@string/project" />
 
