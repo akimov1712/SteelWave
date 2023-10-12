@@ -13,6 +13,7 @@ import androidx.navigation.fragment.navArgs
 import ru.steelwave.steelwave.App
 import ru.steelwave.steelwave.databinding.ModalControlLossBinding
 import ru.steelwave.steelwave.presentation.ViewModelFactory
+import ru.steelwave.steelwave.presentation.main.finance.FinanceState
 import ru.steelwave.steelwave.presentation.main.finance.FinanceViewModel
 import javax.inject.Inject
 
@@ -58,14 +59,19 @@ class AddLossModal : DialogFragment() {
 
     private fun observeViewModel(){
         with(viewModel){
-            errorInputNameAddLoss.observe(viewLifecycleOwner){
-                binding.etExpenses.error = "Введите название расхода"
-            }
-            errorInputCount.observe(viewLifecycleOwner){
-                binding.etExpenses.error = "Введите сумму расхода"
-            }
-            shouldCloseAddLossModal.observe(viewLifecycleOwner) {
-                dismiss()
+            state.observe(viewLifecycleOwner){
+                when(it){
+                    is FinanceState.ErrorInputNameAddLoss -> {
+                        binding.etExpenses.error = "Введите название расхода"
+                    }
+                    is FinanceState.ErrorInputCount -> {
+                        binding.etSumExpenses.error = "Введите сумму расхода"
+                    }
+                    is FinanceState.ShouldCloseAddLossModal -> {
+                        dismiss()
+                    }
+                    else -> {}
+                }
             }
         }
     }

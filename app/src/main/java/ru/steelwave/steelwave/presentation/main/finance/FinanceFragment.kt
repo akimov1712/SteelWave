@@ -90,72 +90,76 @@ class FinanceFragment : Fragment(){
                 getProjectItem(projectId)
                 getData(args.projectId, selectedDate, selectedYear)
             }
-            projectItem.observe(viewLifecycleOwner) {
-                switchScreensAdding()
-                binding.apply {
-                    tvProjectFinance.text = it.name
-                }
-            }
-            incomeList.observe(viewLifecycleOwner){
-                var totalIncome = 0
-                it.forEach { transaction ->
-                    totalIncome += transaction.count
-                }
-                with(binding){
-                    tvIncomeProject.text = formatPrice(totalIncome)
-                    incomeAdapter.submitList(it)
-                    clIncomeContent.visibility = View.VISIBLE
-                    inclErrorIncome.clError.visibility = View.GONE
-                }
-            }
-            lossList.observe(viewLifecycleOwner){
-                var totalLoss = 0
-                it.forEach { transaction ->
-                    totalLoss += transaction.count
-                }
-                with(binding){
-                    tvLossProject.text = formatPrice(totalLoss)
-                    lossAdapter.submitList(it)
-                    clLossContent.visibility = View.VISIBLE
-                    inclErrorLoss.clError.visibility = View.GONE
-                }
-            }
-            targetList.observe(viewLifecycleOwner){
-                targetAdapter.submitList(it)
-                with(binding){
-                    rvTarget.visibility = View.VISIBLE
-                    inclErrorTarget.clError.visibility = View.GONE
-                }
-            }
-            yearIncomeItem.observe(viewLifecycleOwner){
-                with(binding){
-                    clYearIncomeContent.visibility = View.VISIBLE
-                    inclErrorYearIncome.clError.visibility = View.GONE
-                }
-            }
-            targetListError.observe(viewLifecycleOwner){
-                with(binding){
-                    rvTarget.visibility = View.GONE
-                    inclErrorTarget.clError.visibility = View.VISIBLE
-                }
-            }
-            incomeItemError.observe(viewLifecycleOwner){
-                with(binding){
-                    clIncomeContent.visibility = View.GONE
-                    inclErrorIncome.clError.visibility = View.VISIBLE
-                }
-            }
-            yearIncomeItemError.observe(viewLifecycleOwner){
-                with(binding){
-                    clYearIncomeContent.visibility = View.GONE
-                    inclErrorYearIncome.clError.visibility = View.VISIBLE
-                }
-
-            }
-            lossItemError.observe(viewLifecycleOwner){
-                with(binding){
-                    clLossContent.visibility = View.GONE
-                    inclErrorLoss.clError.visibility = View.VISIBLE
+            state.observe(viewLifecycleOwner){
+                when(it){
+                    is FinanceState.TargetListError -> {
+                        with(binding){
+                            rvTarget.visibility = View.GONE
+                            inclErrorTarget.clError.visibility = View.VISIBLE
+                        }
+                    }
+                    is FinanceState.IncomeItemError -> {
+                        with(binding){
+                            clIncomeContent.visibility = View.GONE
+                            inclErrorIncome.clError.visibility = View.VISIBLE
+                        }
+                    }
+                    is FinanceState.YearIncomeItemError -> {
+                        with(binding){
+                            clYearIncomeContent.visibility = View.GONE
+                            inclErrorYearIncome.clError.visibility = View.VISIBLE
+                        }
+                    }
+                    is FinanceState.LossItemError -> {
+                        with(binding){
+                            clLossContent.visibility = View.GONE
+                            inclErrorLoss.clError.visibility = View.VISIBLE
+                        }
+                    }
+                    is FinanceState.ProjectItem -> {
+                        switchScreensAdding()
+                        binding.apply {
+                            tvProjectFinance.text = it.projectItem.name
+                        }
+                    }
+                    is FinanceState.LossList -> {
+                        var totalLoss = 0
+                        it.lossList.forEach { transaction ->
+                            totalLoss += transaction.count
+                        }
+                        with(binding){
+                            tvLossProject.text = formatPrice(totalLoss)
+                            lossAdapter.submitList(it.lossList)
+                            clLossContent.visibility = View.VISIBLE
+                            inclErrorLoss.clError.visibility = View.GONE
+                        }
+                    }
+                    is FinanceState.IncomeList -> {
+                        var totalIncome = 0
+                        it.incomeList.forEach { transaction ->
+                            totalIncome += transaction.count
+                        }
+                        with(binding){
+                            tvIncomeProject.text = formatPrice(totalIncome)
+                            incomeAdapter.submitList(it.incomeList)
+                            clIncomeContent.visibility = View.VISIBLE
+                            inclErrorIncome.clError.visibility = View.GONE
+                        }
+                    }
+                    is FinanceState.TargetList -> {
+                        targetAdapter.submitList(it.targetList)
+                        with(binding){
+                            rvTarget.visibility = View.VISIBLE
+                            inclErrorTarget.clError.visibility = View.GONE
+                        }
+                    }
+                    is FinanceState.YearIncomeItem -> {
+                        with(binding){
+                            clYearIncomeContent.visibility = View.VISIBLE
+                            inclErrorYearIncome.clError.visibility = View.GONE
+                        }
+                    }
+                    else -> {}
                 }
             }
         }

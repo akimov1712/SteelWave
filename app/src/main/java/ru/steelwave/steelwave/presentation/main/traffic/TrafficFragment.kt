@@ -86,10 +86,20 @@ class TrafficFragment : Fragment() {
             if (projectId != Const.UNDEFINED_ID) {
                 getProjectItem(projectId)
             }
-            projectItem.observe(viewLifecycleOwner) {
-                switchScreensAdding()
-                binding.apply {
-                    tvProjectTrafic.text = it.name
+            state.observe(viewLifecycleOwner){
+                when(it){
+                    is TrafficState.ProjectItem -> {
+                        switchScreensAdding()
+                        binding.apply {
+                            tvProjectTrafic.text = it.projectItem.name
+                        }
+                    }
+                    is TrafficState.VisitionItem -> {
+
+                    }
+                    is TrafficState.TransferList -> {
+
+                    }
                 }
             }
         }

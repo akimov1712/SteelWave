@@ -33,6 +33,7 @@ import ru.steelwave.steelwave.databinding.ModalEditProjectBinding
 import ru.steelwave.steelwave.domain.entity.project.ProjectModel
 import ru.steelwave.steelwave.presentation.CustomToast
 import ru.steelwave.steelwave.presentation.ViewModelFactory
+import ru.steelwave.steelwave.presentation.main.project.ProjectState
 import ru.steelwave.steelwave.presentation.main.project.ProjectViewModel
 import java.util.Calendar
 import java.util.Date
@@ -112,15 +113,19 @@ class EditProjectModal : BottomSheetDialogFragment() {
                 selectedDate = project.dateRelease
                 setDate(selectedDate)
             }
-            errorInputName.observe(viewLifecycleOwner){
-                binding.etNameProject.error = "Введите название проекта"
-            }
-            errorImage.observe(viewLifecycleOwner){
-                CustomToast.toastDefault(requireContext(), "Выберите обложку")
-                binding.ivError.visibility = View.VISIBLE
-            }
-            shouldCloseScreen.observe(viewLifecycleOwner){
-                dismissNow()
+            state.observe(viewLifecycleOwner){
+                when(it){
+                    is ProjectState.ErrorImage -> {
+                        CustomToast.toastDefault(requireContext(), "Выберите обложку")
+                        binding.ivError.visibility = View.VISIBLE
+                    }
+                    is ProjectState.ErrorInputName -> {
+                        binding.etNameProject.error = "Введите название проекта"
+                    }
+                    is ProjectState.ShouldCloseScreen -> {
+                        dismissNow()
+                    }
+                }
             }
         }
     }

@@ -17,6 +17,7 @@ import ru.steelwave.steelwave.App
 import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.ModalConfirmDeleteTargetBinding
 import ru.steelwave.steelwave.presentation.ViewModelFactory
+import ru.steelwave.steelwave.presentation.main.finance.FinanceState
 import ru.steelwave.steelwave.presentation.main.finance.FinanceViewModel
 import javax.inject.Inject
 
@@ -62,8 +63,12 @@ class DeleteTargetModal : DialogFragment() {
 
     private fun observeViewModel(){
         with(viewModel){
-            shouldCloseDeleteTargetModal.observe(viewLifecycleOwner){
-                dismiss()
+            state.observe(viewLifecycleOwner){
+                when(it){
+                    is FinanceState.ShouldCloseDeleteTargetModal -> {
+                        dismiss()
+                    } else -> {}
+                }
             }
         }
     }

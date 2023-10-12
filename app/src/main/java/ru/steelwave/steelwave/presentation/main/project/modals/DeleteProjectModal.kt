@@ -20,6 +20,7 @@ import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.ModalConfirmDeleteProjectBinding
 import ru.steelwave.steelwave.presentation.ViewModelFactory
 import ru.steelwave.steelwave.presentation.main.finance.FinanceViewModel
+import ru.steelwave.steelwave.presentation.main.project.ProjectState
 import ru.steelwave.steelwave.presentation.main.project.ProjectViewModel
 import javax.inject.Inject
 
@@ -70,8 +71,13 @@ class DeleteProjectModal : DialogFragment() {
 
     private fun observeViewModel(){
         with(viewModel){
-            shouldCloseScreen.observe(viewLifecycleOwner){
-                findNavController().navigate(DeleteProjectModalDirections.actionDeleteProjectModalToProjectFragment())
+            state.observe(viewLifecycleOwner){
+                when(it){
+                    is ProjectState.ShouldCloseScreen -> {
+                        findNavController().navigate(DeleteProjectModalDirections.actionDeleteProjectModalToProjectFragment())
+                    }
+                    else -> {}
+                }
             }
         }
     }

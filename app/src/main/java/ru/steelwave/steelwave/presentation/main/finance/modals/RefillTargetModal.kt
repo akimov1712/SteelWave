@@ -14,6 +14,7 @@ import androidx.navigation.fragment.navArgs
 import ru.steelwave.steelwave.App
 import ru.steelwave.steelwave.databinding.ModalRefillTargetBinding
 import ru.steelwave.steelwave.presentation.ViewModelFactory
+import ru.steelwave.steelwave.presentation.main.finance.FinanceState
 import ru.steelwave.steelwave.presentation.main.finance.FinanceViewModel
 import javax.inject.Inject
 
@@ -59,12 +60,14 @@ class RefillTargetModal : DialogFragment() {
 
     private fun observeViewModel() {
         with(viewModel) {
-            shouldCloseRefillTargetModal.observe(viewLifecycleOwner) {
-                dismiss()
-            }
-            errorInputRefill.observe(viewLifecycleOwner){
-                if (it){
-                    binding.etCount.error = "Проверьте поле"
+            state.observe(viewLifecycleOwner){
+                when(it){
+                    is FinanceState.ShouldCloseRefillTargetModal -> {
+                        dismiss()
+                    }
+                    is FinanceState.ErrorInputRefill -> {
+                        binding.etCount.error = "Проверьте поле"
+                    } else -> {}
                 }
             }
         }

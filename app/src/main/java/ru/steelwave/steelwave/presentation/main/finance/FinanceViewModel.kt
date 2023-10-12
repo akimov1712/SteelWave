@@ -33,105 +33,20 @@ class FinanceViewModel @Inject constructor(
     private val addTransactionUseCase: AddTransactionUseCase,
 ) : ViewModel() {
 
-    // LiveDate для вывода контента
-
     val projectList = getAllProjectUseCase()
 
-    private val _projectItem = MutableLiveData<ProjectModel>()
-    val projectItem: LiveData<ProjectModel>
-        get() = _projectItem
-
-    private val _incomeList = MutableLiveData<List<TransactionModel>>()
-    val incomeList: LiveData<List<TransactionModel>>
-        get() = _incomeList
-
-    private val _lossList = MutableLiveData<List<TransactionModel>>()
-    val lossList: LiveData<List<TransactionModel>>
-        get() = _lossList
-
-    private val _targetList = MutableLiveData<List<TargetModel>>()
-    val targetList: LiveData<List<TargetModel>>
-        get() = _targetList
-
-    private val _targetItem = MutableLiveData<TargetModel>()
-    val targetItem: LiveData<TargetModel>
-        get() = _targetItem
-
-    private val _yearIncomeItem = MutableLiveData<YearIncomeModel>()
-    val yearIncomeItem: LiveData<YearIncomeModel>
-        get() = _yearIncomeItem
-
-    // LiveDate для вывода ошибок при получении данных
-
-    private val _yearIncomeItemError = MutableLiveData<Unit>()
-    val yearIncomeItemError: LiveData<Unit>
-        get() = _yearIncomeItemError
-
-    private val _lossItemError = MutableLiveData<Unit>()
-    val lossItemError: LiveData<Unit>
-        get() = _lossItemError
-
-    private val _incomeItemError = MutableLiveData<Unit>()
-    val incomeItemError: LiveData<Unit>
-        get() = _incomeItemError
-
-    private val _targetListError = MutableLiveData<Unit>()
-    val targetListError: LiveData<Unit>
-        get() = _targetListError
-
-    // LiveDate для вывода ошибок в editText
-
-    private val _errorInputNameAddLoss = MutableLiveData<Boolean>()
-    val errorInputNameAddLoss: LiveData<Boolean>
-        get() = _errorInputNameAddLoss
-
-    private val _errorInputCount = MutableLiveData<Boolean>()
-    val errorInputCount: LiveData<Boolean>
-        get() = _errorInputCount
-
-    private val _errorInputNameAddTarget = MutableLiveData<Boolean>()
-    val errorInputNameAddTarget: LiveData<Boolean>
-        get() = _errorInputNameAddTarget
-
-    private val _errorInputStartPrice = MutableLiveData<Boolean>()
-    val errorInputStartPrice: LiveData<Boolean>
-        get() = _errorInputStartPrice
-
-    private val _errorInputEndPrice = MutableLiveData<Boolean>()
-    val errorInputEndPrice: LiveData<Boolean>
-        get() = _errorInputEndPrice
-
-    private val _errorInputRefill = MutableLiveData<Boolean>()
-    val errorInputRefill: LiveData<Boolean>
-        get() = _errorInputRefill
-
-    // LiveDate для закрытия экрана
-
-    private val _shouldCloseAddLossModal = MutableLiveData<Unit>()
-    val shouldCloseAddLossModal: LiveData<Unit>
-        get() = _shouldCloseAddLossModal
-
-    private val _shouldCloseAddTargetModal = MutableLiveData<Unit>()
-    val shouldCloseAddTargetModal: LiveData<Unit>
-        get() = _shouldCloseAddTargetModal
-
-    private val _shouldCloseRefillTargetModal = MutableLiveData<Unit>()
-    val shouldCloseRefillTargetModal: LiveData<Unit>
-        get() = _shouldCloseRefillTargetModal
-
-    private val _shouldCloseDeleteTargetModal = MutableLiveData<Unit>()
-    val shouldCloseDeleteTargetModal: LiveData<Unit>
-        get() = _shouldCloseDeleteTargetModal
-
+    private val _state = MutableLiveData<FinanceState>()
+    val state: LiveData<FinanceState>
+        get() = _state
 
     private fun validateInputAddLoss(name: String, count: Int): Boolean {
         var result = true
         if (name.isBlank()) {
-            _errorInputNameAddLoss.value = true
+            _state.value = FinanceState.ErrorInputNameAddLoss
             result = false
         }
         if (count <= 0) {
-            _errorInputCount.value = true
+            _state.value = FinanceState.ErrorInputCount
             result = false
         }
         return result
@@ -140,15 +55,15 @@ class FinanceViewModel @Inject constructor(
     private fun validateInputAddTarget(name: String, collectedPrice: Int,totalPrice: Int,): Boolean {
         var result = true
         if (name.isBlank()) {
-            _errorInputNameAddTarget.value = true
+            _state.value = FinanceState.ErrorInputNameAddTarget
             result = false
         }
         if (totalPrice <= 0) {
-            _errorInputEndPrice.value = true
+            _state.value = FinanceState.ErrorInputEndPrice
             result = false
         }
         if (totalPrice <= 0 || collectedPrice > totalPrice) {
-            _errorInputStartPrice.value = true
+            _state.value = FinanceState.ErrorInputStartPrice
             result = false
         }
         return result
@@ -157,7 +72,7 @@ class FinanceViewModel @Inject constructor(
     private fun validateInputRefillTarget(count: Int): Boolean {
         var result = true
         if (count <= 0) {
-            _errorInputRefill.value = true
+            _state.value = FinanceState.ErrorInputRefill
             result = false
         }
         return result
@@ -185,14 +100,14 @@ class FinanceViewModel @Inject constructor(
                     !it.isIncome
                 }
                 if (incomeList.isNotEmpty()) {
-                    _incomeList.value = incomeList!!
+                    _state.value = FinanceState.IncomeList(incomeList)
                 } else {
-                    _incomeItemError.value = Unit
+                    _state.value = FinanceState.IncomeItemError
                 }
                 if (lossList.isNotEmpty()) {
-                    _lossList.value = lossList!!
+                    _state.value = FinanceState.LossList(lossList)
                 } else {
-                    _lossItemError.value = Unit
+                    _state.value = FinanceState.LossItemError
                 }
             }
         }
@@ -219,7 +134,7 @@ class FinanceViewModel @Inject constructor(
                     count = count
                 )
                 addTransactionUseCase(transaction)
-                _shouldCloseAddLossModal.value = Unit
+                _state.value = FinanceState.ShouldCloseAddLossModal
             }
         }
     }
@@ -240,7 +155,7 @@ class FinanceViewModel @Inject constructor(
                     isFinished = isFinished
                 )
                 addTargetUseCase(target)
-                _shouldCloseAddTargetModal.value = Unit
+                _state.value = FinanceState.ShouldCloseAddTargetModal
             }
         }
     }
@@ -261,7 +176,7 @@ class FinanceViewModel @Inject constructor(
                     isFinished = isFinished
                 )
                 addTargetUseCase(newTarget)
-                _shouldCloseAddTargetModal.value = Unit
+                _state.value = FinanceState.ShouldCloseAddTargetModal
             }
         }
     }
@@ -269,7 +184,7 @@ class FinanceViewModel @Inject constructor(
     fun getProjectItem(projectItemId: Int) {
         viewModelScope.launch {
             val item = getProjectUseCase(projectItemId)
-            _projectItem.value = item
+            _state.value = FinanceState.ProjectItem(item)
         }
     }
 
@@ -277,9 +192,9 @@ class FinanceViewModel @Inject constructor(
         viewModelScope.launch {
             getAllTargetUseCase(projectId).observeForever { resultList ->
                 if (resultList.isNotEmpty()) {
-                    _targetList.value = resultList!!
+                    _state.value = FinanceState.TargetList(resultList)
                 } else {
-                    _targetListError.value = Unit
+                    _state.value = FinanceState.TargetListError
                 }
             }
         }
@@ -288,7 +203,7 @@ class FinanceViewModel @Inject constructor(
     fun getTargetItem(targetId: Int) {
         viewModelScope.launch {
             val item = getTargetItemUseCase(targetId)
-            _targetItem.value = item
+            _state.value = FinanceState.TargetItem(item)
         }
     }
 
@@ -302,7 +217,7 @@ class FinanceViewModel @Inject constructor(
                 val newItem = oldItem.copy(collectedPrice = refillPrice)
                 if (refillPrice > newItem.totalPrice) newItem.isFinished = true
                 addTargetUseCase(newItem)
-                _shouldCloseRefillTargetModal.value = Unit
+                _state.value = FinanceState.ShouldCloseRefillTargetModal
             }
         }
     }
@@ -310,7 +225,7 @@ class FinanceViewModel @Inject constructor(
     fun deleteTarget(targetId: Int) {
         viewModelScope.launch {
             deleteTargetUseCase(targetId)
-            _shouldCloseDeleteTargetModal.value = Unit
+            _state.value = FinanceState.ShouldCloseDeleteTargetModal
         }
     }
 
@@ -319,9 +234,9 @@ class FinanceViewModel @Inject constructor(
             val year = inputYear.year + 1900
             val item = getYearIncomeUseCase(projectId, year)
             if (item == null) {
-                _yearIncomeItemError.value = Unit
+                _state.value = FinanceState.YearIncomeItemError
             } else {
-                _yearIncomeItem.value = item!!
+                _state.value = FinanceState.YearIncomeItem(item)
             }
         }
     }

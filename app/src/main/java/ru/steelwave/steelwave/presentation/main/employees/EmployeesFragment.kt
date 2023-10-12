@@ -75,9 +75,13 @@ class EmployeesFragment : Fragment() {
                 if (projectId != Const.UNDEFINED_ID) {
                     getProjectItem(projectId)
                 }
-                projectItem.observe(viewLifecycleOwner) {
-                    switchScreensAdding()
-                    tvProjectEmployees.text = it.name
+                state.observe(viewLifecycleOwner){
+                    when(it){
+                        is EmployeesState.ProjectItem -> {
+                            switchScreensAdding()
+                            tvProjectEmployees.text = it.projectItem.name
+                        } else -> {}
+                    }
                 }
             }
         }

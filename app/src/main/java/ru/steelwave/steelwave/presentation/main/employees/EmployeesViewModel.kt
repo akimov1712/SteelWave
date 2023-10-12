@@ -12,6 +12,7 @@ import ru.steelwave.steelwave.domain.useCase.user.AddUserUseCase
 import ru.steelwave.steelwave.domain.useCase.user.DeleteUserUseCase
 import ru.steelwave.steelwave.domain.useCase.user.GetUserListUseCase
 import ru.steelwave.steelwave.domain.useCase.user.GetUserUseCase
+import ru.steelwave.steelwave.presentation.main.finance.FinanceState
 import javax.inject.Inject
 
 class EmployeesViewModel @Inject constructor(
@@ -22,36 +23,14 @@ class EmployeesViewModel @Inject constructor(
     private val getUserUseCase: GetUserUseCase
 ) : ViewModel() {
 
-    private val _projectItem = MutableLiveData<ProjectModel>()
-    val projectItem: LiveData<ProjectModel>
-        get() = _projectItem
-
-    private val _validationPersonalDateSuccessfully = MutableLiveData<Unit>()
-    val validationPersonalDateSuccessfully: LiveData<Unit>
-        get() = _validationPersonalDateSuccessfully
-
-    // LiveDate для вывода ошибок в editText
-
-    private val _errorInputFirstName = MutableLiveData<Boolean>()
-    val errorInputFirstName: LiveData<Boolean>
-        get() = _errorInputFirstName
-
-    private val _errorInputLastName = MutableLiveData<Boolean>()
-    val errorInputLastName: LiveData<Boolean>
-        get() = _errorInputLastName
-
-    private val _errorInputMiddleName = MutableLiveData<Boolean>()
-    val errorInputMiddleName: LiveData<Boolean>
-        get() = _errorInputMiddleName
-
-    private val _errorInputAvatar = MutableLiveData<Unit>()
-    val errorInputAvatar: LiveData<Unit>
-        get() = _errorInputAvatar
+    private val _state = MutableLiveData<EmployeesState>()
+    val state: LiveData<EmployeesState>
+        get() = _state
 
     fun getProjectItem(projectItemId: Int) {
         viewModelScope.launch {
             val item = getProjectUseCase(projectItemId)
-            _projectItem.value = item
+            _state.value = EmployeesState.ProjectItem(item)
         }
     }
 
@@ -63,23 +42,23 @@ class EmployeesViewModel @Inject constructor(
     ) {
         var result = true
         if (firstName.isBlank()) {
-            _errorInputFirstName.value = true
+            _state.value = EmployeesState.ErrorInputFirstName
             result = false
         }
         if (lastName.isBlank()) {
-            _errorInputLastName.value = true
+            _state.value = EmployeesState.ErrorInputLastName
             result = false
         }
         if (middleName.isBlank()) {
-            _errorInputMiddleName.value = true
+            _state.value = EmployeesState.ErrorInputMiddleName
             result = false
         }
         if (avatar == null){
-            _errorInputAvatar.value = Unit
+            _state.value = EmployeesState.ErrorInputAvatar
             result = false
         }
         if (result){
-            _validationPersonalDateSuccessfully.value = Unit
+            _state.value = EmployeesState.ValidationPersonalDateSuccessfully
         }
     }
 

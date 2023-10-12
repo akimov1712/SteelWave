@@ -14,6 +14,7 @@ import ru.steelwave.steelwave.App
 import ru.steelwave.steelwave.Const
 import ru.steelwave.steelwave.databinding.ModalAddTargetBinding
 import ru.steelwave.steelwave.presentation.ViewModelFactory
+import ru.steelwave.steelwave.presentation.main.finance.FinanceState
 import ru.steelwave.steelwave.presentation.main.finance.FinanceViewModel
 import javax.inject.Inject
 
@@ -76,11 +77,16 @@ class AddTargetModal : DialogFragment() {
         with(binding) {
             var targetId: Int? = null
             viewModel.getTargetItem(args.targetId)
-            viewModel.targetItem.observe(viewLifecycleOwner) {
-                targetId = it.id
-                etNameTarget.setText(it.name)
-                etStartPrice.setText(it.collectedPrice.toString())
-                etEndPrice.setText(it.totalPrice.toString())
+            viewModel.state.observe(viewLifecycleOwner) {
+                when(it){
+                    is FinanceState.TargetItem -> {
+                        targetId = it.targetItem.id
+                        etNameTarget.setText(it.targetItem.name)
+                        etStartPrice.setText(it.targetItem.collectedPrice.toString())
+                        etEndPrice.setText(it.targetItem.totalPrice.toString())
+                    }
+                    else -> {}
+                }
             }
             btnAdd.setOnClickListener {
                 val nameTarget = etNameTarget.text.toString()
@@ -116,17 +122,22 @@ class AddTargetModal : DialogFragment() {
 
     private fun observeViewModel(){
         with(viewModel){
-            shouldCloseAddTargetModal.observe(viewLifecycleOwner){
-                dismiss()
-            }
-            errorInputNameAddTarget.observe(viewLifecycleOwner){
-                binding.etNameTarget.error = "Проверьте поле."
-            }
-            errorInputEndPrice.observe(viewLifecycleOwner) {
-                binding.etEndPrice.error = "Число не может быть меньше нуля."
-            }
-            errorInputStartPrice.observe(viewLifecycleOwner) {
-                binding.etStartPrice.error = "Число не может быть меньше нуля и больше конечной ставки."
+            state.observe(viewLifecycleOwner){
+                when(it){
+                    is FinanceState.ShouldCloseAddTargetModal -> {
+                        dismiss()
+                    }
+                    is FinanceState.ErrorInputNameAddTarget -> {
+                        binding.etNameTarget.error = "Проверьте поле."
+                    }
+                    is FinanceState.ErrorInputEndPrice -> {
+                        binding.etEndPrice.error = "Число не может быть меньше нуля."
+                    }
+                    is FinanceState.ErrorInputStartPrice -> {
+                        binding.etStartPrice.error = "Число не может быть меньше нуля и больше конечной ставки."
+                    }
+                    else -> {}
+                }
             }
         }
     }

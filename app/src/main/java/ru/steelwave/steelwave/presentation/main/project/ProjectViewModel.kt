@@ -20,17 +20,9 @@ class ProjectViewModel @Inject constructor(
     private val deleteProjectUseCase: DeleteProjectUseCase
 ) : ViewModel() {
 
-    private val _errorInputName = MutableLiveData<Boolean>()
-    val errorInputName: LiveData<Boolean>
-        get() = _errorInputName
-
-    private val _errorImage = MutableLiveData<Unit>()
-    val errorImage: LiveData<Unit>
-        get() = _errorImage
-
-    private val _shouldCloseScreen = MutableLiveData<Unit>()
-    val shouldCloseScreen: LiveData<Unit>
-        get() = _shouldCloseScreen
+    private val _state = MutableLiveData<ProjectState>()
+    val state: LiveData<ProjectState>
+        get() = _state
 
     private val _projectItem = MutableLiveData<ProjectModel>()
     val projectItem: LiveData<ProjectModel>
@@ -91,18 +83,18 @@ class ProjectViewModel @Inject constructor(
     private fun validateInput(name: String, image: Bitmap?): Boolean {
         var result = true
         if (name.isBlank()) {
-            _errorInputName.value = true
+            _state.value = ProjectState.ErrorInputName
             result = false
         }
         if (image == null){
-            _errorImage.value = Unit
+            _state.value = ProjectState.ErrorImage
             result = false
         }
         return result
     }
 
     private fun finishWork() {
-        _shouldCloseScreen.value = Unit
+        _state.value = ProjectState.ShouldCloseScreen
     }
 
 }
