@@ -7,18 +7,22 @@ import ru.steelwave.steelwave.domain.entity.project.ProjectModel
 
 @Parcelize
 data class UserModel(
-    val id: Int,
+    val id: Int = UNDEFINED_ID,
 
     var login: String,
-    var password: String,
+    var password: Int,
     var secretWord: String,
 
     var firstName: String,
-    var secondName: String,
+    var lastName: String,
     var middleName: String,
 
     var avatar: Bitmap? = null,
     var position: String,
-    var project: ProjectModel,
+    var project: String,
     var salary: Int
-): Parcelable
+): Parcelable {
+    companion object {
+        private const val UNDEFINED_ID = 0
+    }
+}

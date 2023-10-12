@@ -11,7 +11,7 @@ data class UserDbModel(
     val id: Int,
 
     var login: String,
-    var password: String,
+    var password: Int,
     var secretWord: String,
 
     var firstName: String,
@@ -20,6 +20,6 @@ data class UserDbModel(
 
     var avatar: Bitmap?,
     var position: String,
-    var project: ProjectDbModel,
+    var project: String,
     var salary: Int
 )

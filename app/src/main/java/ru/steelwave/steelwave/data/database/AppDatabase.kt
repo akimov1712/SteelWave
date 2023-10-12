@@ -2,6 +2,7 @@ package ru.steelwave.steelwave.data.database
 
 import android.app.Application
 import android.content.Context
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -41,7 +42,7 @@ import ru.steelwave.steelwave.data.database.model.user.UserDbModel
         TransferDbModel::class,
         VisitionDbModel::class
     ],
-    version = 17,
+    version = 18,
     exportSchema = false
 )
 @TypeConverters(

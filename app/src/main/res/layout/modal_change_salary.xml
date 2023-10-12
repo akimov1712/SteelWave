@@ -36,7 +36,7 @@
                 style="@style/sw_editText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="@string/salary_procent"
+                android:hint="@string/salary"
                 android:inputType="number"
                 android:maxLength="3"
                 android:layout_marginTop="10dp"

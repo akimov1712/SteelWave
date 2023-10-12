@@ -1,11 +1,8 @@
 package ru.steelwave.steelwave.presentation.main.project.projectAdapter
 
-import android.text.Layout
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.ListAdapter
-import kotlinx.coroutines.NonDisposableHandle.parent
 import ru.steelwave.steelwave.databinding.ItemProjectBinding
 import ru.steelwave.steelwave.domain.entity.project.ProjectModel
 import ru.steelwave.unonew.utils.convertLongToDate
@@ -32,7 +29,7 @@ class ProjectAdapter: ListAdapter<ProjectModel, ProjectAdapterViewHolder>(Projec
             if (item.teamLead == null){
                 tvTeamLead.text = "Не назначен"
             } else {
-                tvTeamLead.text = item.teamLead!!.firstName + item.teamLead!!.secondName
+                tvTeamLead.text = item.teamLead!!.firstName + item.teamLead!!.lastName
             }
             btnEditProject.setOnClickListener {
                 onClickEditProjectListener?.invoke(item)

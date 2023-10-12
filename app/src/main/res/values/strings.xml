@@ -47,7 +47,6 @@
     <string name="paste_photo">Вставить фото</string>
     <string name="position">Должность</string>
     <string name="project">Проект</string>
-    <string name="salary_procent">Заработная плата (%)</string>
     <string name="expenses">Расход</string>
     <string name="sum_expenses">Сумма расхода</string>
     <string name="price_target">Стоимость цели</string>
@@ -125,6 +124,9 @@
     <string name="average_time">Среднее время на сайте</string>
     <string name="delete_project">Удалить проект</string>
     <string name="requestPermissionInAlertDialog">Вы запретили разрешение.\nДля корректной работы следует перейти в настройки приложения и лично дать разрешение устройству на использование функций устройства.</string>
+    <string name="field_not_can_empty">Поле не может быть пустым</string>
+    <string name="min_lenght_login">Минимальная длина логина 6 символов</string>
+    <string name="min_lenght_password">Минимальная длина пароля 6 символов</string>
     <string-array name="proffesionArray">
         <item>Верстальщик</item>
         <item>Бэкенд разработчик</item>

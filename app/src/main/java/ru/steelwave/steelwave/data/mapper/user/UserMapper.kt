@@ -13,12 +13,12 @@ class UserMapper @Inject constructor() {
         password = user.password,
         secretWord = user.secretWord,
         firstName = user.firstName,
-        secondName = user.secondName,
+        secondName = user.lastName,
         middleName = user.middleName,
         avatar = user.avatar,
         position = user.position,
         salary = user.salary,
-        project = ProjectMapper().mapEntityToDbModel(user.project)
+        project = user.project
     )
 
     fun mapDbModelToEntity(user: UserDbModel) = UserModel(
@@ -27,12 +27,12 @@ class UserMapper @Inject constructor() {
         password = user.password,
         secretWord = user.secretWord,
         firstName = user.firstName,
-        secondName = user.secondName,
+        lastName = user.secondName,
         middleName = user.middleName,
         avatar = user.avatar,
         position = user.position,
         salary = user.salary,
-        project = ProjectMapper().mapDbModelToEntity(user.project)
+        project = user.project
     )
 
     fun mapListDbModelToListEntity(userList: List<UserDbModel>) = userList.map {

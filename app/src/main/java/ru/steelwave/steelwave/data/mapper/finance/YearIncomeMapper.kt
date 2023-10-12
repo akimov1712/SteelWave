@@ -14,7 +14,7 @@ class YearIncomeMapper @Inject constructor(
             projectId = yearIncome.projectId,
             year = yearIncome.year,
         )
-    }?: null
+    }
 
 
 
@@ -24,7 +24,7 @@ class YearIncomeMapper @Inject constructor(
             projectId = yearIncome.projectId,
             year = yearIncome.year,
         )
-    }?: null
+    }
 
 
 
