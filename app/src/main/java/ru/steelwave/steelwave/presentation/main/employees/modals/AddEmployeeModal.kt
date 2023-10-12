@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.ArrayAdapter
 import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import ru.steelwave.steelwave.R
@@ -32,7 +32,9 @@ class AddEmployeeModal: DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupViews()
-        binding.etProffesion.setSimpleItems(R.array.proffesionArray)
+        val suggestions = requireContext().resources.getStringArray(R.array.proffesionArray)
+        val adapter = ArrayAdapter(requireContext(), R.layout.item_drop_menu, suggestions)
+        binding.etPosition.setAdapter(adapter)
     }
 
     private fun setupViews(){

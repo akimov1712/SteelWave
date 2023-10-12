@@ -78,16 +78,6 @@
         <item name="cardCornerRadius">@dimen/corner_normal</item>
     </style>
 
-    <style name="sw_til_editText">
-        <item name="android:textColor">@color/sw_black</item>
-        <item name="android:textSize">@dimen/default_size</item>
-        <item name="android:fontFamily">@font/poppins_regular</item>
-        <item name="android:textColorHint">@color/sw_black_transparent_editText</item>
-        <item name="android:maxLength">32</item>
-        <item name="android:paddingStart">0dp</item>
-        <item name="android:paddingEnd">0dp</item>
-    </style>
-
     <style name="sw_editText_number" parent="sw_editText">
         <item name="android:gravity">end|bottom</item>
         <item name="android:inputType">number</item>
@@ -98,11 +88,19 @@
         <item name="android:textSize">@dimen/very_big_size</item>
     </style>
 
-    <style name="sw_til_dropMenu" >
+    <style name="sw_til_dropMenu" parent="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
+        <item name="android:textColor">@color/sw_black</item>
+        <item name="android:textSize">@dimen/default_size</item>
+        <item name="android:textColorHint">@color/sw_black_transparent_editText</item>
+        <item name="android:maxLength">32</item>
+        <item name="android:paddingStart">5dp</item>
+        <item name="android:paddingEnd">15dp</item>
+        <item name="android:completionThreshold">1</item>
+        <item name="android:background">@drawable/background_til_underline</item>
+        <item name="android:drawableEnd">@drawable/icon_drop</item>
         <item name="errorTextColor">@color/sw_red</item>
         <item name="boxStrokeErrorColor">@color/sw_red</item>
         <item name="startIconTint">@color/sw_red</item>
-        <item name="android:textColorHint">@color/sw_black_transparent_editText</item>
         <item name="hintTextColor">@color/sw_black_transparent_editText</item>
         <item name="endIconDrawable">@drawable/icon_drop</item>
         <item name="endIconTint">@color/sw_purple</item>

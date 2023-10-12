@@ -44,7 +44,7 @@
 
                 <com.google.android.material.textfield.MaterialAutoCompleteTextView
                     android:id="@+id/et_type_event"
-                    style="@style/sw_til_editText"
+                    style="@style/sw_til_dropMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/background_til_underline"
