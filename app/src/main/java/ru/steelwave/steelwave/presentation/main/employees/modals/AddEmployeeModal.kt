@@ -18,7 +18,6 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
-import com.squareup.picasso.Picasso
 import ru.steelwave.steelwave.App
 import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.ModalAddEmployeeBinding
@@ -178,13 +177,8 @@ class AddEmployeeModal: DialogFragment() {
     }
 
     private fun setImage(uri: Uri) {
-        Picasso.get()
-            .load(uri)
-            .resize(1, 1)
-            .centerCrop()
-            .into(binding.ivAvatar)
-        selectedImageBitmap = Picasso.get()
-            .load(uri).get()
+        selectedImageBitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
+        binding.ivAvatar.setImageBitmap(selectedImageBitmap)
     }
 
     private fun setAdapterInDropMenu(){
