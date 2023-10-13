@@ -127,6 +127,7 @@
     <string name="field_not_can_empty">Поле не может быть пустым</string>
     <string name="min_lenght_login">Минимальная длина логина 6 символов</string>
     <string name="min_lenght_password">Минимальная длина пароля 6 символов</string>
+    <string name="salary_not_can_less_zero">Зарплата не может быть меньше 0</string>
     <string-array name="proffesionArray">
         <item>Верстальщик</item>
         <item>Бэкенд разработчик</item>

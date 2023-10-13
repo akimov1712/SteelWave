@@ -13,6 +13,10 @@ class UserRepositoryImpl @Inject constructor(
     private val dao: UserDao
 ): UserRepository {
 
+    override suspend fun getCountUsersUseCase(projectId: Int): Int {
+        return dao.getCountUsers(projectId)
+    }
+
     override suspend fun addUserUseCase(user: UserModel) {
         dao.addUser(mapper.mapEntityToDbModel(user))
     }
@@ -24,8 +28,15 @@ class UserRepositoryImpl @Inject constructor(
     override suspend fun getUserUseCase(userId: Int) =
         mapper.mapDbModelToEntity(dao.getUser(userId))
 
-    override fun getAllUserUseCase(projectId: Int): LiveData<List<UserModel>> =
-        Transformations.map(dao.getUserList(projectId)){
-            mapper.mapListDbModelToListEntity(it)
+    override fun getAllUserUseCase(projectId: Int, limit: Int): LiveData<List<UserModel>> =
+        if (limit == 0){
+            Transformations.map(dao.getUserList(projectId)){
+                mapper.mapListDbModelToListEntity(it)
+            }
+        } else {
+            Transformations.map(dao.getUserLimitList(projectId, limit)){
+                mapper.mapListDbModelToListEntity(it)
+            }
         }
+
 }

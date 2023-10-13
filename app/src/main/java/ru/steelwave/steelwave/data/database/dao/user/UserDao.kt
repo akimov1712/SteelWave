@@ -12,8 +12,14 @@ import ru.steelwave.steelwave.domain.entity.user.UserModel
 @Dao
 interface UserDao {
 
+    @Query("SELECT * FROM users WHERE projectId = :projectId LIMIT :limit")
+    fun getUserLimitList(projectId: Int, limit: Int): LiveData<List<UserDbModel>>
+
     @Query("SELECT * FROM users WHERE projectId = :projectId")
     fun getUserList(projectId: Int): LiveData<List<UserDbModel>>
+
+    @Query("SELECT COUNT(*) FROM users WHERE projectId = :projectId")
+    suspend fun getCountUsers(projectId: Int): Int
 
     @Query("SELECT * FROM users WHERE id=:userId LIMIT 1")
     suspend fun getUser(userId: Int): UserDbModel

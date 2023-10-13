@@ -15,14 +15,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.steelwave.steelwave.App
 import ru.steelwave.steelwave.Const
-import ru.steelwave.steelwave.Loger
 import ru.steelwave.steelwave.databinding.FragmentEmployeesBinding
 import ru.steelwave.steelwave.presentation.ViewModelFactory
 import ru.steelwave.steelwave.presentation.main.employees.adapters.userAdapter.UserAdapter
-import ru.steelwave.steelwave.presentation.main.employees.modals.AddEmployeeModal
-import ru.steelwave.steelwave.presentation.main.traffic.TrafficFragmentArgs
-import ru.steelwave.steelwave.presentation.main.traffic.TrafficFragmentDirections
-import ru.steelwave.steelwave.presentation.main.traffic.TrafficViewModel
 import javax.inject.Inject
 
 class EmployeesFragment : Fragment() {
@@ -87,7 +82,8 @@ class EmployeesFragment : Fragment() {
             with(binding){
                 if (projectId != Const.UNDEFINED_ID) {
                     getProjectItem(projectId)
-                    getUserList(projectId)
+                    getUserList(projectId, START_LIMIT_USERS)
+                    getCountUsers(projectId)
                 }
                 state.observe(viewLifecycleOwner){
                     when(it){
@@ -96,8 +92,13 @@ class EmployeesFragment : Fragment() {
                             tvProjectEmployees.text = it.projectItem.name
                         }
                         is EmployeesState.UserList -> {
-                            Loger.log(it.userList.toString())
                             userAdapter.submitList(it.userList)
+                        }
+                        is EmployeesState.CountUsers -> {
+                            if (it.countUsers > 3){
+                                tvCountEmployees.text = it.countUsers.toString()
+                                btnShowMore.visibility = View.VISIBLE
+                            }
                         }
                         else -> {}
                     }
@@ -154,6 +155,10 @@ class EmployeesFragment : Fragment() {
                     EmployeesFragmentDirections.actionEmployeesFragmentToAddEmployeeModal(args.projectId)
                 )
             }
+            btnShowMore.setOnClickListener {
+                viewModel.getUserList(projectId, NO_LIMIT)
+                btnShowMore.visibility = View.GONE
+            }
         }
     }
 
@@ -162,5 +167,9 @@ class EmployeesFragment : Fragment() {
         _binding = null
     }
 
+    companion object{
+        private const val START_LIMIT_USERS = 3
+        private const val NO_LIMIT = 0
+    }
 
 }

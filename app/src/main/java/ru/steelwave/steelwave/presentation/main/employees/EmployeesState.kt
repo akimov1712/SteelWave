@@ -20,5 +20,6 @@ sealed class EmployeesState {
 
     data class ProjectItem(val projectItem: ProjectModel): EmployeesState()
     data class UserList(val userList: List<UserModel>): EmployeesState()
+    data class CountUsers(val countUsers: Int): EmployeesState()
 
 }

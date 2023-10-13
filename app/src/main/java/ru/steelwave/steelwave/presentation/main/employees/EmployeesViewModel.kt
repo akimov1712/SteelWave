@@ -12,30 +12,35 @@ import ru.steelwave.steelwave.domain.useCase.project.GetAllProjectUseCase
 import ru.steelwave.steelwave.domain.useCase.project.GetProjectUseCase
 import ru.steelwave.steelwave.domain.useCase.user.AddUserUseCase
 import ru.steelwave.steelwave.domain.useCase.user.DeleteUserUseCase
+import ru.steelwave.steelwave.domain.useCase.user.GetCountUsersUseCase
 import ru.steelwave.steelwave.domain.useCase.user.GetUserListUseCase
 import ru.steelwave.steelwave.domain.useCase.user.GetUserUseCase
 import javax.inject.Inject
 
 class EmployeesViewModel @Inject constructor(
     private val getProjectUseCase: GetProjectUseCase,
-    private val getProjectListUseCase: GetAllProjectUseCase,
     private val addUserUseCase: AddUserUseCase,
     private val deleteUserUseCase: DeleteUserUseCase,
     private val getUserListUseCase: GetUserListUseCase,
-    private val getUserUseCase: GetUserUseCase
+    private val getUserUseCase: GetUserUseCase,
+    private val getCountUsersUseCase: GetCountUsersUseCase
 ) : ViewModel() {
 
     private val _state = MutableLiveData<EmployeesState>()
     val state: LiveData<EmployeesState>
         get() = _state
 
-    fun getUserList(projectId: Int){
-        Loger.log("Вызван гет юзер")
-        getUserListUseCase(projectId).observeForever{ userList ->
+    fun getUserList(projectId: Int, limit: Int){
+        getUserListUseCase(projectId, limit).observeForever{ userList ->
             _state.value = EmployeesState.UserList(userList)
-            Loger.log(userList.toString())
         }
+    }
 
+    fun getCountUsers(projectId: Int){
+        viewModelScope.launch {
+            val countUsers = getCountUsersUseCase(projectId)
+            _state.value = EmployeesState.CountUsers(countUsers)
+        }
     }
 
     fun getProjectItem(projectItemId: Int) {

@@ -108,7 +108,7 @@ class AddEmployeeModal: DialogFragment() {
                             etPosition.error = getString(R.string.field_not_can_empty)
                         }
                         is EmployeesState.ErrorInputSalary -> {
-                            etSalary.error = getString(R.string.field_not_can_empty)
+                            etSalary.error = getString(R.string.salary_not_can_less_zero)
                         }
                         is EmployeesState.ErrorInputAvatar -> {
                             CustomToast.toastDefault(requireContext(), "Аватар не может быть пустым")
