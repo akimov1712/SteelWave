@@ -14,14 +14,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
+        <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/iv_profile"
             android:layout_width="55dp"
             android:layout_height="55dp"
             android:layout_margin="20dp"
-            android:background="@drawable/background_avatar"
-            android:padding="15dp"
-            android:src="@drawable/icon_default_avatar"
+            android:src="@drawable/image_partner_yandex"
+            app:riv_corner_radius="50dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

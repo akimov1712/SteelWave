@@ -1,6 +1,7 @@
 package ru.steelwave.steelwave.presentation.main.employees
 
 import ru.steelwave.steelwave.domain.entity.project.ProjectModel
+import ru.steelwave.steelwave.domain.entity.user.UserModel
 
 sealed class EmployeesState {
 
@@ -9,7 +10,6 @@ sealed class EmployeesState {
     object ErrorInputMiddleName : EmployeesState()
     object ErrorInputAvatar : EmployeesState()
     object ErrorInputPosition : EmployeesState()
-    object ErrorInputProject : EmployeesState()
     object ErrorInputSalary : EmployeesState()
     object ErrorInputLogin : EmployeesState()
     object ErrorInputPassword : EmployeesState()
@@ -19,5 +19,6 @@ sealed class EmployeesState {
     object ShouldCloseModal : EmployeesState()
 
     data class ProjectItem(val projectItem: ProjectModel): EmployeesState()
+    data class UserList(val userList: List<UserModel>): EmployeesState()
 
 }

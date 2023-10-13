@@ -42,7 +42,7 @@ import ru.steelwave.steelwave.data.database.model.user.UserDbModel
         TransferDbModel::class,
         VisitionDbModel::class
     ],
-    version = 18,
+    version = 19,
     exportSchema = false
 )
 @TypeConverters(

@@ -20,6 +20,6 @@ data class UserDbModel(
 
     var avatar: Bitmap?,
     var position: String,
-    var project: String,
+    var projectId: Int,
     var salary: Int
 )

@@ -24,8 +24,8 @@ class UserRepositoryImpl @Inject constructor(
     override suspend fun getUserUseCase(userId: Int) =
         mapper.mapDbModelToEntity(dao.getUser(userId))
 
-    override fun getAllUserUseCase(): LiveData<List<UserModel>> =
-        Transformations.map(dao.getUserList()){
+    override fun getAllUserUseCase(projectId: Int): LiveData<List<UserModel>> =
+        Transformations.map(dao.getUserList(projectId)){
             mapper.mapListDbModelToListEntity(it)
         }
 }

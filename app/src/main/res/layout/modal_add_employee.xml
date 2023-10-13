@@ -45,7 +45,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:visibility="visible">
+                    tools:visibility="gone">
 
                     <EditText
                         android:id="@+id/et_login"
@@ -113,7 +113,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:hint="@string/lastname"
-                        android:inputType="textPassword"
+                        android:inputType="textPersonName"
                         app:layout_constraintEnd_toEndOf="@+id/et_first_name"
                         app:layout_constraintStart_toStartOf="@+id/et_first_name"
                         app:layout_constraintTop_toBottomOf="@+id/et_first_name" />
@@ -201,14 +201,13 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:visibility="gone">
+                    tools:visibility="visible">
 
                     <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                         android:id="@+id/et_position"
                         style="@style/sw_til_dropMenu"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
-
                         android:layout_marginHorizontal="3dp"
                         android:layout_marginTop="20dp"
                         android:hint="@string/position"
@@ -216,30 +215,18 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <androidx.appcompat.widget.AppCompatAutoCompleteTextView
-                        android:id="@+id/et_project"
-                        style="@style/sw_til_dropMenu"
-                        android:layout_width="0dp"
-                        android:layout_height="50dp"
-                        android:layout_marginTop="8dp"
-                        android:hint="Проекты"
-                        app:layout_constraintEnd_toEndOf="@+id/et_position"
-                        app:layout_constraintStart_toStartOf="@+id/et_position"
-                        app:layout_constraintTop_toBottomOf="@+id/et_position" />
-
                     <EditText
                         android:id="@+id/et_salary"
                         style="@style/sw_editText"
                         android:layout_width="0dp"
                         android:layout_height="60dp"
-                        android:layout_marginTop="8dp"
                         android:hint="@string/salary"
                         android:inputType="number"
                         android:maxLength="7"
+                        android:layout_marginTop="8dp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/et_project" />
+                        app:layout_constraintTop_toBottomOf="@+id/et_position" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

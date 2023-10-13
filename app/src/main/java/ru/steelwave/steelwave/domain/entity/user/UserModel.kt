@@ -19,7 +19,7 @@ data class UserModel(
 
     var avatar: Bitmap? = null,
     var position: String,
-    var project: String,
+    var projectId: Int,
     var salary: Int
 ): Parcelable {
     companion object {

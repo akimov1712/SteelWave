@@ -17,6 +17,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
+import com.squareup.picasso.Picasso
 import ru.steelwave.steelwave.App
 import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.ModalAddEmployeeBinding
@@ -31,6 +33,7 @@ class AddEmployeeModal: DialogFragment() {
     private val component by lazy{
         (requireActivity().application as App).component
     }
+    private val args by navArgs<AddEmployeeModalArgs>()
 
     private var _binding: ModalAddEmployeeBinding? = null
     private val binding: ModalAddEmployeeBinding
@@ -81,11 +84,7 @@ class AddEmployeeModal: DialogFragment() {
     private fun observeViewModel(){
         with(viewModel){
             with(binding){
-                viewModel.projectList.observe(viewLifecycleOwner){
-                    val adapter = ArrayAdapter(requireContext(), R.layout.item_drop_menu, it)
-                    binding.etProject.setAdapter(adapter)
-                }
-                viewModel.state.observe(viewLifecycleOwner){
+                state.observe(viewLifecycleOwner){
                     when(it){
                         is EmployeesState.ValidationPersonalDateSuccessfully -> {
                             clPersonalData.visibility = View.GONE
@@ -105,9 +104,6 @@ class AddEmployeeModal: DialogFragment() {
                         }
                         is EmployeesState.ErrorInputMiddleName -> {
                             etMiddleName.error = getString(R.string.field_not_can_empty)
-                        }
-                        is EmployeesState.ErrorInputProject -> {
-                            etProject.error = getString(R.string.field_not_can_empty)
                         }
                         is EmployeesState.ErrorInputPosition -> {
                             etPosition.error = getString(R.string.field_not_can_empty)
@@ -148,9 +144,8 @@ class AddEmployeeModal: DialogFragment() {
                     viewModel.checkValidPersonalData(firstName,lastName,middleName, selectedImageBitmap)
                 } else {
                     val position = etPosition.text.trim().toString()
-                    val project = etProject.text.trim().toString()
                     val salary = etSalary.text.trim().toString()
-                    viewModel.checkValidPosition(position, project, salary)
+                    viewModel.checkValidPosition(position, salary)
                 }
             }
             btnAdd.setOnClickListener{
@@ -158,13 +153,12 @@ class AddEmployeeModal: DialogFragment() {
                 val lastName = etLastName.text.trim().toString()
                 val middleName = etMiddleName.text.trim().toString()
                 val position = etPosition.text.trim().toString()
-                val project = etProject.text.trim().toString()
                 val salary = etSalary.text.trim().toString()
                 val login = etLogin.text.trim().toString()
                 val password = etPassword.text.trim().toString()
                 val secretWord = etSecretWord.text.trim().toString()
                 viewModel.addUser(firstName, lastName, middleName, selectedImageBitmap, position,
-                    project, salary, login, password, secretWord)
+                    args.projectId, salary, login, password, secretWord)
             }
             btnCancel.setOnClickListener {
                 dismiss()
@@ -184,8 +178,13 @@ class AddEmployeeModal: DialogFragment() {
     }
 
     private fun setImage(uri: Uri) {
-        selectedImageBitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
-        binding.ivAvatar.setImageBitmap(selectedImageBitmap)
+        Picasso.get()
+            .load(uri)
+            .resize(1, 1)
+            .centerCrop()
+            .into(binding.ivAvatar)
+        selectedImageBitmap = Picasso.get()
+            .load(uri).get()
     }
 
     private fun setAdapterInDropMenu(){

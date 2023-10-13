@@ -18,7 +18,7 @@ class UserMapper @Inject constructor() {
         avatar = user.avatar,
         position = user.position,
         salary = user.salary,
-        project = user.project
+        projectId = user.projectId
     )
 
     fun mapDbModelToEntity(user: UserDbModel) = UserModel(
@@ -32,7 +32,7 @@ class UserMapper @Inject constructor() {
         avatar = user.avatar,
         position = user.position,
         salary = user.salary,
-        project = user.project
+        projectId = user.projectId
     )
 
     fun mapListDbModelToListEntity(userList: List<UserDbModel>) = userList.map {

@@ -170,7 +170,11 @@
     <dialog
         android:id="@+id/addEmployeeModal"
         android:name="ru.steelwave.steelwave.presentation.main.employees.modals.AddEmployeeModal"
-        android:label="AddEmployeeModal" />
+        android:label="AddEmployeeModal" >
+        <argument
+            android:name="projectId"
+            app:argType="integer" />
+    </dialog>
     <dialog
         android:id="@+id/deleteProjectModal"
         android:name="ru.steelwave.steelwave.presentation.main.project.modals.DeleteProjectModal"

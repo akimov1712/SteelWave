@@ -15,8 +15,10 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.steelwave.steelwave.App
 import ru.steelwave.steelwave.Const
+import ru.steelwave.steelwave.Loger
 import ru.steelwave.steelwave.databinding.FragmentEmployeesBinding
 import ru.steelwave.steelwave.presentation.ViewModelFactory
+import ru.steelwave.steelwave.presentation.main.employees.adapters.userAdapter.UserAdapter
 import ru.steelwave.steelwave.presentation.main.employees.modals.AddEmployeeModal
 import ru.steelwave.steelwave.presentation.main.traffic.TrafficFragmentArgs
 import ru.steelwave.steelwave.presentation.main.traffic.TrafficFragmentDirections
@@ -43,6 +45,8 @@ class EmployeesFragment : Fragment() {
         ViewModelProvider(this, viewModelFactory)[EmployeesViewModel::class.java]
     }
 
+    private val userAdapter by lazy {UserAdapter()}
+
     override fun onAttach(context: Context) {
         component.inject(this)
         super.onAttach(context)
@@ -59,6 +63,7 @@ class EmployeesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupViews()
+        observeViewModel()
     }
 
     private fun setupViews(){
@@ -66,7 +71,15 @@ class EmployeesFragment : Fragment() {
         refreshFragment()
         setViewErrors()
         setValueFromArgs()
-        observeViewModel()
+        setRecyclerViews()
+    }
+
+    private fun setRecyclerViews(){
+        setUserAdapter()
+    }
+
+    private fun setUserAdapter(){
+        binding.rvEmployees.adapter = userAdapter
     }
 
     private fun observeViewModel(){
@@ -74,13 +87,19 @@ class EmployeesFragment : Fragment() {
             with(binding){
                 if (projectId != Const.UNDEFINED_ID) {
                     getProjectItem(projectId)
+                    getUserList(projectId)
                 }
                 state.observe(viewLifecycleOwner){
                     when(it){
                         is EmployeesState.ProjectItem -> {
                             switchScreensAdding()
                             tvProjectEmployees.text = it.projectItem.name
-                        } else -> {}
+                        }
+                        is EmployeesState.UserList -> {
+                            Loger.log(it.userList.toString())
+                            userAdapter.submitList(it.userList)
+                        }
+                        else -> {}
                     }
                 }
             }
@@ -132,7 +151,7 @@ class EmployeesFragment : Fragment() {
             }
             btnAddEmployees.setOnClickListener {
                 findNavController().navigate(
-                    EmployeesFragmentDirections.actionEmployeesFragmentToAddEmployeeModal()
+                    EmployeesFragmentDirections.actionEmployeesFragmentToAddEmployeeModal(args.projectId)
                 )
             }
         }

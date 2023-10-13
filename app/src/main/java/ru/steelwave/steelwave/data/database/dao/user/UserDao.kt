@@ -12,8 +12,8 @@ import ru.steelwave.steelwave.domain.entity.user.UserModel
 @Dao
 interface UserDao {
 
-    @Query("SELECT * FROM users")
-    fun getUserList(): LiveData<List<UserDbModel>>
+    @Query("SELECT * FROM users WHERE projectId = :projectId")
+    fun getUserList(projectId: Int): LiveData<List<UserDbModel>>
 
     @Query("SELECT * FROM users WHERE id=:userId LIMIT 1")
     suspend fun getUser(userId: Int): UserDbModel
