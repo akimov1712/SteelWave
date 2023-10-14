@@ -32,7 +32,8 @@ class EmployeesViewModel @Inject constructor(
 
     fun getUserList(projectId: Int, limit: Int){
         getUserListUseCase(projectId, limit).observeForever{ userList ->
-            _state.value = EmployeesState.UserList(userList)
+            if (userList.isEmpty()) _state.value = EmployeesState.ErrorEmployeesList
+            else _state.value = EmployeesState.UserList(userList)
         }
     }
 

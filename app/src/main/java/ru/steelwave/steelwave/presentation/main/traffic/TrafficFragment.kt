@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.kal.rackmonthpicker.RackMonthPicker
@@ -19,8 +18,7 @@ import ru.steelwave.steelwave.App
 import ru.steelwave.steelwave.Const
 import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.FragmentTrafficBinding
-import ru.steelwave.steelwave.presentation.ViewModelFactory
-import ru.steelwave.steelwave.utils.formatPrice
+import ru.steelwave.steelwave.presentation.base.ViewModelFactory
 import java.sql.Date
 import java.util.Calendar
 import javax.inject.Inject

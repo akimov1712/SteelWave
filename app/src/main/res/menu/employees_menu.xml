@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_personal_data"
+        android:iconTint="@color/sw_purple"
+        android:icon="@drawable/icon_personal_data"
+        android:title="Личные данные"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/menu_position"
+        android:iconTint="@color/sw_purple"
+        android:icon="@drawable/icon_position"
+        android:title="Должность"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/menu_salary"
+        android:icon="@drawable/icon_salary"
+        android:iconTint="@color/sw_purple"
+        android:title="Зарплата"/>
+
+    <item
+        android:id="@+id/menu_report"
+        android:icon="@drawable/icon_report"
+        android:iconTint="@color/sw_purple"
+        android:title="Отчеты"/>
+
+    <item
+        android:id="@+id/menu_kick"
+        android:icon="@drawable/icon_kick"
+        android:iconTint="@color/sw_red"
+        android:title="Исключить"/>
+
+</menu>

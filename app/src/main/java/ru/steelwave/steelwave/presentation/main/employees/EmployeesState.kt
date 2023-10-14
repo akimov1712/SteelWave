@@ -14,6 +14,9 @@ sealed class EmployeesState {
     object ErrorInputLogin : EmployeesState()
     object ErrorInputPassword : EmployeesState()
     object ErrorInputSecretWord : EmployeesState()
+
+    object ErrorEmployeesList : EmployeesState()
+
     object ValidationPersonalDateSuccessfully : EmployeesState()
     object ValidationPositionSuccessfully : EmployeesState()
     object ShouldCloseModal : EmployeesState()

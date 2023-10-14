@@ -11,6 +11,12 @@
         <item name="colorControlNormal">@color/sw_black</item>
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
         <item name="itemTextAppearance">@style/sw_textView_title</item>
+        <item name="popupMenuStyle">@style/PopupMenuStyle</item>
+    </style>
+
+    <style name="PopupMenuStyle" parent="@style/Widget.AppCompat.PopupMenu">
+        <item name="android:textColor">@color/sw_black</item>
+        <item name="android:fontFamily">@font/poppins_medium</item>
     </style>
 
     <style name="AppBottomSheetDialogTheme"

@@ -110,18 +110,39 @@
                     app:layout_constraintBottom_toBottomOf="@+id/textView10"
                     app:layout_constraintStart_toEndOf="@+id/textView10" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_employees"
-                    style="@style/sw_recyclerView_disable_scroll_effect"
-                    android:layout_width="0dp"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    tools:itemCount="1"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textView10"
-                    tools:listitem="@layout/item_employee" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView10">
+
+                    <include
+                        android:id="@+id/incl_error"
+                        layout="@layout/include_error_not_found"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_employees"
+                        style="@style/sw_recyclerView_disable_scroll_effect"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        tools:itemCount="1"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:listitem="@layout/item_employee" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_add_employees"
@@ -130,9 +151,9 @@
                     android:layout_height="50dp"
                     android:layout_marginTop="20dp"
                     android:text="@string/new_employees"
-                    app:layout_constraintEnd_toEndOf="@+id/rv_employees"
-                    app:layout_constraintStart_toStartOf="@+id/rv_employees"
-                    app:layout_constraintTop_toBottomOf="@+id/rv_employees" />
+                    app:layout_constraintEnd_toEndOf="@+id/cl_content"
+                    app:layout_constraintStart_toStartOf="@+id/cl_content"
+                    app:layout_constraintTop_toBottomOf="@+id/cl_content" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_show_more"

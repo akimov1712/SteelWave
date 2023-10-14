@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.widget.PopupMenu
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -15,8 +17,13 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.steelwave.steelwave.App
 import ru.steelwave.steelwave.Const
+import ru.steelwave.steelwave.Loger
+import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.FragmentEmployeesBinding
-import ru.steelwave.steelwave.presentation.ViewModelFactory
+import ru.steelwave.steelwave.domain.entity.finance.TargetModel
+import ru.steelwave.steelwave.domain.entity.user.UserModel
+import ru.steelwave.steelwave.presentation.base.CustomToast
+import ru.steelwave.steelwave.presentation.base.ViewModelFactory
 import ru.steelwave.steelwave.presentation.main.employees.adapters.userAdapter.UserAdapter
 import javax.inject.Inject
 
@@ -75,6 +82,9 @@ class EmployeesFragment : Fragment() {
 
     private fun setUserAdapter(){
         binding.rvEmployees.adapter = userAdapter
+        userAdapter.onEmployeesClickListener = {anchor, user ->
+            setOpenMenuInEmployees(anchor, user)
+        }
     }
 
     private fun observeViewModel(){
@@ -93,12 +103,17 @@ class EmployeesFragment : Fragment() {
                         }
                         is EmployeesState.UserList -> {
                             userAdapter.submitList(it.userList)
+                            inclError.clError.visibility = View.GONE
                         }
                         is EmployeesState.CountUsers -> {
                             if (it.countUsers > 3){
-                                tvCountEmployees.text = it.countUsers.toString()
                                 btnShowMore.visibility = View.VISIBLE
                             }
+                            tvCountEmployees.text = it.countUsers.toString()
+                        }
+                        is EmployeesState.ErrorEmployeesList -> {
+                            inclError.clError.visibility = View.VISIBLE
+                            Loger.log("trushka")
                         }
                         else -> {}
                     }
@@ -137,7 +152,7 @@ class EmployeesFragment : Fragment() {
 
     private fun setViewErrors(){
         with(binding){
-//            inclErrorVisition.tvNotFound.text = "Посетителей за данный\nмесяц не обнаружено"
+            inclError.tvNotFound.text = "Сотрудников в проекте\nне обнаружено"
         }
     }
 
@@ -160,6 +175,41 @@ class EmployeesFragment : Fragment() {
                 btnShowMore.visibility = View.GONE
             }
         }
+    }
+
+    private fun setOpenMenuInEmployees(anchorView: View, user: UserModel) {
+        val popup = PopupMenu(requireContext(), anchorView)
+        popup.menuInflater.inflate(R.menu.employees_menu, popup.menu)
+        // TODO(сделать кастом layout для item как в dropmenu)
+        popup.setForceShowIcon(true)
+        popup.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.menu_personal_data -> {
+                    Toast.makeText(requireContext(), "Нажал на персонал дата", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.menu_position -> {
+                    Toast.makeText(requireContext(), "Нажал на должность", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.menu_salary -> {
+                    Toast.makeText(requireContext(), "Нажал на зпшку", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.menu_report -> {
+                    Toast.makeText(requireContext(), "Нажал на отчет", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.menu_kick -> {
+                    Toast.makeText(requireContext(), "Нажал на кик", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                else -> {
+                    false
+                }
+            }
+        }
+        popup.show()
     }
 
     override fun onDestroyView() {

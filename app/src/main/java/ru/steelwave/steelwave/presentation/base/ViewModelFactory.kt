@@ -1,4 +1,4 @@
-package ru.steelwave.steelwave.presentation
+package ru.steelwave.steelwave.presentation.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

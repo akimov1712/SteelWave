@@ -15,11 +15,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import ru.steelwave.steelwave.App
-import ru.steelwave.steelwave.Const
 import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.ModalConfirmDeleteProjectBinding
-import ru.steelwave.steelwave.presentation.ViewModelFactory
-import ru.steelwave.steelwave.presentation.main.finance.FinanceViewModel
+import ru.steelwave.steelwave.presentation.base.ViewModelFactory
 import ru.steelwave.steelwave.presentation.main.project.ProjectState
 import ru.steelwave.steelwave.presentation.main.project.ProjectViewModel
 import javax.inject.Inject

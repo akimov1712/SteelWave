@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -22,8 +21,8 @@ import ru.steelwave.steelwave.Const
 import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.FragmentFinanceBinding
 import ru.steelwave.steelwave.domain.entity.finance.TargetModel
-import ru.steelwave.steelwave.presentation.CustomToast
-import ru.steelwave.steelwave.presentation.ViewModelFactory
+import ru.steelwave.steelwave.presentation.base.CustomToast
+import ru.steelwave.steelwave.presentation.base.ViewModelFactory
 import ru.steelwave.steelwave.presentation.main.finance.adapters.incomeAdapter.IncomeAdapter
 import ru.steelwave.steelwave.presentation.main.finance.adapters.lossAdapter.LossAdapter
 import ru.steelwave.steelwave.presentation.main.finance.adapters.targetAdapter.TargetAdapter

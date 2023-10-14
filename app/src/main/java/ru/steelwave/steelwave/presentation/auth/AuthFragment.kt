@@ -11,12 +11,11 @@ import android.text.style.UnderlineSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.FragmentAuthBinding
-import ru.steelwave.steelwave.presentation.CustomToast
+import ru.steelwave.steelwave.presentation.base.CustomToast
 import ru.steelwave.steelwave.presentation.MainActivity
 
 class AuthFragment : Fragment() {

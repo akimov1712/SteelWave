@@ -1,4 +1,4 @@
-package ru.steelwave.steelwave.presentation
+package ru.steelwave.steelwave.presentation.base
 
 import android.content.Context
 import android.view.Gravity

@@ -17,11 +17,7 @@ import ru.steelwave.steelwave.App
 import ru.steelwave.steelwave.Const
 import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.FragmentAdsBinding
-import ru.steelwave.steelwave.databinding.FragmentProjectBinding
-import ru.steelwave.steelwave.presentation.ViewModelFactory
-import ru.steelwave.steelwave.presentation.main.employees.EmployeesFragmentArgs
-import ru.steelwave.steelwave.presentation.main.employees.EmployeesFragmentDirections
-import ru.steelwave.steelwave.presentation.main.employees.EmployeesViewModel
+import ru.steelwave.steelwave.presentation.base.ViewModelFactory
 import javax.inject.Inject
 
 class AdsFragment : Fragment() {

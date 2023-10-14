@@ -15,7 +15,7 @@ import ru.steelwave.steelwave.App
 import ru.steelwave.steelwave.Const
 import ru.steelwave.steelwave.databinding.ModalChoiceProjectBinding
 import ru.steelwave.steelwave.domain.entity.project.ProjectModel
-import ru.steelwave.steelwave.presentation.ViewModelFactory
+import ru.steelwave.steelwave.presentation.base.ViewModelFactory
 import ru.steelwave.steelwave.presentation.main.finance.FinanceViewModel
 import ru.steelwave.steelwave.presentation.modals.choiceProjectAdapter.ChoiceProjectAdapter
 import javax.inject.Inject
