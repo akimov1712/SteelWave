@@ -2,7 +2,6 @@ package ru.steelwave.steelwave.data.database
 
 import android.app.Application
 import android.content.Context
-import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -10,12 +9,12 @@ import androidx.room.TypeConverters
 import ru.steelwave.steelwave.data.database.converter.BitmapConverter
 import ru.steelwave.steelwave.data.database.converter.finance.TargetConverter
 import ru.steelwave.steelwave.data.database.converter.project.ProjectConverter
-import ru.steelwave.steelwave.data.database.converter.finance.TransactionConverter
-import ru.steelwave.steelwave.data.database.converter.finance.TransactionListConverter
 import ru.steelwave.steelwave.data.database.converter.finance.YearIncomeConverter
 import ru.steelwave.steelwave.data.database.converter.traffic.TransferConverter
 import ru.steelwave.steelwave.data.database.converter.traffic.VisitionConverter
 import ru.steelwave.steelwave.data.database.converter.user.UserConverter
+import ru.steelwave.steelwave.data.database.dao.ads.DetailsPartnerDao
+import ru.steelwave.steelwave.data.database.dao.ads.PartnerDao
 import ru.steelwave.steelwave.data.database.dao.finance.TargetDao
 import ru.steelwave.steelwave.data.database.dao.finance.TransactionDao
 import ru.steelwave.steelwave.data.database.dao.project.ProjectDao
@@ -23,6 +22,7 @@ import ru.steelwave.steelwave.data.database.dao.finance.YearIncomeDao
 import ru.steelwave.steelwave.data.database.dao.traffic.TransferDao
 import ru.steelwave.steelwave.data.database.dao.traffic.VisitionDao
 import ru.steelwave.steelwave.data.database.dao.user.UserDao
+import ru.steelwave.steelwave.data.database.model.ads.DetailsPartnerDbModel
 import ru.steelwave.steelwave.data.database.model.finance.TargetDbModel
 import ru.steelwave.steelwave.data.database.model.finance.TransactionDbModel
 import ru.steelwave.steelwave.data.database.model.finance.YearIncomeDbModel
@@ -30,6 +30,7 @@ import ru.steelwave.steelwave.data.database.model.project.ProjectDbModel
 import ru.steelwave.steelwave.data.database.model.traffic.TransferDbModel
 import ru.steelwave.steelwave.data.database.model.traffic.VisitionDbModel
 import ru.steelwave.steelwave.data.database.model.user.UserDbModel
+import ru.steelwave.steelwave.data.database.model.ads.PartnerDbModel
 
 
 @Database(
@@ -40,9 +41,11 @@ import ru.steelwave.steelwave.data.database.model.user.UserDbModel
         YearIncomeDbModel::class,
         TransactionDbModel::class,
         TransferDbModel::class,
-        VisitionDbModel::class
+        VisitionDbModel::class,
+        PartnerDbModel::class,
+        DetailsPartnerDbModel::class
     ],
-    version = 20,
+    version = 21,
     exportSchema = false
 )
 @TypeConverters(
@@ -63,6 +66,8 @@ abstract class AppDatabase: RoomDatabase() {
     abstract fun transferDao(): TransferDao
     abstract fun visitionDao(): VisitionDao
     abstract fun userDao(): UserDao
+    abstract fun partnerDao(): PartnerDao
+    abstract fun detailsPartnerDao(): DetailsPartnerDao
 
     companion object{
         private var INSTANCE: AppDatabase? = null

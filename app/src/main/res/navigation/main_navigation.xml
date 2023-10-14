@@ -84,6 +84,9 @@
             android:name="projectId"
             app:argType="integer"
             android:defaultValue="-1" />
+        <action
+            android:id="@+id/action_adsFragment_to_addPartnerModal"
+            app:destination="@id/addPartnerModal" />
     </fragment>
     <fragment
         android:id="@+id/rulesFragmentInMain"
@@ -186,5 +189,13 @@
             android:id="@+id/action_deleteProjectModal_to_projectFragment"
             app:destination="@id/projectFragment"
             app:popUpToInclusive="false" />
+    </dialog>
+    <dialog
+        android:id="@+id/addPartnerModal"
+        android:name="ru.steelwave.steelwave.presentation.main.ads.modals.AddPartnerModal"
+        android:label="AddPartnerModal" >
+        <argument
+            android:name="projectId"
+            app:argType="integer" />
     </dialog>
 </navigation>

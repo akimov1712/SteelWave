@@ -121,13 +121,24 @@ class AdsFragment : Fragment() {
     private fun setListenersInView() {
         with(binding) {
             clProjectPartner.setOnClickListener {
-                findNavController().navigate(
-                    AdsFragmentDirections.actionAdsFragmentToChoiceProjectModal(
-                        Const.MODE_CHOICE_PROJECT_ADS
-                    )
-                )
+                openModalChoiceProject()
+            }
+            btnAddPartner.setOnClickListener {
+                openModalAddPartner(projectId)
             }
         }
+    }
+
+    private fun openModalAddPartner(projectId: Int){
+        findNavController().navigate(AdsFragmentDirections.actionAdsFragmentToAddPartnerModal(projectId))
+    }
+
+    private fun openModalChoiceProject(){
+        findNavController().navigate(
+            AdsFragmentDirections.actionAdsFragmentToChoiceProjectModal(
+                Const.MODE_CHOICE_PROJECT_ADS
+            )
+        )
     }
 
     override fun onDestroyView() {

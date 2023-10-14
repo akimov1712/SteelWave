@@ -5,6 +5,7 @@ import dagger.BindsInstance
 import dagger.Component
 import ru.steelwave.steelwave.presentation.MainActivity
 import ru.steelwave.steelwave.presentation.main.ads.AdsFragment
+import ru.steelwave.steelwave.presentation.main.ads.modals.AddPartnerModal
 import ru.steelwave.steelwave.presentation.main.employees.EmployeesFragment
 import ru.steelwave.steelwave.presentation.main.employees.modals.AddEmployeeModal
 import ru.steelwave.steelwave.presentation.modals.ChoiceProjectModal
@@ -46,6 +47,7 @@ interface ApplicationComponent {
     fun inject(dialogFragment: DeleteTargetModal)
     fun inject(dialogFragment: DeleteProjectModal)
     fun inject(dialogFragment: AddEmployeeModal)
+    fun inject(dialogFragment: AddPartnerModal)
 
     @Component.Factory
     interface Factory{
