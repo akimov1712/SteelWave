@@ -129,9 +129,11 @@
     <string name="min_lenght_password">Минимальная длина пароля 6 символов</string>
     <string name="salary_not_can_less_zero">Зарплата не может быть меньше 0</string>
     <string name="date_end_contract">Дата окончания контракта</string>
+    <string name="you_really_kick_user">Вы действительное хотите исключить —</string>
     <string-array name="proffesionArray">
         <item>Верстальщик</item>
-        <item>Бэкенд разработчик</item>
+        <item>Backend разработчик</item>
+        <item>Frontend разработчик</item>
         <item>Разработчик мобильных приложений </item>
         <item>iOS разработчик</item>
         <item>Android разработчик</item>
@@ -155,7 +157,7 @@
         <item>Маркетинговый аналитик</item>
         <item>Контент-менеджер</item>
         <item>Инженер по искусственному интеллекту</item>
-        <item>Машинное обучениеMachine </item>
+        <item>Машинное обучение</item>
         <item>Специалист по технической поддержке</item>
         <item>Администратор системы</item>
         <item>Робототехник</item>

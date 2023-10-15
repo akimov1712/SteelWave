@@ -21,7 +21,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="15dp"
             android:scaleType="centerCrop"
-            app:riv_oval="true"
+            app:riv_corner_radius="@dimen/corner_normal"
             app:riv_border_width="1dp"
             app:riv_border_color="@color/sw_purple"
             app:layout_constraintStart_toStartOf="parent"
@@ -113,7 +113,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0%"
-            android:textColor="@color/sw_green"
+            android:textColor="@color/sw_purple"
             app:layout_constraintEnd_toEndOf="@+id/textView11"
             app:layout_constraintStart_toStartOf="@+id/textView11"
             app:layout_constraintTop_toBottomOf="@+id/textView11" />

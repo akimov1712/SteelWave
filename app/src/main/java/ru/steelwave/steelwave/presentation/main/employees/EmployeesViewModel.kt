@@ -30,10 +30,17 @@ class EmployeesViewModel @Inject constructor(
     val state: LiveData<EmployeesState>
         get() = _state
 
+    fun kickEmployee(userId: Int){
+        viewModelScope.launch {
+            deleteUserUseCase(userId)
+            _state.value = EmployeesState.ShouldCloseKickEmployeeModal
+        }
+    }
+
     fun getUserList(projectId: Int, limit: Int){
         getUserListUseCase(projectId, limit).observeForever{ userList ->
+            _state.value = EmployeesState.UserList(userList)
             if (userList.isEmpty()) _state.value = EmployeesState.ErrorEmployeesList
-            else _state.value = EmployeesState.UserList(userList)
         }
     }
 

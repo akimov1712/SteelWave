@@ -15,6 +15,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import ru.steelwave.steelwave.App
 import ru.steelwave.steelwave.Const
 import ru.steelwave.steelwave.Loger
@@ -92,7 +93,7 @@ class EmployeesFragment : Fragment() {
             with(binding){
                 if (projectId != Const.UNDEFINED_ID) {
                     getProjectItem(projectId)
-                    getUserList(projectId, START_LIMIT_USERS)
+                    getUserList(projectId, Const.START_LIMIT_USERS)
                     getCountUsers(projectId)
                 }
                 state.observe(viewLifecycleOwner){
@@ -103,17 +104,18 @@ class EmployeesFragment : Fragment() {
                         }
                         is EmployeesState.UserList -> {
                             userAdapter.submitList(it.userList)
+                            getCountUsers(projectId)
                             inclError.clError.visibility = View.GONE
                         }
                         is EmployeesState.CountUsers -> {
-                            if (it.countUsers > 3){
-                                btnShowMore.visibility = View.VISIBLE
+                            if (it.countUsers <= 3){
+                                btnShowMore.visibility = View.GONE
                             }
                             tvCountEmployees.text = it.countUsers.toString()
                         }
                         is EmployeesState.ErrorEmployeesList -> {
                             inclError.clError.visibility = View.VISIBLE
-                            Loger.log("trushka")
+                            tvCountEmployees.text = "0"
                         }
                         else -> {}
                     }
@@ -124,8 +126,10 @@ class EmployeesFragment : Fragment() {
 
     private fun refreshFragment(){
         with(binding.swipeRefresh){
-            setColorSchemeResources(ru.steelwave.steelwave.R.color.sw_purple)
+            setColorSchemeResources(R.color.sw_purple)
             setOnRefreshListener {
+                viewModel.getUserList(projectId, Const.START_LIMIT_USERS)
+                binding.btnShowMore.visibility = View.VISIBLE
                 CoroutineScope(Dispatchers.IO).launch{
                     delay(300)
                     isRefreshing = false
@@ -171,7 +175,7 @@ class EmployeesFragment : Fragment() {
                 )
             }
             btnShowMore.setOnClickListener {
-                viewModel.getUserList(projectId, NO_LIMIT)
+                viewModel.getUserList(projectId, Const.NO_LIMIT)
                 btnShowMore.visibility = View.GONE
             }
         }
@@ -180,7 +184,6 @@ class EmployeesFragment : Fragment() {
     private fun setOpenMenuInEmployees(anchorView: View, user: UserModel) {
         val popup = PopupMenu(requireContext(), anchorView)
         popup.menuInflater.inflate(R.menu.employees_menu, popup.menu)
-        // TODO(сделать кастом layout для item как в dropmenu)
         popup.setForceShowIcon(true)
         popup.setOnMenuItemClickListener {
             when (it.itemId) {
@@ -201,7 +204,8 @@ class EmployeesFragment : Fragment() {
                     true
                 }
                 R.id.menu_kick -> {
-                    Toast.makeText(requireContext(), "Нажал на кик", Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(EmployeesFragmentDirections
+                        .actionEmployeesFragmentToKickEmployeeModal(user))
                     true
                 }
                 else -> {
@@ -215,11 +219,6 @@ class EmployeesFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    companion object{
-        private const val START_LIMIT_USERS = 3
-        private const val NO_LIMIT = 0
     }
 
 }

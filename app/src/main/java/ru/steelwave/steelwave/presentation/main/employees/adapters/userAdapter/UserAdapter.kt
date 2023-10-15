@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import ru.steelwave.steelwave.databinding.ItemEmployeeBinding
 import ru.steelwave.steelwave.domain.entity.user.UserModel
 import ru.steelwave.steelwave.utils.formatPrice
+import ru.steelwave.steelwave.utils.formatName
 
 class UserAdapter: ListAdapter<UserModel, UserViewHolder>(UserDiffCallback()) {
 
@@ -22,7 +23,7 @@ class UserAdapter: ListAdapter<UserModel, UserViewHolder>(UserDiffCallback()) {
         val item = getItem(position)
         with(holder.binding){
             with(item){
-                tvNameEmployee.text = lastName + " ${firstName[0]}.${middleName[0]}."
+                tvNameEmployee.text = formatName(item)
                 tvProfEmployee.text = this.position
                 ivProfile.setImageBitmap(avatar)
                 tvIncome.text = formatPrice(salary) + "$"

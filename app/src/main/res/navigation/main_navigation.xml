@@ -71,6 +71,9 @@
         <action
             android:id="@+id/action_employeesFragment_to_addEmployeeModal"
             app:destination="@id/addEmployeeModal" />
+        <action
+            android:id="@+id/action_employeesFragment_to_kickEmployeeModal"
+            app:destination="@id/kickEmployeeModal" />
     </fragment>
     <fragment
         android:id="@+id/adsFragment"
@@ -197,5 +200,13 @@
         <argument
             android:name="projectId"
             app:argType="integer" />
+    </dialog>
+    <dialog
+        android:id="@+id/kickEmployeeModal"
+        android:name="ru.steelwave.steelwave.presentation.main.employees.modals.KickEmployeeModal"
+        android:label="KickEmployeeModal" >
+        <argument
+            android:name="user"
+            app:argType="ru.steelwave.steelwave.domain.entity.user.UserModel" />
     </dialog>
 </navigation>

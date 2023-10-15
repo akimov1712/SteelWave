@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/sw_cardView"
+    android:layout_marginHorizontal="20dp"
+    android:layout_gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_gravity="center"
+        android:minWidth="330dp"
+        android:paddingBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/sw_textView_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:gravity="center"
+            android:text="@string/kick"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_delete_target"
+            style="@style/sw_textView_normal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:textColor="@color/sw_black_transparent"
+            android:text="@string/you_really_kick_user"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_delete"
+            style="@style/sw_button_fill"
+            android:layout_width="230dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:text="Исключить"
+            android:backgroundTint="@color/sw_red"
+            app:layout_constraintEnd_toEndOf="@+id/tv_delete_target"
+            app:layout_constraintStart_toStartOf="@+id/tv_delete_target"
+            app:layout_constraintTop_toBottomOf="@+id/tv_delete_target" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_cancel"
+            style="@style/sw_button_empty"
+            android:layout_width="230dp"
+            android:layout_height="50dp"
+            android:text="@string/cancel"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintEnd_toEndOf="@+id/btn_delete"
+            app:layout_constraintStart_toStartOf="@+id/btn_delete"
+            app:layout_constraintTop_toBottomOf="@+id/btn_delete" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

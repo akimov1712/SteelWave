@@ -13,10 +13,7 @@ import ru.steelwave.steelwave.domain.entity.user.UserModel
 interface UserDao {
 
     @Query("SELECT * FROM users WHERE projectId = :projectId LIMIT :limit")
-    fun getUserLimitList(projectId: Int, limit: Int): LiveData<List<UserDbModel>>
-
-    @Query("SELECT * FROM users WHERE projectId = :projectId")
-    fun getUserList(projectId: Int): LiveData<List<UserDbModel>>
+    fun getUserList(projectId: Int, limit: Int): LiveData<List<UserDbModel>>
 
     @Query("SELECT COUNT(*) FROM users WHERE projectId = :projectId")
     suspend fun getCountUsers(projectId: Int): Int
@@ -24,8 +21,8 @@ interface UserDao {
     @Query("SELECT * FROM users WHERE id=:userId LIMIT 1")
     suspend fun getUser(userId: Int): UserDbModel
 
-    @Delete
-    suspend fun deleteUser(user: UserDbModel)
+    @Query("DELETE FROM users WHERE id=:userId")
+    suspend fun  deleteUser(userId: Int)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addUser(user: UserDbModel)

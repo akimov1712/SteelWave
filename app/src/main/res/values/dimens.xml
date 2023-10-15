@@ -10,7 +10,7 @@
     <dimen name="big_size">20sp</dimen>
     <dimen name="very_big_size">25sp</dimen>
 
-<!--    corners-->
+    <!--    corners-->
 
     <dimen name="corner_small">7dp</dimen>
     <dimen name="corner_normal">13dp</dimen>
