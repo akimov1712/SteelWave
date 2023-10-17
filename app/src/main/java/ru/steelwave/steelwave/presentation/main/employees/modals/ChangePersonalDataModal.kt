@@ -11,7 +11,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
@@ -20,23 +19,23 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import ru.steelwave.steelwave.App
 import ru.steelwave.steelwave.R
-import ru.steelwave.steelwave.databinding.ModalAddEmployeeBinding
+import ru.steelwave.steelwave.databinding.ModalChangePersonalDataBinding
 import ru.steelwave.steelwave.presentation.base.CustomToast
 import ru.steelwave.steelwave.presentation.base.ViewModelFactory
 import ru.steelwave.steelwave.presentation.main.employees.EmployeesState
 import ru.steelwave.steelwave.presentation.main.employees.EmployeesViewModel
 import javax.inject.Inject
 
-class AddEmployeeModal: DialogFragment() {
+class ChangePersonalDataModal: DialogFragment() {
 
     private val component by lazy{
         (requireActivity().application as App).component
     }
     private val args by navArgs<AddEmployeeModalArgs>()
 
-    private var _binding: ModalAddEmployeeBinding? = null
-    private val binding: ModalAddEmployeeBinding
-    get() = _binding ?: throw RuntimeException("ModalAddEmployeeBinding == null")
+    private var _binding: ModalChangePersonalDataBinding? = null
+    private val binding: ModalChangePersonalDataBinding
+    get() = _binding ?: throw RuntimeException("ModalChangePersonalDataBinding == null")
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -64,7 +63,7 @@ class AddEmployeeModal: DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = ModalAddEmployeeBinding.inflate(inflater, container, false)
+        _binding = ModalChangePersonalDataBinding.inflate(inflater, container, false)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         return binding.root
     }
@@ -77,7 +76,6 @@ class AddEmployeeModal: DialogFragment() {
 
     private fun setupViews(){
         setListenersInView()
-        setAdapterInDropMenu()
     }
 
     private fun observeViewModel(){
@@ -85,16 +83,6 @@ class AddEmployeeModal: DialogFragment() {
             with(binding){
                 state.observe(viewLifecycleOwner){
                     when(it){
-                        is EmployeesState.ValidationPersonalDateSuccessfully -> {
-                            clPersonalData.visibility = View.GONE
-                            clPosition.visibility = View.VISIBLE
-                        }
-                        is EmployeesState.ValidationPositionSuccessfully -> {
-                            clPosition.visibility = View.GONE
-                            clRegistration.visibility = View.VISIBLE
-                            btnContinue.visibility = View.GONE
-                            btnAdd.visibility = View.VISIBLE
-                        }
                         is EmployeesState.ErrorInputFirstName -> {
                             etFirstName.error = getString(R.string.field_not_can_empty)
                         }
@@ -103,21 +91,6 @@ class AddEmployeeModal: DialogFragment() {
                         }
                         is EmployeesState.ErrorInputMiddleName -> {
                             etMiddleName.error = getString(R.string.field_not_can_empty)
-                        }
-                        is EmployeesState.ErrorInputPosition -> {
-                            etPosition.error = getString(R.string.field_not_can_empty)
-                        }
-                        is EmployeesState.ErrorInputSalary -> {
-                            etSalary.error = getString(R.string.salary_not_can_less_zero)
-                        }
-                        is EmployeesState.ErrorInputLogin -> {
-                            etLogin.error = getString(R.string.min_lenght_login)
-                        }
-                        is EmployeesState.ErrorInputPassword -> {
-                            etPassword.error = getString(R.string.min_lenght_password)
-                        }
-                        is EmployeesState.ErrorInputSecretWord -> {
-                            etSecretWord.error = getString(R.string.field_not_can_empty)
                         }
                         is EmployeesState.ShouldCloseModal -> {
                             dismiss()
@@ -131,29 +104,12 @@ class AddEmployeeModal: DialogFragment() {
 
     private fun setListenersInView(){
         with(binding){
-            btnContinue.setOnClickListener {
-                if (clPersonalData.isVisible){
-                    val firstName = etFirstName.text.trim().toString()
-                    val lastName = etLastName.text.trim().toString()
-                    val middleName = etMiddleName.text.trim().toString()
-                    viewModel.checkValidPersonalData(firstName,lastName,middleName, selectedImageBitmap)
-                } else {
-                    val position = etPosition.text.trim().toString()
-                    val salary = etSalary.text.trim().toString()
-                    viewModel.checkValidPosition(position, salary)
-                }
-            }
+
             btnAdd.setOnClickListener{
                 val firstName = etFirstName.text.trim().toString()
                 val lastName = etLastName.text.trim().toString()
                 val middleName = etMiddleName.text.trim().toString()
-                val position = etPosition.text.trim().toString()
-                val salary = etSalary.text.trim().toString()
-                val login = etLogin.text.trim().toString()
-                val password = etPassword.text.trim().toString()
-                val secretWord = etSecretWord.text.trim().toString()
-                viewModel.addUser(firstName, lastName, middleName, selectedImageBitmap, position,
-                    args.projectId, salary, login, password, secretWord)
+//                viewModel.changePersonalData(firstName, lastName, middleName, selectedImageBitmap)
             }
             btnCancel.setOnClickListener {
                 dismiss()
@@ -181,12 +137,6 @@ class AddEmployeeModal: DialogFragment() {
         selectedImageBitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
         binding.ivAvatar.setImageBitmap(selectedImageBitmap)
         binding.btnCancelImage.visibility = View.VISIBLE
-    }
-
-    private fun setAdapterInDropMenu(){
-        val suggestions = requireContext().resources.getStringArray(R.array.proffesionArray)
-        val adapter = ArrayAdapter(requireContext(), R.layout.item_drop_menu, suggestions)
-        binding.etPosition.setAdapter(adapter)
     }
 
     override fun onDestroyView() {

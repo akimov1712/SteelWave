@@ -92,7 +92,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:visibility="gone">
+                    tools:visibility="visible">
 
                     <EditText
                         android:id="@+id/et_first_name"
@@ -132,7 +132,7 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/cl_paste_image"
-                        android:layout_width="0dp"
+                        android:layout_width="180dp"
                         android:layout_height="180dp"
                         android:layout_marginTop="10dp"
                         app:layout_constraintEnd_toEndOf="@+id/et_middle_name"
@@ -146,6 +146,18 @@
                             android:scaleType="centerCrop"
                             android:src="@drawable/background_choice_image"
                             app:shapeAppearance="@style/sw_rounding7" />
+
+
+                        <ImageView
+                            android:id="@+id/btn_cancel_image"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@drawable/icon_close"
+                            android:layout_margin="10dp"
+                            android:visibility="gone"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:tint="@color/sw_red" />
 
                         <ImageView
                             android:id="@+id/imageView"
@@ -201,7 +213,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:visibility="visible">
+                    tools:visibility="gone">
 
                     <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                         android:id="@+id/et_position"
@@ -220,10 +232,10 @@
                         style="@style/sw_editText"
                         android:layout_width="0dp"
                         android:layout_height="60dp"
+                        android:layout_marginTop="8dp"
                         android:hint="@string/salary"
                         android:inputType="number"
                         android:maxLength="7"
-                        android:layout_marginTop="8dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/et_position" />

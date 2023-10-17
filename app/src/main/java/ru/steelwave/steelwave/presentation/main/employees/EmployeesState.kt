@@ -8,7 +8,6 @@ sealed class EmployeesState {
     object ErrorInputFirstName : EmployeesState()
     object ErrorInputLastName : EmployeesState()
     object ErrorInputMiddleName : EmployeesState()
-    object ErrorInputAvatar : EmployeesState()
     object ErrorInputPosition : EmployeesState()
     object ErrorInputSalary : EmployeesState()
     object ErrorInputLogin : EmployeesState()
@@ -20,7 +19,6 @@ sealed class EmployeesState {
     object ValidationPositionSuccessfully : EmployeesState()
 
     object ShouldCloseModal : EmployeesState()
-    object ShouldCloseKickEmployeeModal : EmployeesState()
 
     data class ProjectItem(val projectItem: ProjectModel): EmployeesState()
     data class UserList(val userList: List<UserModel>): EmployeesState()

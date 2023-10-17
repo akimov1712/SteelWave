@@ -166,17 +166,6 @@
                     app:layout_constraintStart_toStartOf="@+id/btn_add_employees"
                     app:layout_constraintTop_toBottomOf="@+id/btn_add_employees" />
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_view_more"
-                    style="@style/sw_button_empty"
-                    android:layout_width="230dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/view_more"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="@+id/btn_add_employees"
-                    app:layout_constraintStart_toStartOf="@+id/btn_add_employees"
-                    app:layout_constraintTop_toBottomOf="@+id/btn_add_employees" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

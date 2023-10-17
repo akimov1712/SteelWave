@@ -194,13 +194,14 @@ class EmployeesFragment : Fragment() {
                 }
 
                 R.id.menu_position -> {
-                    Toast.makeText(requireContext(), "Нажал на должность", Toast.LENGTH_SHORT)
-                        .show()
+                    findNavController().navigate(EmployeesFragmentDirections
+                        .actionEmployeesFragmentToChangePositionModal(user.id))
                     true
                 }
 
                 R.id.menu_salary -> {
-                    Toast.makeText(requireContext(), "Нажал на зпшку", Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(EmployeesFragmentDirections
+                        .actionEmployeesFragmentToChangeSalaryModal(user.id))
                     true
                 }
 

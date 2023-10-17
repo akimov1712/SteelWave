@@ -6,9 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import ru.steelwave.steelwave.Loger
 import ru.steelwave.steelwave.domain.entity.user.UserModel
-import ru.steelwave.steelwave.domain.useCase.project.GetAllProjectUseCase
 import ru.steelwave.steelwave.domain.useCase.project.GetProjectUseCase
 import ru.steelwave.steelwave.domain.useCase.user.AddUserUseCase
 import ru.steelwave.steelwave.domain.useCase.user.DeleteUserUseCase
@@ -32,10 +30,34 @@ class EmployeesViewModel @Inject constructor(
     val state: LiveData<EmployeesState>
         get() = _state
 
-    fun kickEmployee(userId: Int){
+    fun deleteEmployee(userId: Int){
         viewModelScope.launch {
             deleteUserUseCase(userId)
-            _state.value = EmployeesState.ShouldCloseKickEmployeeModal
+            _state.value = EmployeesState.ShouldCloseModal
+        }
+    }
+
+    fun changeSalary(userId: Int, inputSalary: String?){
+        val salary = parseCount(inputSalary)
+        val valid = validateSalary(salary)
+        if (valid){
+            viewModelScope.launch {
+                val newUser = getUserUseCase(userId).copy(salary = salary)
+                addUserUseCase(newUser)
+                _state.value = EmployeesState.ShouldCloseModal
+            }
+        }
+    }
+
+    fun changePosition(userId: Int, inputPosition: String?){
+        val position = parseString(inputPosition)
+        val valid = validatePosition(position)
+        if (valid){
+            viewModelScope.launch {
+                val newUser = getUserUseCase(userId).copy(position = position)
+                addUserUseCase(newUser)
+                _state.value = EmployeesState.ShouldCloseModal
+            }
         }
     }
 
@@ -89,7 +111,7 @@ class EmployeesViewModel @Inject constructor(
         val login = parseString(inputLogin)
         val password = parseString(inputPassword)
         val secretWord = parseString(inputSecretWord)
-        val validPersonalData = validatePersonalData(firstName,lastName,middleName,inputAvatar)
+        val validPersonalData = validatePersonalData(firstName,lastName,middleName)
         val validPosition = validatePosition(position, salary)
         val validRegistration = validateRegistration(login, password, secretWord)
         if (validPersonalData && validPosition && validRegistration){
@@ -121,7 +143,7 @@ class EmployeesViewModel @Inject constructor(
         val firstName = parseString(firstName)
         val lastName = parseString(lastName)
         val middleName = parseString(middleName)
-        validatePersonalData(firstName, lastName, middleName, avatar)
+        validatePersonalData(firstName, lastName, middleName)
     }
 
     fun checkValidPosition(
@@ -132,6 +154,16 @@ class EmployeesViewModel @Inject constructor(
         val salary = parseCount(salary)
         validatePosition(position, salary)
     }
+
+    private fun validateSalary(salary: Int) = if (salary <=0) {
+            _state.value = EmployeesState.ErrorInputSalary
+            false
+        } else true
+
+    private fun validatePosition(position: String) = if (position.isBlank()) {
+        _state.value = EmployeesState.ErrorInputPosition
+        false
+    } else true
 
     private fun validateRegistration(
         login: String,
@@ -158,7 +190,6 @@ class EmployeesViewModel @Inject constructor(
         firstName: String,
         lastName: String,
         middleName: String,
-        avatar: Bitmap?
     ): Boolean {
         var result = true
         if (firstName.isBlank()) {
@@ -171,10 +202,6 @@ class EmployeesViewModel @Inject constructor(
         }
         if (middleName.isBlank()) {
             _state.value = EmployeesState.ErrorInputMiddleName
-            result = false
-        }
-        if (avatar == null){
-            _state.value = EmployeesState.ErrorInputAvatar
             result = false
         }
         if (result){

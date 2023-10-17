@@ -19,7 +19,6 @@ import ru.steelwave.steelwave.databinding.ModalConfirmKickEmployeeBinding
 import ru.steelwave.steelwave.presentation.base.ViewModelFactory
 import ru.steelwave.steelwave.presentation.main.employees.EmployeesState
 import ru.steelwave.steelwave.presentation.main.employees.EmployeesViewModel
-import ru.steelwave.steelwave.presentation.main.finance.FinanceState
 import ru.steelwave.steelwave.utils.formatName
 import javax.inject.Inject
 
@@ -67,7 +66,7 @@ class KickEmployeeModal : DialogFragment() {
         with(viewModel) {
             state.observe(viewLifecycleOwner) {
                 when (it) {
-                    is EmployeesState.ShouldCloseKickEmployeeModal -> {
+                    is EmployeesState.ShouldCloseModal -> {
                         dismiss()
                     }
 
@@ -108,7 +107,7 @@ class KickEmployeeModal : DialogFragment() {
     private fun setListenersInView() {
         with(binding) {
             btnDelete.setOnClickListener {
-                viewModel.kickEmployee(args.user.id)
+                viewModel.deleteEmployee(args.user.id)
             }
             btnCancel.setOnClickListener {
                 dismiss()

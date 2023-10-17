@@ -8,6 +8,9 @@ import ru.steelwave.steelwave.presentation.main.ads.AdsFragment
 import ru.steelwave.steelwave.presentation.main.ads.modals.AddPartnerModal
 import ru.steelwave.steelwave.presentation.main.employees.EmployeesFragment
 import ru.steelwave.steelwave.presentation.main.employees.modals.AddEmployeeModal
+import ru.steelwave.steelwave.presentation.main.employees.modals.ChangePersonalDataModal
+import ru.steelwave.steelwave.presentation.main.employees.modals.ChangePositionModal
+import ru.steelwave.steelwave.presentation.main.employees.modals.ChangeSalaryModal
 import ru.steelwave.steelwave.presentation.main.employees.modals.KickEmployeeModal
 import ru.steelwave.steelwave.presentation.modals.ChoiceProjectModal
 import ru.steelwave.steelwave.presentation.main.finance.FinanceFragment
@@ -50,6 +53,9 @@ interface ApplicationComponent {
     fun inject(dialogFragment: AddEmployeeModal)
     fun inject(dialogFragment: AddPartnerModal)
     fun inject(dialogFragment: KickEmployeeModal)
+    fun inject(dialogFragment: ChangeSalaryModal)
+    fun inject(dialogFragment: ChangePositionModal)
+    fun inject(dialogFragment: ChangePersonalDataModal)
 
     @Component.Factory
     interface Factory{

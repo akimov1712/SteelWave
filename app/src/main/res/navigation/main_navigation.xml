@@ -74,6 +74,12 @@
         <action
             android:id="@+id/action_employeesFragment_to_kickEmployeeModal"
             app:destination="@id/kickEmployeeModal" />
+        <action
+            android:id="@+id/action_employeesFragment_to_changeSalaryModal"
+            app:destination="@id/changeSalaryModal" />
+        <action
+            android:id="@+id/action_employeesFragment_to_changePositionModal"
+            app:destination="@id/changePositionModal" />
     </fragment>
     <fragment
         android:id="@+id/adsFragment"
@@ -208,5 +214,21 @@
         <argument
             android:name="user"
             app:argType="ru.steelwave.steelwave.domain.entity.user.UserModel" />
+    </dialog>
+    <dialog
+        android:id="@+id/changeSalaryModal"
+        android:name="ru.steelwave.steelwave.presentation.main.employees.modals.ChangeSalaryModal"
+        android:label="ChangeSalaryModal" >
+        <argument
+            android:name="userId"
+            app:argType="integer" />
+    </dialog>
+    <dialog
+        android:id="@+id/changePositionModal"
+        android:name="ru.steelwave.steelwave.presentation.main.employees.modals.ChangePositionModal"
+        android:label="ChangePositionModal" >
+        <argument
+            android:name="userId"
+            app:argType="integer" />
     </dialog>
 </navigation>

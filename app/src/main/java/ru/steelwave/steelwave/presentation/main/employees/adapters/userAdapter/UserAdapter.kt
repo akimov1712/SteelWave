@@ -25,7 +25,12 @@ class UserAdapter: ListAdapter<UserModel, UserViewHolder>(UserDiffCallback()) {
             with(item){
                 tvNameEmployee.text = formatName(item)
                 tvProfEmployee.text = this.position
-                ivProfile.setImageBitmap(avatar)
+                if(avatar != null) {
+                    ivProfile.setImageBitmap(avatar)
+                } else {
+                    ivProfile.visibility = View.INVISIBLE
+                    ivDefaultAvatar.visibility = View.VISIBLE
+                }
                 tvIncome.text = formatPrice(salary) + "$"
                 tvPercent.text = item.percentSalaryProject.toString()+ "%"
                 btnMore.btnMore.setOnClickListener {

@@ -8,6 +8,7 @@
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:minWidth="350dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -23,36 +24,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_choice_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+
+        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/et_position"
+            style="@style/sw_til_dropMenu"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginTop="20dp"
+            android:hint="@string/position"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title">
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_type_event"
-                style="@style/sw_til_dropMenu"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginHorizontal="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                    android:id="@+id/et_type_event"
-                    style="@style/sw_til_dropMenu"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/background_til_underline"
-                    android:hint="@string/position" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
 
         <androidx.appcompat.widget.AppCompatButton
@@ -61,10 +44,10 @@
             android:layout_width="230dp"
             android:layout_height="50dp"
             android:text="@string/edit"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cl_choice_date" />
+            app:layout_constraintTop_toBottomOf="@+id/et_position" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_cancel"
