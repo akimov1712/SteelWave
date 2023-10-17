@@ -20,8 +20,15 @@ data class UserModel(
     var avatar: Bitmap? = null,
     var position: String,
     var projectId: Int,
-    var salary: Int
+    var salary: Int,
+    var percentSalaryProject: Int = 0
 ): Parcelable {
+
+    fun setPercentSalary(totalSalary: Int){
+        val percent: Int = ((salary.toDouble() / totalSalary.toDouble()) * 100).toInt()
+        percentSalaryProject = percent
+    }
+
     companion object {
         private const val UNDEFINED_ID = 0
     }

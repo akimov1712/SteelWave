@@ -9,6 +9,7 @@ interface UserRepository {
     suspend fun deleteUserUseCase(userId: Int)
     suspend fun getUserUseCase(userId: Int): UserModel
     suspend fun getCountUsersUseCase(projectId: Int): Int
+    suspend fun getTotalSalary(projectId: Int): Int
     fun getAllUserUseCase(projectId: Int, limit: Int): LiveData<List<UserModel>>
 
 }

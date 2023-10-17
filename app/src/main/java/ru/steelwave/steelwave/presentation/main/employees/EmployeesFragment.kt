@@ -2,12 +2,12 @@ package ru.steelwave.steelwave.presentation.main.employees
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -15,15 +15,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import ru.steelwave.steelwave.App
 import ru.steelwave.steelwave.Const
-import ru.steelwave.steelwave.Loger
 import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.FragmentEmployeesBinding
-import ru.steelwave.steelwave.domain.entity.finance.TargetModel
 import ru.steelwave.steelwave.domain.entity.user.UserModel
-import ru.steelwave.steelwave.presentation.base.CustomToast
 import ru.steelwave.steelwave.presentation.base.ViewModelFactory
 import ru.steelwave.steelwave.presentation.main.employees.adapters.userAdapter.UserAdapter
 import javax.inject.Inject
@@ -48,7 +44,7 @@ class EmployeesFragment : Fragment() {
         ViewModelProvider(this, viewModelFactory)[EmployeesViewModel::class.java]
     }
 
-    private val userAdapter by lazy {UserAdapter()}
+    private val userAdapter by lazy { UserAdapter() }
 
     override fun onAttach(context: Context) {
         component.inject(this)
@@ -69,7 +65,7 @@ class EmployeesFragment : Fragment() {
         observeViewModel()
     }
 
-    private fun setupViews(){
+    private fun setupViews() {
         setListenersInView()
         refreshFragment()
         setViewErrors()
@@ -77,46 +73,50 @@ class EmployeesFragment : Fragment() {
         setRecyclerViews()
     }
 
-    private fun setRecyclerViews(){
+    private fun setRecyclerViews() {
         setUserAdapter()
     }
 
-    private fun setUserAdapter(){
+    private fun setUserAdapter() {
         binding.rvEmployees.adapter = userAdapter
-        userAdapter.onEmployeesClickListener = {anchor, user ->
+        userAdapter.onEmployeesClickListener = { anchor, user ->
             setOpenMenuInEmployees(anchor, user)
         }
     }
 
-    private fun observeViewModel(){
-        with(viewModel){
-            with(binding){
+    private fun observeViewModel() {
+        with(viewModel) {
+            with(binding) {
                 if (projectId != Const.UNDEFINED_ID) {
                     getProjectItem(projectId)
                     getUserList(projectId, Const.START_LIMIT_USERS)
                     getCountUsers(projectId)
                 }
-                state.observe(viewLifecycleOwner){
-                    when(it){
+                state.observe(viewLifecycleOwner) {
+                    when (it) {
                         is EmployeesState.ProjectItem -> {
                             switchScreensAdding()
                             tvProjectEmployees.text = it.projectItem.name
                         }
+
                         is EmployeesState.UserList -> {
                             userAdapter.submitList(it.userList)
                             getCountUsers(projectId)
                             inclError.clError.visibility = View.GONE
                         }
+
                         is EmployeesState.CountUsers -> {
-                            if (it.countUsers <= 3){
+                            if (it.countUsers <= 3) {
                                 btnShowMore.visibility = View.GONE
                             }
                             tvCountEmployees.text = it.countUsers.toString()
                         }
+
                         is EmployeesState.ErrorEmployeesList -> {
                             inclError.clError.visibility = View.VISIBLE
                             tvCountEmployees.text = "0"
                         }
+
                         else -> {}
                     }
                 }
@@ -124,13 +124,13 @@ class EmployeesFragment : Fragment() {
         }
     }
 
-    private fun refreshFragment(){
-        with(binding.swipeRefresh){
+    private fun refreshFragment() {
+        with(binding.swipeRefresh) {
             setColorSchemeResources(R.color.sw_purple)
             setOnRefreshListener {
                 viewModel.getUserList(projectId, Const.START_LIMIT_USERS)
                 binding.btnShowMore.visibility = View.VISIBLE
-                CoroutineScope(Dispatchers.IO).launch{
+                CoroutineScope(Dispatchers.IO).launch {
                     delay(300)
                     isRefreshing = false
                 }
@@ -139,8 +139,8 @@ class EmployeesFragment : Fragment() {
     }
 
     private fun switchScreensAdding() {
-        with(binding){
-            if (projectId != Const.UNDEFINED_ID){
+        with(binding) {
+            if (projectId != Const.UNDEFINED_ID) {
                 tvChoiceProject.visibility = View.GONE
                 clEmployees.visibility = View.VISIBLE
             } else {
@@ -154,8 +154,8 @@ class EmployeesFragment : Fragment() {
         projectId = args.projectId
     }
 
-    private fun setViewErrors(){
-        with(binding){
+    private fun setViewErrors() {
+        with(binding) {
             inclError.tvNotFound.text = "Сотрудников в проекте\nне обнаружено"
         }
     }
@@ -188,26 +188,35 @@ class EmployeesFragment : Fragment() {
         popup.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.menu_personal_data -> {
-                    Toast.makeText(requireContext(), "Нажал на персонал дата", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Нажал на персонал дата", Toast.LENGTH_SHORT)
+                        .show()
                     true
                 }
+
                 R.id.menu_position -> {
-                    Toast.makeText(requireContext(), "Нажал на должность", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Нажал на должность", Toast.LENGTH_SHORT)
+                        .show()
                     true
                 }
+
                 R.id.menu_salary -> {
                     Toast.makeText(requireContext(), "Нажал на зпшку", Toast.LENGTH_SHORT).show()
                     true
                 }
+
                 R.id.menu_report -> {
                     Toast.makeText(requireContext(), "Нажал на отчет", Toast.LENGTH_SHORT).show()
                     true
                 }
+
                 R.id.menu_kick -> {
-                    findNavController().navigate(EmployeesFragmentDirections
-                        .actionEmployeesFragmentToKickEmployeeModal(user))
+                    findNavController().navigate(
+                        EmployeesFragmentDirections
+                            .actionEmployeesFragmentToKickEmployeeModal(user)
+                    )
                     true
                 }
+
                 else -> {
                     false
                 }

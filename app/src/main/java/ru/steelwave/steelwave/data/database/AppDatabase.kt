@@ -45,7 +45,7 @@ import ru.steelwave.steelwave.data.database.model.ads.PartnerDbModel
         PartnerDbModel::class,
         DetailsPartnerDbModel::class
     ],
-    version = 21,
+    version = 22,
     exportSchema = false
 )
 @TypeConverters(

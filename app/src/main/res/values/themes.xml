@@ -12,6 +12,7 @@
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
         <item name="itemTextAppearance">@style/sw_textView_title</item>
         <item name="popupMenuStyle">@style/PopupMenuStyle</item>
+        <item name="android:textCursorDrawable">@color/sw_purple</item>
     </style>
 
     <style name="PopupMenuStyle" parent="@style/Widget.AppCompat.PopupMenu">

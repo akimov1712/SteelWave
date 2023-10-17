@@ -34,5 +34,5 @@ class UserRepositoryImpl @Inject constructor(
                 mapper.mapListDbModelToListEntity(it)
             }
 
-
+    override suspend fun getTotalSalary(projectId: Int) = dao.getTotalSalary(projectId)
 }

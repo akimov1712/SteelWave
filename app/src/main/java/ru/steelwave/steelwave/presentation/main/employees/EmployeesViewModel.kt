@@ -13,6 +13,7 @@ import ru.steelwave.steelwave.domain.useCase.project.GetProjectUseCase
 import ru.steelwave.steelwave.domain.useCase.user.AddUserUseCase
 import ru.steelwave.steelwave.domain.useCase.user.DeleteUserUseCase
 import ru.steelwave.steelwave.domain.useCase.user.GetCountUsersUseCase
+import ru.steelwave.steelwave.domain.useCase.user.GetTotalSalaryUseCase
 import ru.steelwave.steelwave.domain.useCase.user.GetUserListUseCase
 import ru.steelwave.steelwave.domain.useCase.user.GetUserUseCase
 import javax.inject.Inject
@@ -23,7 +24,8 @@ class EmployeesViewModel @Inject constructor(
     private val deleteUserUseCase: DeleteUserUseCase,
     private val getUserListUseCase: GetUserListUseCase,
     private val getUserUseCase: GetUserUseCase,
-    private val getCountUsersUseCase: GetCountUsersUseCase
+    private val getCountUsersUseCase: GetCountUsersUseCase,
+    private val getTotalSalaryUseCase: GetTotalSalaryUseCase
 ) : ViewModel() {
 
     private val _state = MutableLiveData<EmployeesState>()
@@ -39,8 +41,17 @@ class EmployeesViewModel @Inject constructor(
 
     fun getUserList(projectId: Int, limit: Int){
         getUserListUseCase(projectId, limit).observeForever{ userList ->
-            _state.value = EmployeesState.UserList(userList)
-            if (userList.isEmpty()) _state.value = EmployeesState.ErrorEmployeesList
+            if (userList.isEmpty()){
+                _state.value = EmployeesState.ErrorEmployeesList
+                return@observeForever
+            }
+            viewModelScope.launch {
+                val totalSalary = getTotalSalaryUseCase(projectId)
+                userList.map {
+                    it.setPercentSalary(totalSalary)
+                }
+                _state.value = EmployeesState.UserList(userList)
+            }
         }
     }
 

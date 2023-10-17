@@ -27,4 +27,7 @@ interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addUser(user: UserDbModel)
 
+    @Query("SELECT SUM(salary) FROM users WHERE projectId =:projectId")
+    suspend fun getTotalSalary(projectId: Int): Int
+
 }

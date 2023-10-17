@@ -27,6 +27,7 @@ class UserAdapter: ListAdapter<UserModel, UserViewHolder>(UserDiffCallback()) {
                 tvProfEmployee.text = this.position
                 ivProfile.setImageBitmap(avatar)
                 tvIncome.text = formatPrice(salary) + "$"
+                tvPercent.text = item.percentSalaryProject.toString()+ "%"
                 btnMore.btnMore.setOnClickListener {
                     onEmployeesClickListener?.invoke(it, item)
                 }
