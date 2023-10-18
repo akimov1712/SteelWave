@@ -61,6 +61,37 @@ class EmployeesViewModel @Inject constructor(
         }
     }
 
+    fun changePersonalData(
+        userId: Int,
+        inputFirstName: String?,
+        inputLastName: String?,
+        inputMiddleName: String?,
+        inputAvatar: Bitmap?
+    ){
+        val firstName = parseString(inputFirstName)
+        val lastName = parseString(inputLastName)
+        val middleName = parseString(inputMiddleName)
+        val valid = validatePersonalData(firstName, lastName, middleName)
+        if (valid){
+            viewModelScope.launch {
+                val newUser = getUserUseCase(userId).copy(
+                    firstName = firstName,
+                    lastName = lastName,
+                    middleName = middleName,
+                    avatar = inputAvatar)
+                addUserUseCase(newUser)
+                _state.value = EmployeesState.ShouldCloseModal
+            }
+        }
+    }
+
+    fun getUser(userId: Int){
+        viewModelScope.launch {
+            val user = getUserUseCase(userId)
+            _state.value = EmployeesState.UserItem(user)
+        }
+    }
+
     fun getUserList(projectId: Int, limit: Int){
         getUserListUseCase(projectId, limit).observeForever{ userList ->
             if (userList.isEmpty()){

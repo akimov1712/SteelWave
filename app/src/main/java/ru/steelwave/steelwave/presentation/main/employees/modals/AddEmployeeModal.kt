@@ -19,12 +19,14 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import ru.steelwave.steelwave.App
+import ru.steelwave.steelwave.Loger
 import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.ModalAddEmployeeBinding
 import ru.steelwave.steelwave.presentation.base.CustomToast
 import ru.steelwave.steelwave.presentation.base.ViewModelFactory
 import ru.steelwave.steelwave.presentation.main.employees.EmployeesState
 import ru.steelwave.steelwave.presentation.main.employees.EmployeesViewModel
+import ru.steelwave.steelwave.utils.compressImage
 import javax.inject.Inject
 
 class AddEmployeeModal: DialogFragment() {
@@ -178,7 +180,8 @@ class AddEmployeeModal: DialogFragment() {
     }
 
     private fun setImage(uri: Uri) {
-        selectedImageBitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
+        val originalBitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
+        selectedImageBitmap = compressImage(originalBitmap, 30)
         binding.ivAvatar.setImageBitmap(selectedImageBitmap)
         binding.btnCancelImage.visibility = View.VISIBLE
     }

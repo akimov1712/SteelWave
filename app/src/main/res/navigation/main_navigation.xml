@@ -80,6 +80,9 @@
         <action
             android:id="@+id/action_employeesFragment_to_changePositionModal"
             app:destination="@id/changePositionModal" />
+        <action
+            android:id="@+id/action_employeesFragment_to_changePersonalDataModal"
+            app:destination="@id/changePersonalDataModal" />
     </fragment>
     <fragment
         android:id="@+id/adsFragment"
@@ -227,6 +230,14 @@
         android:id="@+id/changePositionModal"
         android:name="ru.steelwave.steelwave.presentation.main.employees.modals.ChangePositionModal"
         android:label="ChangePositionModal" >
+        <argument
+            android:name="userId"
+            app:argType="integer" />
+    </dialog>
+    <dialog
+        android:id="@+id/changePersonalDataModal"
+        android:name="ru.steelwave.steelwave.presentation.main.employees.modals.ChangePersonalDataModal"
+        android:label="ChangePersonalDataModal" >
         <argument
             android:name="userId"
             app:argType="integer" />

@@ -18,12 +18,16 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import ru.steelwave.steelwave.App
+import ru.steelwave.steelwave.Loger
 import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.ModalChangePersonalDataBinding
+import ru.steelwave.steelwave.domain.entity.user.UserModel
 import ru.steelwave.steelwave.presentation.base.CustomToast
 import ru.steelwave.steelwave.presentation.base.ViewModelFactory
 import ru.steelwave.steelwave.presentation.main.employees.EmployeesState
 import ru.steelwave.steelwave.presentation.main.employees.EmployeesViewModel
+import ru.steelwave.steelwave.utils.compressImage
+import ru.steelwave.steelwave.utils.getBitmapSizeInBytes
 import javax.inject.Inject
 
 class ChangePersonalDataModal: DialogFragment() {
@@ -31,7 +35,7 @@ class ChangePersonalDataModal: DialogFragment() {
     private val component by lazy{
         (requireActivity().application as App).component
     }
-    private val args by navArgs<AddEmployeeModalArgs>()
+    private val args by navArgs<ChangePersonalDataModalArgs>()
 
     private var _binding: ModalChangePersonalDataBinding? = null
     private val binding: ModalChangePersonalDataBinding
@@ -48,7 +52,7 @@ class ChangePersonalDataModal: DialogFragment() {
         registerForActivityResult(
             ActivityResultContracts.PickVisualMedia()
         ) {
-            it?.let { setImage(it) }
+            it?.let { getImageFromMedia(it) }
         }
 
     private var selectedImageBitmap: Bitmap? = null
@@ -78,11 +82,24 @@ class ChangePersonalDataModal: DialogFragment() {
         setListenersInView()
     }
 
+    private fun setValueViewFromArgs(user: UserModel){
+        with(binding){
+            etFirstName.setText(user.firstName)
+            etLastName.setText(user.lastName)
+            etMiddleName.setText(user.middleName)
+
+        }
+    }
+
     private fun observeViewModel(){
         with(viewModel){
             with(binding){
+                getUser(args.userId)
                 state.observe(viewLifecycleOwner){
                     when(it){
+                        is EmployeesState.UserItem -> {
+                            setValueViewFromArgs(it.userItem)
+                        }
                         is EmployeesState.ErrorInputFirstName -> {
                             etFirstName.error = getString(R.string.field_not_can_empty)
                         }
@@ -104,12 +121,11 @@ class ChangePersonalDataModal: DialogFragment() {
 
     private fun setListenersInView(){
         with(binding){
-
             btnAdd.setOnClickListener{
                 val firstName = etFirstName.text.trim().toString()
                 val lastName = etLastName.text.trim().toString()
                 val middleName = etMiddleName.text.trim().toString()
-//                viewModel.changePersonalData(firstName, lastName, middleName, selectedImageBitmap)
+                viewModel.changePersonalData(args.userId,firstName, lastName, middleName, selectedImageBitmap)
             }
             btnCancel.setOnClickListener {
                 dismiss()
@@ -133,8 +149,9 @@ class ChangePersonalDataModal: DialogFragment() {
         )
     }
 
-    private fun setImage(uri: Uri) {
-        selectedImageBitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
+    private fun getImageFromMedia(uri: Uri) {
+        val originalBitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
+        selectedImageBitmap = compressImage(originalBitmap, 30)
         binding.ivAvatar.setImageBitmap(selectedImageBitmap)
         binding.btnCancelImage.visibility = View.VISIBLE
     }

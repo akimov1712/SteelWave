@@ -188,8 +188,8 @@ class EmployeesFragment : Fragment() {
         popup.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.menu_personal_data -> {
-                    Toast.makeText(requireContext(), "Нажал на персонал дата", Toast.LENGTH_SHORT)
-                        .show()
+                    findNavController().navigate(EmployeesFragmentDirections
+                        .actionEmployeesFragmentToChangePersonalDataModal(user.id))
                     true
                 }
 
