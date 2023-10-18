@@ -88,17 +88,6 @@
                     app:shapeAppearance="@style/sw_rounding7" />
 
                 <ImageView
-                    android:id="@+id/btn_cancel_image"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:src="@drawable/icon_close"
-                    android:layout_margin="10dp"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/sw_red" />
-
-                <ImageView
                     android:id="@+id/imageView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

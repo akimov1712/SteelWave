@@ -10,6 +10,7 @@ import ru.steelwave.steelwave.data.database.dao.finance.YearIncomeDao
 import ru.steelwave.steelwave.data.database.dao.project.ProjectDao
 import ru.steelwave.steelwave.data.database.dao.traffic.TransferDao
 import ru.steelwave.steelwave.data.database.dao.traffic.VisitionDao
+import ru.steelwave.steelwave.data.database.dao.user.TaskDao
 import ru.steelwave.steelwave.data.database.dao.user.UserDao
 
 @Module
@@ -50,6 +51,11 @@ interface DataModule {
         @Provides
         fun provideUserDao(application: Application): UserDao {
             return AppDatabase.getInstance(application).userDao()
+        }
+
+        @Provides
+        fun provideTaskDao(application: Application): TaskDao {
+            return AppDatabase.getInstance(application).taskDao()
         }
 
     }

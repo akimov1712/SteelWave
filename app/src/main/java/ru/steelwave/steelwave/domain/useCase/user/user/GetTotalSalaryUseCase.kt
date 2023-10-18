@@ -1,4 +1,4 @@
-package ru.steelwave.steelwave.domain.useCase.user
+package ru.steelwave.steelwave.domain.useCase.user.user
 
 import ru.steelwave.steelwave.domain.repository.user.UserRepository
 import javax.inject.Inject

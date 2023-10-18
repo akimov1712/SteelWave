@@ -2,6 +2,7 @@ package ru.steelwave.steelwave.data.database
 
 import android.app.Application
 import android.content.Context
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -21,6 +22,7 @@ import ru.steelwave.steelwave.data.database.dao.project.ProjectDao
 import ru.steelwave.steelwave.data.database.dao.finance.YearIncomeDao
 import ru.steelwave.steelwave.data.database.dao.traffic.TransferDao
 import ru.steelwave.steelwave.data.database.dao.traffic.VisitionDao
+import ru.steelwave.steelwave.data.database.dao.user.TaskDao
 import ru.steelwave.steelwave.data.database.dao.user.UserDao
 import ru.steelwave.steelwave.data.database.model.ads.DetailsPartnerDbModel
 import ru.steelwave.steelwave.data.database.model.finance.TargetDbModel
@@ -31,6 +33,7 @@ import ru.steelwave.steelwave.data.database.model.traffic.TransferDbModel
 import ru.steelwave.steelwave.data.database.model.traffic.VisitionDbModel
 import ru.steelwave.steelwave.data.database.model.user.UserDbModel
 import ru.steelwave.steelwave.data.database.model.ads.PartnerDbModel
+import ru.steelwave.steelwave.data.database.model.user.TaskDbModel
 
 
 @Database(
@@ -43,10 +46,14 @@ import ru.steelwave.steelwave.data.database.model.ads.PartnerDbModel
         TransferDbModel::class,
         VisitionDbModel::class,
         PartnerDbModel::class,
-        DetailsPartnerDbModel::class
+        DetailsPartnerDbModel::class,
+        TaskDbModel::class,
     ],
-    version = 22,
-    exportSchema = false
+    version = 23,
+    exportSchema = true,
+//    autoMigrations = [
+//        AutoMigration (from = 22, to = 23)
+//    ]
 )
 @TypeConverters(
     BitmapConverter::class,
@@ -68,6 +75,7 @@ abstract class AppDatabase: RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun partnerDao(): PartnerDao
     abstract fun detailsPartnerDao(): DetailsPartnerDao
+    abstract fun taskDao(): TaskDao
 
     companion object{
         private var INSTANCE: AppDatabase? = null

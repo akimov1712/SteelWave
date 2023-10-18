@@ -8,12 +8,12 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.steelwave.steelwave.domain.entity.user.UserModel
 import ru.steelwave.steelwave.domain.useCase.project.GetProjectUseCase
-import ru.steelwave.steelwave.domain.useCase.user.AddUserUseCase
-import ru.steelwave.steelwave.domain.useCase.user.DeleteUserUseCase
-import ru.steelwave.steelwave.domain.useCase.user.GetCountUsersUseCase
-import ru.steelwave.steelwave.domain.useCase.user.GetTotalSalaryUseCase
-import ru.steelwave.steelwave.domain.useCase.user.GetUserListUseCase
-import ru.steelwave.steelwave.domain.useCase.user.GetUserUseCase
+import ru.steelwave.steelwave.domain.useCase.user.user.AddUserUseCase
+import ru.steelwave.steelwave.domain.useCase.user.user.DeleteUserUseCase
+import ru.steelwave.steelwave.domain.useCase.user.user.GetCountUsersUseCase
+import ru.steelwave.steelwave.domain.useCase.user.user.GetTotalSalaryUseCase
+import ru.steelwave.steelwave.domain.useCase.user.user.GetUserListUseCase
+import ru.steelwave.steelwave.domain.useCase.user.user.GetUserUseCase
 import javax.inject.Inject
 
 class EmployeesViewModel @Inject constructor(

@@ -163,10 +163,10 @@ class AddEmployeeModal: DialogFragment() {
             clPasteImage.setOnClickListener {
                 pickImage()
             }
-            btnCancelImage.setOnClickListener {
+            clPasteImage.setOnLongClickListener {
                 ivAvatar.setImageDrawable(resources.getDrawable(R.drawable.background_choice_image))
                 selectedImageBitmap = null
-                it.visibility = View.GONE
+                true
             }
         }
     }
@@ -183,7 +183,6 @@ class AddEmployeeModal: DialogFragment() {
         val originalBitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
         selectedImageBitmap = compressImage(originalBitmap, 30)
         binding.ivAvatar.setImageBitmap(selectedImageBitmap)
-        binding.btnCancelImage.visibility = View.VISIBLE
     }
 
     private fun setAdapterInDropMenu(){
