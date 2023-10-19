@@ -14,8 +14,8 @@ import ru.steelwave.steelwave.domain.entity.user.UserModel
 @Dao
 interface TaskDao {
 
-    @Query("SELECT * FROM tasks WHERE projectId=:projectId")
-    fun getTaskList(projectId: Int): LiveData<List<TaskDbModel>>
+    @Query("SELECT * FROM tasks WHERE projectId=:projectId AND userId=:userId")
+    fun getTaskList(projectId: Int, userId: Int): LiveData<List<TaskDbModel>>
 
     @Query("SELECT * FROM tasks WHERE id=:taskId LIMIT 1")
     suspend fun getTask(taskId: Int): TaskDbModel

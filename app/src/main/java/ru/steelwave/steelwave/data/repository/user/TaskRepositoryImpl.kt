@@ -18,8 +18,8 @@ class TaskRepositoryImpl @Inject constructor(
     private val dao: TaskDao
 ): TaskRepository {
 
-    override fun getTaskListUseCase(projectId: Int): LiveData<List<TaskModel>> =
-        Transformations.map(dao.getTaskList(projectId)){
+    override fun getTaskListUseCase(projectId: Int, userId: Int): LiveData<List<TaskModel>> =
+        Transformations.map(dao.getTaskList(projectId, userId)){
             mapper.mapListDbModelToListEntity(it)
         }
     

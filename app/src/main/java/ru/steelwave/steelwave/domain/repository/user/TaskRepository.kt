@@ -5,7 +5,7 @@ import ru.steelwave.steelwave.domain.entity.user.TaskModel
 
 interface TaskRepository {
 
-    fun getTaskListUseCase(projectId: Int): LiveData<List<TaskModel>>
+    fun getTaskListUseCase(projectId: Int, userId: Int): LiveData<List<TaskModel>>
     suspend fun getTaskUseCase(taskId: Int): TaskModel
     suspend fun addTaskUseCase(task: TaskModel)
     suspend fun deleteTaskUseCase(taskId: Int)

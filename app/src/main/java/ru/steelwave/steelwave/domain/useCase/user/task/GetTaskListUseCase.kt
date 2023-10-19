@@ -7,6 +7,6 @@ class GetTaskListUseCase @Inject constructor(
     private val repository: TaskRepository
 ) {
 
-    operator fun invoke(projectId: Int) = repository.getTaskListUseCase(projectId)
+    operator fun invoke(projectId: Int, userId: Int) = repository.getTaskListUseCase(projectId, userId)
 
 }

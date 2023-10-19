@@ -83,6 +83,9 @@
         <action
             android:id="@+id/action_employeesFragment_to_changePersonalDataModal"
             app:destination="@id/changePersonalDataModal" />
+        <action
+            android:id="@+id/action_employeesFragment_to_reportFragment"
+            app:destination="@id/reportFragment" />
     </fragment>
     <fragment
         android:id="@+id/adsFragment"
@@ -242,4 +245,16 @@
             android:name="userId"
             app:argType="integer" />
     </dialog>
+    <fragment
+        android:id="@+id/reportFragment"
+        android:name="ru.steelwave.steelwave.presentation.main.report.ReportFragment"
+        android:label="fragment_report"
+        tools:layout="@layout/fragment_report" >
+        <argument
+            android:name="projectId"
+            app:argType="integer" />
+        <argument
+            android:name="userId"
+            app:argType="integer" />
+    </fragment>
 </navigation>

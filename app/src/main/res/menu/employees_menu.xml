@@ -26,7 +26,7 @@
         android:id="@+id/menu_report"
         android:icon="@drawable/icon_report"
         android:iconTint="@color/sw_purple"
-        android:title="Отчеты"/>
+        android:title="Отчет"/>
 
     <item
         android:id="@+id/menu_kick"

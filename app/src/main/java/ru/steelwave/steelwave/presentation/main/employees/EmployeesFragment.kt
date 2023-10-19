@@ -206,7 +206,8 @@ class EmployeesFragment : Fragment() {
                 }
 
                 R.id.menu_report -> {
-                    Toast.makeText(requireContext(), "Нажал на отчет", Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(EmployeesFragmentDirections
+                        .actionEmployeesFragmentToReportFragment(projectId, user.id))
                     true
                 }
 

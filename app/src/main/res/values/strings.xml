@@ -130,6 +130,8 @@
     <string name="salary_not_can_less_zero">Зарплата не может быть меньше 0</string>
     <string name="date_end_contract">Дата окончания контракта</string>
     <string name="you_really_kick_user">Вы действительное хотите исключить —</string>
+    <string name="report">Отчет —</string>
+    <string name="report_employees_above_project">Отчетность сотрудников по работе над проектом</string>
     <string-array name="proffesionArray">
         <item>Верстальщик</item>
         <item>Backend разработчик</item>

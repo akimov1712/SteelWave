@@ -22,6 +22,7 @@ import ru.steelwave.steelwave.presentation.main.project.modals.AddProjectModal
 import ru.steelwave.steelwave.presentation.main.project.modals.EditProjectModal
 import ru.steelwave.steelwave.presentation.main.project.ProjectFragment
 import ru.steelwave.steelwave.presentation.main.project.modals.DeleteProjectModal
+import ru.steelwave.steelwave.presentation.main.report.ReportFragment
 import ru.steelwave.steelwave.presentation.main.traffic.TrafficFragment
 
 @ApplicationScope
@@ -41,6 +42,7 @@ interface ApplicationComponent {
     fun inject(fragment: TrafficFragment)
     fun inject(fragment: EmployeesFragment)
     fun inject(fragment: AdsFragment)
+    fun inject(fragment: ReportFragment)
 
     fun inject(dialogFragment: AddProjectModal)
     fun inject(dialogFragment: EditProjectModal)
