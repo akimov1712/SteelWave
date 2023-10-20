@@ -71,15 +71,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                app:layout_constraintStart_toStartOf="@+id/textView10"
+                android:layout_marginStart="16dp"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView10">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_content_cardView_user"
-                    android:minWidth="220dp"
-                    android:minHeight="80dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:minWidth="220dp"
+                    android:minHeight="80dp">
 
                     <com.makeramen.roundedimageview.RoundedImageView
                         android:id="@+id/iv_profile"
@@ -87,23 +88,23 @@
                         android:layout_height="50dp"
                         android:layout_margin="15dp"
                         android:scaleType="centerCrop"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
                         app:riv_border_color="@color/sw_purple"
                         app:riv_border_width="1dp"
                         app:riv_corner_radius="@dimen/corner_normal"
-                        app:riv_oval="true"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:riv_oval="true" />
 
                     <ImageView
                         android:id="@+id/iv_default_avatar"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
+                        android:layout_margin="15dp"
                         android:background="@drawable/background_avatar"
                         android:padding="12dp"
-                        android:layout_margin="15dp"
-                        android:visibility="invisible"
                         android:src="@drawable/icon_default_avatar"
+                        android:visibility="invisible"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -126,10 +127,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="15dp"
+                        android:layout_marginBottom="15dp"
                         android:singleLine="true"
                         android:textColor="@color/sw_black_transparent"
                         android:textSize="@dimen/small_size"
-                        android:layout_marginBottom="15dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/tv_name_employee"

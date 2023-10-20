@@ -16,9 +16,12 @@ import ru.steelwave.steelwave.App
 import ru.steelwave.steelwave.Const
 import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.FragmentReportBinding
+import ru.steelwave.steelwave.domain.entity.user.TaskModel
 import ru.steelwave.steelwave.presentation.base.ViewModelFactory
+import ru.steelwave.steelwave.presentation.main.report.adapter.TaskAdapter
 import ru.steelwave.steelwave.utils.formatName
 import javax.inject.Inject
+import kotlin.random.Random
 
 
 class ReportFragment : Fragment() {
@@ -40,6 +43,10 @@ class ReportFragment : Fragment() {
         ViewModelProvider(this,viewModelFactory)[ReportViewModel::class.java]
     }
 
+    private val taskAdapter by lazy {
+        TaskAdapter(requireContext())
+    }
+
     override fun onAttach(context: Context) {
         component.inject(this)
         super.onAttach(context)
@@ -58,17 +65,28 @@ class ReportFragment : Fragment() {
         setViews()
         observeViewModel()
         getData()
+        val taskList = mutableListOf<TaskModel>()
+        for (i in 0..100){
+            taskList.add(
+                TaskModel(
+                i,1,1,
+                "$i Я обращаюсь к вам с серьезной проблемой, которая произошла на вашей платформе, и прошу вашей помощи в разрешении этой ситуации. Недавно я взял заказ на вашей фриланс-площадке, и хотел бы поделиться своим опытом и недоразумениями, которые возникли в ходе выполнения этого заказа $i",
+                    Random.nextInt(0, 2) == 0
+            ))
+        }
+        taskAdapter.submitList(taskList)
     }
 
     private fun setViews(){
         refreshFragment()
+        setTaskAdapter()
     }
 
     private fun getData(){
         with(viewModel){
             getProject(args.projectId)
             getUser(args.userId)
-            getTaskList(args.projectId, args.userId)
+//            getTaskList(args.projectId, args.userId)
         }
     }
 
@@ -78,7 +96,7 @@ class ReportFragment : Fragment() {
                 state.observe(viewLifecycleOwner){
                     when(it){
                         is ReportState.TaskList -> {
-
+                            taskAdapter.submitList(it.taskList)
                         }
                         is ReportState.UserItem -> {
                             tvNameEmployee.text = formatName(it.userItem)
@@ -101,11 +119,10 @@ class ReportFragment : Fragment() {
     }
 
     private fun setTaskAdapter(){
-
-    }
-
-    private fun setListenersInView(){
-
+        with(binding.rvTask){
+            recycledViewPool.setMaxRecycledViews(0, TaskAdapter.MAX_POOL_SIZE)
+            adapter = taskAdapter
+        }
     }
 
     private fun refreshFragment() {
