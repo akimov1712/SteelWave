@@ -43,9 +43,7 @@ class ReportFragment : Fragment() {
         ViewModelProvider(this,viewModelFactory)[ReportViewModel::class.java]
     }
 
-    private val taskAdapter by lazy {
-        TaskAdapter(requireContext())
-    }
+    private val taskAdapter by lazy { TaskAdapter(requireContext()) }
 
     override fun onAttach(context: Context) {
         component.inject(this)
@@ -66,11 +64,11 @@ class ReportFragment : Fragment() {
         observeViewModel()
         getData()
         val taskList = mutableListOf<TaskModel>()
-        for (i in 0..100){
+        (0..100).forEach{
             taskList.add(
                 TaskModel(
-                i,1,1,
-                "$i Я обращаюсь к вам с серьезной проблемой, которая произошла на вашей платформе, и прошу вашей помощи в разрешении этой ситуации. Недавно я взял заказ на вашей фриланс-площадке, и хотел бы поделиться своим опытом и недоразумениями, которые возникли в ходе выполнения этого заказа $i",
+                it,1,1,
+                "$it Я обращаюсь к вам с серьезной проблемой, которая произошла на вашей платформе, и прошу вашей помощи в разрешении этой ситуации. Недавно я взял заказ на вашей фриланс-площадке, и хотел бы поделиться своим опытом и недоразумениями, которые возникли в ходе выполнения этого заказа $it",
                     Random.nextInt(0, 2) == 0
             ))
         }
