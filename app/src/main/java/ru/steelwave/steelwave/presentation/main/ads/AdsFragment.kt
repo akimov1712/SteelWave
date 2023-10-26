@@ -110,7 +110,7 @@ class AdsFragment : Fragment() {
 
     private fun setViewErrors(){
         with(binding){
-//            inclErrorVisition.tvNotFound.text = "Посетителей за данный\nмесяц не обнаружено"
+            inclErrorAds.tvNotFound.text = "Партнеров у проекта\nне обнаружено"
         }
     }
 

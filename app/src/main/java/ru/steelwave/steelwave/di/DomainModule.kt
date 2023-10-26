@@ -2,6 +2,7 @@ package ru.steelwave.steelwave.di
 
 import dagger.Binds
 import dagger.Module
+import ru.steelwave.steelwave.data.repository.ads.AdsRepositoryImpl
 import ru.steelwave.steelwave.data.repository.finance.TargetRepositoryImpl
 import ru.steelwave.steelwave.data.repository.finance.TransactionRepositoryImpl
 import ru.steelwave.steelwave.data.repository.finance.YearIncomeRepositoryImpl
@@ -10,6 +11,7 @@ import ru.steelwave.steelwave.data.repository.traffic.TransferRepositoryImpl
 import ru.steelwave.steelwave.data.repository.traffic.VisitionRepositoryImpl
 import ru.steelwave.steelwave.data.repository.user.TaskRepositoryImpl
 import ru.steelwave.steelwave.data.repository.user.UserRepositoryImpl
+import ru.steelwave.steelwave.domain.repository.ads.AdsRepository
 import ru.steelwave.steelwave.domain.repository.finance.TargetRepository
 import ru.steelwave.steelwave.domain.repository.finance.TransactionRepository
 import ru.steelwave.steelwave.domain.repository.finance.YearIncomeRepository
@@ -45,5 +47,8 @@ interface DomainModule {
 
     @Binds
     fun bindTaskRepository(impl: TaskRepositoryImpl): TaskRepository
+
+    @Binds
+    fun bindAdsRepository(impl: AdsRepositoryImpl): AdsRepository
 
 }

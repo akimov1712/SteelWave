@@ -31,7 +31,8 @@
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="gone" />
 
             <TextView
                 android:id="@+id/tv_partner"
@@ -86,7 +87,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_partner">
+                app:layout_constraintTop_toBottomOf="@+id/tv_partner"
+                tools:visibility="visible">
 
                 <TextView
                     android:id="@+id/textView10"
@@ -99,12 +101,27 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <include
+                    android:id="@+id/incl_error_ads"
+                    layout="@layout/include_error_not_found"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginVertical="20dp"
+                    app:layout_constraintBottom_toTopOf="@+id/btn_add_partner"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/rv_partners" />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_partners"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:orientation="horizontal"
+                    android:clipToPadding="false"
+                    android:paddingLeft="50dp"
+                    android:paddingRight="50dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -123,51 +140,61 @@
                     app:layout_constraintStart_toStartOf="@+id/rv_partners"
                     app:layout_constraintTop_toBottomOf="@+id/rv_partners" />
 
-                <TextView
-                    android:id="@+id/tv_cooperation_details"
-                    style="@style/sw_textView_title"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginTop="30dp"
-                    android:text="@string/cooperation_details"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/btn_add_partner" />
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cv_month_expenses"
-                    style="@style/sw_cardView"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_detail_ads"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    app:cardElevation="5dp"
+                    android:visibility="gone"
+                    android:layout_marginTop="30dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_cooperation_details">
+                    app:layout_constraintTop_toBottomOf="@+id/btn_add_partner">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <TextView
+                        android:id="@+id/tv_cooperation_details"
+                        style="@style/sw_textView_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:text="@string/cooperation_details"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cv_month_expenses"
+                        style="@style/sw_cardView"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:paddingBottom="20dp">
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        app:cardElevation="5dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_cooperation_details">
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rv_month_expenses"
+                        <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="20dp"
-                            android:layout_marginVertical="20dp"
-                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:itemCount="4"
-                            tools:listitem="@layout/item_cooperation_details" />
+                            android:layout_height="match_parent"
+                            android:paddingBottom="20dp">
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rv_month_expenses"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="20dp"
+                                android:layout_marginVertical="20dp"
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:itemCount="4"
+                                tools:listitem="@layout/item_cooperation_details" />
 
-                </androidx.cardview.widget.CardView>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
+                    </androidx.cardview.widget.CardView>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
