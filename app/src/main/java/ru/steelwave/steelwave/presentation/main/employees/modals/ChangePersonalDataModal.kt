@@ -1,6 +1,5 @@
 package ru.steelwave.steelwave.presentation.main.employees.modals
 
-import android.app.Activity
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -10,43 +9,30 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import ru.steelwave.steelwave.App
-import ru.steelwave.steelwave.Loger
+import dagger.hilt.android.AndroidEntryPoint
 import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.ModalChangePersonalDataBinding
 import ru.steelwave.steelwave.domain.entity.user.UserModel
-import ru.steelwave.steelwave.presentation.base.CustomToast
-import ru.steelwave.steelwave.presentation.base.ViewModelFactory
 import ru.steelwave.steelwave.presentation.main.employees.EmployeesState
 import ru.steelwave.steelwave.presentation.main.employees.EmployeesViewModel
 import ru.steelwave.steelwave.utils.compressImage
-import ru.steelwave.steelwave.utils.getBitmapSizeInBytes
-import javax.inject.Inject
 
-class ChangePersonalDataModal: DialogFragment() {
+@AndroidEntryPoint
+class ChangePersonalDataModal : DialogFragment() {
 
-    private val component by lazy{
-        (requireActivity().application as App).component
-    }
     private val args by navArgs<ChangePersonalDataModalArgs>()
 
     private var _binding: ModalChangePersonalDataBinding? = null
     private val binding: ModalChangePersonalDataBinding
-    get() = _binding ?: throw RuntimeException("ModalChangePersonalDataBinding == null")
+        get() = _binding ?: throw RuntimeException("ModalChangePersonalDataBinding == null")
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
 
-    private val viewModel by lazy {
-        ViewModelProvider(this,viewModelFactory)[EmployeesViewModel::class.java]
-    }
+    private val viewModel by viewModels<EmployeesViewModel>()
 
     private val imagePickerLauncher =
         registerForActivityResult(
@@ -57,10 +43,6 @@ class ChangePersonalDataModal: DialogFragment() {
 
     private var selectedImageBitmap: Bitmap? = null
 
-    override fun onAttach(activity: Activity) {
-        component.inject(this)
-        super.onAttach(activity)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -78,12 +60,12 @@ class ChangePersonalDataModal: DialogFragment() {
         observeViewModel()
     }
 
-    private fun setupViews(){
+    private fun setupViews() {
         setListenersInView()
     }
 
-    private fun setValueViewFromArgs(user: UserModel){
-        with(binding){
+    private fun setValueViewFromArgs(user: UserModel) {
+        with(binding) {
             etFirstName.setText(user.firstName)
             etLastName.setText(user.lastName)
             etMiddleName.setText(user.middleName)
@@ -91,27 +73,32 @@ class ChangePersonalDataModal: DialogFragment() {
         }
     }
 
-    private fun observeViewModel(){
-        with(viewModel){
-            with(binding){
+    private fun observeViewModel() {
+        with(viewModel) {
+            with(binding) {
                 getUser(args.userId)
-                state.observe(viewLifecycleOwner){
-                    when(it){
+                state.observe(viewLifecycleOwner) {
+                    when (it) {
                         is EmployeesState.UserItem -> {
                             setValueViewFromArgs(it.userItem)
                         }
+
                         is EmployeesState.ErrorInputFirstName -> {
                             etFirstName.error = getString(R.string.field_not_can_empty)
                         }
+
                         is EmployeesState.ErrorInputLastName -> {
                             etLastName.error = getString(R.string.field_not_can_empty)
                         }
+
                         is EmployeesState.ErrorInputMiddleName -> {
                             etMiddleName.error = getString(R.string.field_not_can_empty)
                         }
+
                         is EmployeesState.ShouldCloseModal -> {
                             dismiss()
                         }
+
                         else -> {}
                     }
                 }
@@ -119,13 +106,19 @@ class ChangePersonalDataModal: DialogFragment() {
         }
     }
 
-    private fun setListenersInView(){
-        with(binding){
-            btnAdd.setOnClickListener{
+    private fun setListenersInView() {
+        with(binding) {
+            btnAdd.setOnClickListener {
                 val firstName = etFirstName.text.trim().toString()
                 val lastName = etLastName.text.trim().toString()
                 val middleName = etMiddleName.text.trim().toString()
-                viewModel.changePersonalData(args.userId,firstName, lastName, middleName, selectedImageBitmap)
+                viewModel.changePersonalData(
+                    args.userId,
+                    firstName,
+                    lastName,
+                    middleName,
+                    selectedImageBitmap
+                )
             }
             btnCancel.setOnClickListener {
                 dismiss()
@@ -141,7 +134,7 @@ class ChangePersonalDataModal: DialogFragment() {
         }
     }
 
-    private fun pickImage(){
+    private fun pickImage() {
         imagePickerLauncher.launch(
             PickVisualMediaRequest(
                 ActivityResultContracts.PickVisualMedia.ImageOnly
@@ -150,7 +143,8 @@ class ChangePersonalDataModal: DialogFragment() {
     }
 
     private fun getImageFromMedia(uri: Uri) {
-        val originalBitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
+        val originalBitmap =
+            MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
         selectedImageBitmap = compressImage(originalBitmap, 30)
         binding.ivAvatar.setImageBitmap(selectedImageBitmap)
     }

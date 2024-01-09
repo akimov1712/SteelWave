@@ -5,6 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ru.steelwave.steelwave.domain.entity.project.ProjectModel
 import ru.steelwave.steelwave.domain.useCase.project.AddProjectUseCase
@@ -13,6 +17,7 @@ import ru.steelwave.steelwave.domain.useCase.project.GetAllProjectUseCase
 import ru.steelwave.steelwave.domain.useCase.project.GetProjectUseCase
 import javax.inject.Inject
 
+@HiltViewModel
 class ProjectViewModel @Inject constructor(
     private val getAllProjectUseCase: GetAllProjectUseCase,
     private val getProjectUseCase: GetProjectUseCase,
@@ -20,9 +25,8 @@ class ProjectViewModel @Inject constructor(
     private val deleteProjectUseCase: DeleteProjectUseCase
 ) : ViewModel() {
 
-    private val _state = MutableLiveData<ProjectState>()
-    val state: LiveData<ProjectState>
-        get() = _state
+    private val _state = MutableStateFlow<ProjectState>(ProjectState.Loading)
+    val state = _state.asStateFlow()
 
     private val _projectItem = MutableLiveData<ProjectModel>()
     val projectItem: LiveData<ProjectModel>

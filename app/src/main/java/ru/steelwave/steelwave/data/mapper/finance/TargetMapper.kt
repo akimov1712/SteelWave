@@ -29,7 +29,7 @@ class TargetMapper @Inject constructor(
         mapEntityToDbModel(it)
     }
 
-    fun mapDbModelToEntity(targetList: List<TargetDbModel>) = targetList.map {
+    fun mapDbModelListToEntityList(targetList: List<TargetDbModel>) = targetList.map {
         mapDbModelToEntity(it)
     }
 

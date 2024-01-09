@@ -3,6 +3,8 @@ package ru.steelwave.steelwave.di
 import android.app.Application
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import ru.steelwave.steelwave.data.database.AppDatabase
 import ru.steelwave.steelwave.data.database.dao.finance.TargetDao
 import ru.steelwave.steelwave.data.database.dao.finance.TransactionDao
@@ -14,6 +16,7 @@ import ru.steelwave.steelwave.data.database.dao.user.TaskDao
 import ru.steelwave.steelwave.data.database.dao.user.UserDao
 
 @Module
+@InstallIn(SingletonComponent::class)
 interface DataModule {
 
     companion object{

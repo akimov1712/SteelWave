@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import ru.steelwave.steelwave.domain.entity.user.UserModel
 import ru.steelwave.steelwave.domain.useCase.project.GetProjectUseCase
@@ -16,6 +17,7 @@ import ru.steelwave.steelwave.domain.useCase.user.user.GetUserListUseCase
 import ru.steelwave.steelwave.domain.useCase.user.user.GetUserUseCase
 import javax.inject.Inject
 
+@HiltViewModel
 class EmployeesViewModel @Inject constructor(
     private val getProjectUseCase: GetProjectUseCase,
     private val addUserUseCase: AddUserUseCase,
@@ -30,17 +32,17 @@ class EmployeesViewModel @Inject constructor(
     val state: LiveData<EmployeesState>
         get() = _state
 
-    fun deleteEmployee(userId: Int){
+    fun deleteEmployee(userId: Int) {
         viewModelScope.launch {
             deleteUserUseCase(userId)
             _state.value = EmployeesState.ShouldCloseModal
         }
     }
 
-    fun changeSalary(userId: Int, inputSalary: String?){
+    fun changeSalary(userId: Int, inputSalary: String?) {
         val salary = parseCount(inputSalary)
         val valid = validateSalary(salary)
-        if (valid){
+        if (valid) {
             viewModelScope.launch {
                 val newUser = getUserUseCase(userId).copy(salary = salary)
                 addUserUseCase(newUser)
@@ -49,10 +51,10 @@ class EmployeesViewModel @Inject constructor(
         }
     }
 
-    fun changePosition(userId: Int, inputPosition: String?){
+    fun changePosition(userId: Int, inputPosition: String?) {
         val position = parseString(inputPosition)
         val valid = validatePosition(position)
-        if (valid){
+        if (valid) {
             viewModelScope.launch {
                 val newUser = getUserUseCase(userId).copy(position = position)
                 addUserUseCase(newUser)
@@ -67,48 +69,47 @@ class EmployeesViewModel @Inject constructor(
         inputLastName: String?,
         inputMiddleName: String?,
         inputAvatar: Bitmap?
-    ){
+    ) {
         val firstName = parseString(inputFirstName)
         val lastName = parseString(inputLastName)
         val middleName = parseString(inputMiddleName)
         val valid = validatePersonalData(firstName, lastName, middleName)
-        if (valid){
+        if (valid) {
             viewModelScope.launch {
                 val newUser = getUserUseCase(userId).copy(
                     firstName = firstName,
                     lastName = lastName,
                     middleName = middleName,
-                    avatar = inputAvatar)
+                    avatar = inputAvatar
+                )
                 addUserUseCase(newUser)
                 _state.value = EmployeesState.ShouldCloseModal
             }
         }
     }
 
-    fun getUser(userId: Int){
+    fun getUser(userId: Int) {
         viewModelScope.launch {
             val user = getUserUseCase(userId)
             _state.value = EmployeesState.UserItem(user)
         }
     }
 
-    fun getUserList(projectId: Int, limit: Int){
-        getUserListUseCase(projectId, limit).observeForever{ userList ->
-            if (userList.isEmpty()){
+    fun getUserList(projectId: Int, limit: Int) = viewModelScope.launch {
+        getUserListUseCase(projectId, limit).collect { userList ->
+            if (userList.isEmpty()) {
                 _state.value = EmployeesState.ErrorEmployeesList
-                return@observeForever
             }
-            viewModelScope.launch {
-                val totalSalary = getTotalSalaryUseCase(projectId)
-                userList.map {
-                    it.setPercentSalary(totalSalary)
-                }
-                _state.value = EmployeesState.UserList(userList)
+            val totalSalary = getTotalSalaryUseCase(projectId)
+            userList.map {
+                it.setPercentSalary(totalSalary)
             }
+            _state.value = EmployeesState.UserList(userList)
         }
     }
 
-    fun getCountUsers(projectId: Int){
+
+    fun getCountUsers(projectId: Int) {
         viewModelScope.launch {
             val countUsers = getCountUsersUseCase(projectId)
             _state.value = EmployeesState.CountUsers(countUsers)
@@ -133,7 +134,7 @@ class EmployeesViewModel @Inject constructor(
         inputLogin: String?,
         inputPassword: String?,
         inputSecretWord: String?,
-    ){
+    ) {
         val firstName = parseString(inputFirstName)
         val lastName = parseString(inputLastName)
         val middleName = parseString(inputMiddleName)
@@ -142,10 +143,10 @@ class EmployeesViewModel @Inject constructor(
         val login = parseString(inputLogin)
         val password = parseString(inputPassword)
         val secretWord = parseString(inputSecretWord)
-        val validPersonalData = validatePersonalData(firstName,lastName,middleName)
+        val validPersonalData = validatePersonalData(firstName, lastName, middleName)
         val validPosition = validatePosition(position, salary)
         val validRegistration = validateRegistration(login, password, secretWord)
-        if (validPersonalData && validPosition && validRegistration){
+        if (validPersonalData && validPosition && validRegistration) {
             viewModelScope.launch {
                 val user = UserModel(
                     login = login,
@@ -186,10 +187,10 @@ class EmployeesViewModel @Inject constructor(
         validatePosition(position, salary)
     }
 
-    private fun validateSalary(salary: Int) = if (salary <=0) {
-            _state.value = EmployeesState.ErrorInputSalary
-            false
-        } else true
+    private fun validateSalary(salary: Int) = if (salary <= 0) {
+        _state.value = EmployeesState.ErrorInputSalary
+        false
+    } else true
 
     private fun validatePosition(position: String) = if (position.isBlank()) {
         _state.value = EmployeesState.ErrorInputPosition
@@ -235,7 +236,7 @@ class EmployeesViewModel @Inject constructor(
             _state.value = EmployeesState.ErrorInputMiddleName
             result = false
         }
-        if (result){
+        if (result) {
             _state.value = EmployeesState.ValidationPersonalDateSuccessfully
         }
         return result
@@ -250,11 +251,11 @@ class EmployeesViewModel @Inject constructor(
             _state.value = EmployeesState.ErrorInputPosition
             result = false
         }
-        if (salary <=0) {
+        if (salary <= 0) {
             _state.value = EmployeesState.ErrorInputSalary
             result = false
         }
-        if (result){
+        if (result) {
             _state.value = EmployeesState.ValidationPositionSuccessfully
         }
         return result

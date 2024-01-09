@@ -6,9 +6,9 @@ import ru.steelwave.steelwave.domain.entity.user.UserModel
 
 sealed class ReportState{
 
-
-    class TaskList(val taskList: List<TaskModel>): ReportState()
-    class UserItem(val userItem: UserModel): ReportState()
-    class ProjectItem(val projectItem: ProjectModel): ReportState()
+    data object Loading: ReportState()
+    data class TaskList(val taskList: List<TaskModel>): ReportState()
+    data class UserItem(val userItem: UserModel): ReportState()
+    data class ProjectItem(val projectItem: ProjectModel): ReportState()
 
 }

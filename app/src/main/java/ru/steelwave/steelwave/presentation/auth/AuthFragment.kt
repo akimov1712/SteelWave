@@ -13,11 +13,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.FragmentAuthBinding
 import ru.steelwave.steelwave.presentation.base.CustomToast
 import ru.steelwave.steelwave.presentation.MainActivity
 
+@AndroidEntryPoint
 class AuthFragment : Fragment() {
 
     private var _binding: FragmentAuthBinding? = null

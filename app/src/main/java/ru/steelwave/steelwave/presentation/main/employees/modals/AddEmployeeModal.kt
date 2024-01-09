@@ -11,41 +11,33 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
+import dagger.hilt.android.AndroidEntryPoint
 import ru.steelwave.steelwave.App
-import ru.steelwave.steelwave.Loger
 import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.ModalAddEmployeeBinding
-import ru.steelwave.steelwave.presentation.base.CustomToast
-import ru.steelwave.steelwave.presentation.base.ViewModelFactory
 import ru.steelwave.steelwave.presentation.main.employees.EmployeesState
 import ru.steelwave.steelwave.presentation.main.employees.EmployeesViewModel
 import ru.steelwave.steelwave.utils.compressImage
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class AddEmployeeModal: DialogFragment() {
 
-    private val component by lazy{
-        (requireActivity().application as App).component
-    }
+
     private val args by navArgs<AddEmployeeModalArgs>()
 
     private var _binding: ModalAddEmployeeBinding? = null
     private val binding: ModalAddEmployeeBinding
     get() = _binding ?: throw RuntimeException("ModalAddEmployeeBinding == null")
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    private val viewModel by lazy {
-        ViewModelProvider(this,viewModelFactory)[EmployeesViewModel::class.java]
-    }
+    private val viewModel by viewModels<EmployeesViewModel>()
 
     private val imagePickerLauncher =
         registerForActivityResult(
@@ -56,10 +48,7 @@ class AddEmployeeModal: DialogFragment() {
 
     private var selectedImageBitmap: Bitmap? = null
 
-    override fun onAttach(activity: Activity) {
-        component.inject(this)
-        super.onAttach(activity)
-    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,

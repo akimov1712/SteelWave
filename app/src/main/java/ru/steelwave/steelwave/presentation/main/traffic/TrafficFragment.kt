@@ -7,9 +7,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.kal.rackmonthpicker.RackMonthPicker
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -18,40 +21,26 @@ import ru.steelwave.steelwave.App
 import ru.steelwave.steelwave.Const
 import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.FragmentTrafficBinding
-import ru.steelwave.steelwave.presentation.base.ViewModelFactory
 import java.sql.Date
 import java.util.Calendar
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class TrafficFragment : Fragment() {
 
 
     private val args by navArgs<TrafficFragmentArgs>()
     private var projectId = Const.UNDEFINED_ID
 
-    private val component by lazy {
-        (requireActivity().application as App).component
-    }
-
     private var _binding: FragmentTrafficBinding? = null
     private val binding: FragmentTrafficBinding
         get() = _binding ?: throw RuntimeException("FragmentTrafficBinding == null")
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
 
-    private val viewModel by lazy {
-        ViewModelProvider(this, viewModelFactory)[TrafficViewModel::class.java]
-    }
+    private val viewModel by viewModels<TrafficViewModel>()
 
     private val currentDate = Date(System.currentTimeMillis())
     private var selectedDate = Date(currentDate.year, currentDate.month, 1)
-
-    override fun onAttach(context: Context) {
-        component.inject(this)
-        super.onAttach(context)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,33 +59,31 @@ class TrafficFragment : Fragment() {
 
     private fun setupViews(){
         refreshFragment()
-        setRecyclerViews()
         setListenersInView()
         setViewErrors()
     }
 
-    private fun setRecyclerViews(){
-
-    }
-
     private fun observeViewModel() {
-        with(viewModel) {
-            if (projectId != Const.UNDEFINED_ID) {
-                getProjectItem(projectId)
-            }
-            state.observe(viewLifecycleOwner){
-                when(it){
-                    is TrafficState.ProjectItem -> {
-                        switchScreensAdding()
-                        binding.apply {
-                            tvProjectTrafic.text = it.projectItem.name
+        lifecycleScope.launch {
+            with(viewModel) {
+                if (projectId != Const.UNDEFINED_ID) {
+                    getProjectItem(projectId)
+                }
+                state.collect{
+                    when(it){
+                        is TrafficState.ProjectItem -> {
+                            switchScreensAdding()
+                            binding.apply {
+                                tvProjectTrafic.text = it.projectItem.name
+                            }
                         }
-                    }
-                    is TrafficState.VisitionItem -> {
+                        is TrafficState.VisitionItem -> {
 
-                    }
-                    is TrafficState.TransferList -> {
+                        }
+                        is TrafficState.TransferList -> {
 
+                        }
+                        is TrafficState.Loading -> {}
                     }
                 }
             }

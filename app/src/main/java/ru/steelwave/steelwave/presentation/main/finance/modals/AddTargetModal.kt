@@ -1,6 +1,5 @@
 package ru.steelwave.steelwave.presentation.main.finance.modals
 
-import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -8,21 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import ru.steelwave.steelwave.App
+import dagger.hilt.android.AndroidEntryPoint
 import ru.steelwave.steelwave.Const
 import ru.steelwave.steelwave.databinding.ModalAddTargetBinding
-import ru.steelwave.steelwave.presentation.base.ViewModelFactory
 import ru.steelwave.steelwave.presentation.main.finance.FinanceState
 import ru.steelwave.steelwave.presentation.main.finance.FinanceViewModel
-import javax.inject.Inject
 
+@AndroidEntryPoint
 class AddTargetModal : DialogFragment() {
 
-    private val component by lazy {
-        (requireActivity().application as App).component
-    }
 
     private val args by navArgs<AddTargetModalArgs>()
 
@@ -30,19 +25,9 @@ class AddTargetModal : DialogFragment() {
     private val binding: ModalAddTargetBinding
         get() = _binding ?: throw RuntimeException("ModalAddTargetBinding == null")
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    private val viewModel by lazy {
-        ViewModelProvider(this, viewModelFactory)[FinanceViewModel::class.java]
-    }
+    private val viewModel by viewModels<FinanceViewModel>()
 
     private var screenMode: String = Const.MODE_UNKNOWN
-
-    override fun onAttach(context: Context) {
-        component.inject(this)
-        super.onAttach(context)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,29 +47,30 @@ class AddTargetModal : DialogFragment() {
         observeViewModel()
     }
 
-    private fun parseArgs(){
+    private fun parseArgs() {
         screenMode = args.screenMode
     }
 
-    private fun choiceMode(){
-        when(screenMode){
+    private fun choiceMode() {
+        when (screenMode) {
             Const.MODE_ADD_TARGET -> runModeAdd()
             Const.MODE_EDIT_TARGET -> runModeEdit()
         }
     }
 
-    private fun runModeEdit(){
+    private fun runModeEdit() {
         with(binding) {
             var targetId: Int? = null
             viewModel.getTargetItem(args.targetId)
             viewModel.state.observe(viewLifecycleOwner) {
-                when(it){
+                when (it) {
                     is FinanceState.TargetItem -> {
                         targetId = it.targetItem.id
                         etNameTarget.setText(it.targetItem.name)
                         etStartPrice.setText(it.targetItem.collectedPrice.toString())
                         etEndPrice.setText(it.targetItem.totalPrice.toString())
                     }
+
                     else -> {}
                 }
             }
@@ -104,7 +90,7 @@ class AddTargetModal : DialogFragment() {
         }
     }
 
-    private fun runModeAdd(){
+    private fun runModeAdd() {
         with(binding) {
             btnAdd.setOnClickListener {
                 val nameTarget = etNameTarget.text.toString()
@@ -120,22 +106,27 @@ class AddTargetModal : DialogFragment() {
         }
     }
 
-    private fun observeViewModel(){
-        with(viewModel){
-            state.observe(viewLifecycleOwner){
-                when(it){
+    private fun observeViewModel() {
+        with(viewModel) {
+            state.observe(viewLifecycleOwner) {
+                when (it) {
                     is FinanceState.ShouldCloseAddTargetModal -> {
                         dismiss()
                     }
+
                     is FinanceState.ErrorInputNameAddTarget -> {
                         binding.etNameTarget.error = "Проверьте поле."
                     }
+
                     is FinanceState.ErrorInputEndPrice -> {
                         binding.etEndPrice.error = "Число не может быть меньше нуля."
                     }
+
                     is FinanceState.ErrorInputStartPrice -> {
-                        binding.etStartPrice.error = "Число не может быть меньше нуля и больше конечной ставки."
+                        binding.etStartPrice.error =
+                            "Число не может быть меньше нуля и больше конечной ставки."
                     }
+
                     else -> {}
                 }
             }
@@ -155,7 +146,7 @@ class AddTargetModal : DialogFragment() {
                 if (hasFocus && etStartPrice.text.toString() == "0") {
                     etStartPrice.text.clear()
                 } else {
-                    if (etStartPrice.text.toString() == ""){
+                    if (etStartPrice.text.toString() == "") {
                         etStartPrice.setText("0")
                     }
                 }
@@ -164,7 +155,7 @@ class AddTargetModal : DialogFragment() {
                 if (hasFocus && etEndPrice.text.toString() == "0") {
                     etEndPrice.text.clear()
                 } else {
-                    if (etEndPrice.text.toString() == ""){
+                    if (etEndPrice.text.toString() == "") {
                         etEndPrice.setText("0")
                     }
                 }

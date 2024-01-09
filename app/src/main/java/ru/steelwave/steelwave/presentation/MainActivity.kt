@@ -11,11 +11,13 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import dagger.hilt.android.AndroidEntryPoint
 import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.ActivityAuthBinding
 import ru.steelwave.steelwave.databinding.ActivityMainBinding
 import ru.steelwave.steelwave.presentation.modals.ConfirmExitAccountModal
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val binding by lazy{

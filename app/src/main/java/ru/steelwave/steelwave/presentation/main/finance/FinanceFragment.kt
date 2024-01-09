@@ -1,28 +1,26 @@
 package ru.steelwave.steelwave.presentation.main.finance
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.kal.rackmonthpicker.RackMonthPicker
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import ru.steelwave.steelwave.App
 import ru.steelwave.steelwave.Const
 import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.FragmentFinanceBinding
 import ru.steelwave.steelwave.domain.entity.finance.TargetModel
 import ru.steelwave.steelwave.presentation.base.CustomToast
-import ru.steelwave.steelwave.presentation.base.ViewModelFactory
 import ru.steelwave.steelwave.presentation.main.finance.adapters.incomeAdapter.IncomeAdapter
 import ru.steelwave.steelwave.presentation.main.finance.adapters.lossAdapter.LossAdapter
 import ru.steelwave.steelwave.presentation.main.finance.adapters.targetAdapter.TargetAdapter
@@ -30,43 +28,30 @@ import ru.steelwave.steelwave.presentation.main.finance.adapters.yearIncomeAdapt
 import ru.steelwave.steelwave.utils.formatPrice
 import java.sql.Date
 import java.util.Calendar
-import javax.inject.Inject
 
-
-class FinanceFragment : Fragment(){
+@AndroidEntryPoint
+class FinanceFragment : Fragment() {
 
     private val args by navArgs<FinanceFragmentArgs>()
     private var projectId = Const.UNDEFINED_ID
 
-    private val component by lazy {
-        (requireActivity().application as App).component
-    }
 
     private var _binding: FragmentFinanceBinding? = null
     private val binding: FragmentFinanceBinding
         get() = _binding ?: throw RuntimeException("FragmentFinanceBinding == null")
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+    private val viewModel by viewModels<FinanceViewModel>()
 
-    private val viewModel by lazy {
-        ViewModelProvider(this, viewModelFactory)[FinanceViewModel::class.java]
-    }
 
-    private val incomeAdapter by lazy{ IncomeAdapter() }
-    private val lossAdapter by lazy{ LossAdapter() }
-    private val targetAdapter by lazy{ TargetAdapter() }
-    private val yearIncomeAdapter by lazy{ YearIncomeAdapter() }
+    private val incomeAdapter by lazy { IncomeAdapter() }
+    private val lossAdapter by lazy { LossAdapter() }
+    private val targetAdapter by lazy { TargetAdapter() }
+    private val yearIncomeAdapter by lazy { YearIncomeAdapter() }
 
     private val currentDate = Date(System.currentTimeMillis())
     private var selectedDate = Date(currentDate.year, currentDate.month, 1)
     private var selectedYear = Date(currentDate.year, 1, 1)
 
-    override fun onAttach(context: Context) {
-        component.inject(this)
-        super.onAttach(context)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -89,75 +74,84 @@ class FinanceFragment : Fragment(){
                 getProjectItem(projectId)
                 getData(args.projectId, selectedDate, selectedYear)
             }
-            state.observe(viewLifecycleOwner){
-                when(it){
+            state.observe(viewLifecycleOwner) {
+                when (it) {
                     is FinanceState.TargetListError -> {
-                        with(binding){
+                        with(binding) {
                             rvTarget.visibility = View.GONE
                             inclErrorTarget.clError.visibility = View.VISIBLE
                         }
                     }
+
                     is FinanceState.IncomeItemError -> {
-                        with(binding){
+                        with(binding) {
                             clIncomeContent.visibility = View.GONE
                             inclErrorIncome.clError.visibility = View.VISIBLE
                         }
                     }
+
                     is FinanceState.YearIncomeItemError -> {
-                        with(binding){
+                        with(binding) {
                             clYearIncomeContent.visibility = View.GONE
                             inclErrorYearIncome.clError.visibility = View.VISIBLE
                         }
                     }
+
                     is FinanceState.LossItemError -> {
-                        with(binding){
+                        with(binding) {
                             clLossContent.visibility = View.GONE
                             inclErrorLoss.clError.visibility = View.VISIBLE
                         }
                     }
+
                     is FinanceState.ProjectItem -> {
                         switchScreensAdding()
                         binding.apply {
                             tvProjectFinance.text = it.projectItem.name
                         }
                     }
+
                     is FinanceState.LossList -> {
                         var totalLoss = 0
                         it.lossList.forEach { transaction ->
                             totalLoss += transaction.count
                         }
-                        with(binding){
+                        with(binding) {
                             tvLossProject.text = formatPrice(totalLoss)
                             lossAdapter.submitList(it.lossList)
                             clLossContent.visibility = View.VISIBLE
                             inclErrorLoss.clError.visibility = View.GONE
                         }
                     }
+
                     is FinanceState.IncomeList -> {
                         var totalIncome = 0
                         it.incomeList.forEach { transaction ->
                             totalIncome += transaction.count
                         }
-                        with(binding){
+                        with(binding) {
                             tvIncomeProject.text = formatPrice(totalIncome)
                             incomeAdapter.submitList(it.incomeList)
                             clIncomeContent.visibility = View.VISIBLE
                             inclErrorIncome.clError.visibility = View.GONE
                         }
                     }
+
                     is FinanceState.TargetList -> {
                         targetAdapter.submitList(it.targetList)
-                        with(binding){
+                        with(binding) {
                             rvTarget.visibility = View.VISIBLE
                             inclErrorTarget.clError.visibility = View.GONE
                         }
                     }
+
                     is FinanceState.YearIncomeItem -> {
-                        with(binding){
+                        with(binding) {
                             clYearIncomeContent.visibility = View.VISIBLE
                             inclErrorYearIncome.clError.visibility = View.GONE
                         }
                     }
+
                     else -> {}
                 }
             }
@@ -165,8 +159,8 @@ class FinanceFragment : Fragment(){
     }
 
     private fun switchScreensAdding() {
-        with(binding){
-            if (projectId != Const.UNDEFINED_ID){
+        with(binding) {
+            if (projectId != Const.UNDEFINED_ID) {
                 tvChoiceProject.visibility = View.GONE
                 clFinance.visibility = View.VISIBLE
             } else {
@@ -189,15 +183,15 @@ class FinanceFragment : Fragment(){
         refreshFragment()
     }
 
-    private fun refreshFragment(){
-        with(binding.swipeRefresh){
+    private fun refreshFragment() {
+        with(binding.swipeRefresh) {
             isEnabled = false
-            if (projectId != Const.UNDEFINED_ID){
+            if (projectId != Const.UNDEFINED_ID) {
                 isEnabled = true
             }
             setColorSchemeResources(R.color.sw_purple)
             setOnRefreshListener {
-                CoroutineScope(Dispatchers.IO).launch{
+                CoroutineScope(Dispatchers.IO).launch {
                     delay(300)
                     viewModel.getData(projectId, selectedDate, selectedYear)
                     isRefreshing = false
@@ -206,34 +200,34 @@ class FinanceFragment : Fragment(){
         }
     }
 
-    private fun setViewErrors(){
-        with(binding){
+    private fun setViewErrors() {
+        with(binding) {
             inclErrorLoss.tvNotFound.text = "Расходов за данный\nмесяц не обнаружено"
             inclErrorYearIncome.tvNotFound.text = "Cтатистики за данный\nгод не обнаружено"
             inclErrorTarget.tvNotFound.text = "Целей у проекта\nне обнаружено"
         }
     }
 
-    private fun setRecyclerViews(){
+    private fun setRecyclerViews() {
         setIncomeAdapter()
         setLossAdapter()
         setTargetAdapter()
         setYearIncomeAdapter()
     }
 
-    private fun setIncomeAdapter(){
-        with(binding){
-            rvIncome.adapter =  incomeAdapter
+    private fun setIncomeAdapter() {
+        with(binding) {
+            rvIncome.adapter = incomeAdapter
         }
     }
 
-    private fun setLossAdapter(){
-        with(binding){
-            rvLoss.adapter =  lossAdapter
+    private fun setLossAdapter() {
+        with(binding) {
+            rvLoss.adapter = lossAdapter
         }
     }
 
-    private fun setTargetAdapter(){
+    private fun setTargetAdapter() {
         LinearSnapHelper().attachToRecyclerView(binding.rvTarget)
         binding.rvTarget.adapter = targetAdapter
         targetAdapter.onClickBtnMoreListener = { target, anchorView ->
@@ -248,22 +242,25 @@ class FinanceFragment : Fragment(){
         popup.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.menu_add -> {
-                    if (target.isFinished){
+                    if (target.isFinished) {
                         CustomToast.toastDefault(requireContext(), "Цель достигнута")
                         false
-                    } else{
+                    } else {
                         openModalAddTarget(target.id)
                         true
                     }
                 }
+
                 R.id.menu_edit -> {
                     openModalEditTarget(target)
                     true
                 }
+
                 R.id.menu_delete -> {
                     openModalDeleteTarget(target)
                     true
                 }
+
                 else -> {
                     false
                 }
@@ -283,21 +280,29 @@ class FinanceFragment : Fragment(){
         )
     }
 
-    private fun openModalAddTarget(targetId: Int){
-        findNavController().navigate(FinanceFragmentDirections.actionFinanceFragmentToRefillTargetModal(targetId))
+    private fun openModalAddTarget(targetId: Int) {
+        findNavController().navigate(
+            FinanceFragmentDirections.actionFinanceFragmentToRefillTargetModal(
+                targetId
+            )
+        )
     }
 
-    private fun openModalDeleteTarget(target: TargetModel){
-        findNavController().navigate(FinanceFragmentDirections.actionFinanceFragmentToDeleteTargetModal(target))
+    private fun openModalDeleteTarget(target: TargetModel) {
+        findNavController().navigate(
+            FinanceFragmentDirections.actionFinanceFragmentToDeleteTargetModal(
+                target
+            )
+        )
     }
 
-    private fun setYearIncomeAdapter(){
+    private fun setYearIncomeAdapter() {
         binding.rvYearIncome.adapter = yearIncomeAdapter
     }
 
     private fun setListenersInView() {
         with(binding) {
-            if (projectId != null && projectId != Const.UNDEFINED_ID){
+            if (projectId != null && projectId != Const.UNDEFINED_ID) {
                 btnAddExpenses.setOnClickListener {
                     val date = Date(selectedDate.year, selectedDate.month, 1)
                     findNavController().navigate(
@@ -307,13 +312,15 @@ class FinanceFragment : Fragment(){
                         )
                     )
                 }
-                btnAddTarget.setOnClickListener{
-                    findNavController().navigate(FinanceFragmentDirections
-                        .actionFinanceFragmentToAddTargetModal(
-                            projectId = projectId,
-                            screenMode = Const.MODE_ADD_TARGET,
-                            targetId = Const.UNDEFINED_ID
-                        ))
+                btnAddTarget.setOnClickListener {
+                    findNavController().navigate(
+                        FinanceFragmentDirections
+                            .actionFinanceFragmentToAddTargetModal(
+                                projectId = projectId,
+                                screenMode = Const.MODE_ADD_TARGET,
+                                targetId = Const.UNDEFINED_ID
+                            )
+                    )
                 }
                 clChoiceDate.setOnClickListener {
                     openMonthPicker()
@@ -321,13 +328,13 @@ class FinanceFragment : Fragment(){
             }
             tvProjectFinance.setOnClickListener {
                 findNavController().navigate(
-                    FinanceFragmentDirections.
-                    actionFinanceFragmentToChoiceProjectModal(Const.MODE_CHOICE_PROJECT_FINANCE))
+                    FinanceFragmentDirections.actionFinanceFragmentToChoiceProjectModal(Const.MODE_CHOICE_PROJECT_FINANCE)
+                )
             }
         }
     }
 
-    private fun setDate(date: Date){
+    private fun setDate(date: Date) {
         val calendar = Calendar.getInstance()
         calendar.time = date
         val month = calendar.get(Calendar.MONTH) + 1
@@ -351,8 +358,8 @@ class FinanceFragment : Fragment(){
             .show()
     }
 
-    private fun setDateInView(month: Int, year: Int){
-        with(binding){
+    private fun setDateInView(month: Int, year: Int) {
+        with(binding) {
             tvDateMonth.text = month.toString()
             tvDateYear.text = year.toString()
         }

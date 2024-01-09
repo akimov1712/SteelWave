@@ -8,20 +8,16 @@ import android.view.animation.AnimationUtils
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ListAdapter
-import ru.steelwave.steelwave.Loger
 import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.ItemTaskBinding
 import ru.steelwave.steelwave.domain.entity.user.TaskModel
 
 class TaskAdapter(private val context: Context): ListAdapter<TaskModel, TaskViewHolder>(TaskDiffCallback()) {
 
-    private var count = 0
-
     private val rotateAnimation by lazy { AnimationUtils.loadAnimation(context, R.anim.rotate_animation) }
     private val rotateReverseAnimation by lazy { AnimationUtils.loadAnimation(context, R.anim.rotate_animation_reverse) }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
-        Loger.log(count++.toString())
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemTaskBinding.inflate(inflater, parent, false)
         return TaskViewHolder(binding)

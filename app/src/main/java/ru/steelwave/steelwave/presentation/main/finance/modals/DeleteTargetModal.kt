@@ -1,6 +1,5 @@
 package ru.steelwave.steelwave.presentation.main.finance.modals
 
-import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -11,21 +10,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import ru.steelwave.steelwave.App
+import dagger.hilt.android.AndroidEntryPoint
 import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.ModalConfirmDeleteTargetBinding
-import ru.steelwave.steelwave.presentation.base.ViewModelFactory
 import ru.steelwave.steelwave.presentation.main.finance.FinanceState
 import ru.steelwave.steelwave.presentation.main.finance.FinanceViewModel
-import javax.inject.Inject
 
+@AndroidEntryPoint
 class DeleteTargetModal : DialogFragment() {
-
-    private val component by lazy {
-        (requireActivity().application as App).component
-    }
 
     private val args by navArgs<DeleteTargetModalArgs>()
 
@@ -33,17 +27,7 @@ class DeleteTargetModal : DialogFragment() {
     private val binding: ModalConfirmDeleteTargetBinding
         get() = _binding ?: throw RuntimeException("ModalConfirmDeleteTargetBinding == null")
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    private val viewModel by lazy {
-        ViewModelProvider(this, viewModelFactory)[FinanceViewModel::class.java]
-    }
-
-    override fun onAttach(context: Context) {
-        component.inject(this)
-        super.onAttach(context)
-    }
+    private val viewModel by viewModels<FinanceViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,13 +45,15 @@ class DeleteTargetModal : DialogFragment() {
         observeViewModel()
     }
 
-    private fun observeViewModel(){
-        with(viewModel){
-            state.observe(viewLifecycleOwner){
-                when(it){
+    private fun observeViewModel() {
+        with(viewModel) {
+            state.observe(viewLifecycleOwner) {
+                when (it) {
                     is FinanceState.ShouldCloseDeleteTargetModal -> {
                         dismiss()
-                    } else -> {}
+                    }
+
+                    else -> {}
                 }
             }
         }
@@ -78,13 +64,24 @@ class DeleteTargetModal : DialogFragment() {
         setTextConfirm()
     }
 
-    private fun setTextConfirm(){
-        with(binding){
-            val text = "${resources.getString(R.string.you_really_need_delete_target)} ${args.target.name}"
+    private fun setTextConfirm() {
+        with(binding) {
+            val text =
+                "${resources.getString(R.string.you_really_need_delete_target)} ${args.target.name}"
             val spannableString = SpannableString(text)
             val startIndex = text.indexOf(args.target.name)
-            spannableString.setSpan(ForegroundColorSpan(resources.getColor(R.color.sw_black_transparent)), 0, startIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-            spannableString.setSpan(ForegroundColorSpan(resources.getColor(R.color.sw_purple)), startIndex, startIndex + args.target.name.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            spannableString.setSpan(
+                ForegroundColorSpan(resources.getColor(R.color.sw_black_transparent)),
+                0,
+                startIndex,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+            spannableString.setSpan(
+                ForegroundColorSpan(resources.getColor(R.color.sw_purple)),
+                startIndex,
+                startIndex + args.target.name.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
             tvDeleteTarget.text = spannableString
 
         }
@@ -92,7 +89,7 @@ class DeleteTargetModal : DialogFragment() {
 
     private fun setListenersInView() {
         with(binding) {
-            btnDelete.setOnClickListener{
+            btnDelete.setOnClickListener {
                 viewModel.deleteTarget(args.target.id)
             }
             btnCancel.setOnClickListener {

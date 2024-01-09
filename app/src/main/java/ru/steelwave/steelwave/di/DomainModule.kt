@@ -2,6 +2,8 @@ package ru.steelwave.steelwave.di
 
 import dagger.Binds
 import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import ru.steelwave.steelwave.data.repository.ads.AdsRepositoryImpl
 import ru.steelwave.steelwave.data.repository.finance.TargetRepositoryImpl
 import ru.steelwave.steelwave.data.repository.finance.TransactionRepositoryImpl
@@ -22,6 +24,7 @@ import ru.steelwave.steelwave.domain.repository.user.TaskRepository
 import ru.steelwave.steelwave.domain.repository.user.UserRepository
 
 @Module
+@InstallIn(SingletonComponent::class)
 interface DomainModule {
 
     @Binds

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import ru.steelwave.steelwave.domain.entity.finance.TargetModel
 import ru.steelwave.steelwave.domain.entity.finance.TransactionModel
@@ -21,6 +22,7 @@ import ru.steelwave.steelwave.domain.useCase.project.GetProjectUseCase
 import java.sql.Date
 import javax.inject.Inject
 
+@HiltViewModel
 class FinanceViewModel @Inject constructor(
     private val getAllProjectUseCase: GetAllProjectUseCase,
     private val getProjectUseCase: GetProjectUseCase,
@@ -92,7 +94,7 @@ class FinanceViewModel @Inject constructor(
 
     fun getTransactionList(projectId: Int, date: Date) {
         viewModelScope.launch {
-            getTransactionListUseCase(projectId, date).observeForever { resultList ->
+            getTransactionListUseCase(projectId, date).collect { resultList ->
                 val incomeList = resultList.filter {
                     it.isIncome
                 }
@@ -190,7 +192,7 @@ class FinanceViewModel @Inject constructor(
 
     fun getTargetList(projectId: Int) {
         viewModelScope.launch {
-            getAllTargetUseCase(projectId).observeForever { resultList ->
+            getAllTargetUseCase(projectId).collect { resultList ->
                 if (resultList.isNotEmpty()) {
                     _state.value = FinanceState.TargetList(resultList)
                 } else {

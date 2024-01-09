@@ -2,6 +2,7 @@ package ru.steelwave.steelwave.data.database.dao.project
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 import ru.steelwave.steelwave.data.database.model.project.ProjectDbModel
 
 @Dao
@@ -17,6 +18,6 @@ interface ProjectDao {
     suspend fun getProject(id: Int): ProjectDbModel
 
     @Query("SELECT * FROM projects")
-    fun getAllProjects(): LiveData<List<ProjectDbModel>>
+    fun getAllProjects(): Flow<List<ProjectDbModel>>
 
 }

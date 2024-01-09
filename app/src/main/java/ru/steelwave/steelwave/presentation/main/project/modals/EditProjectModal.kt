@@ -2,7 +2,6 @@ package ru.steelwave.steelwave.presentation.main.project.modals
 
 import android.Manifest
 import android.app.AlertDialog
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -17,42 +16,30 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.datepicker.MaterialDatePicker
-import ru.steelwave.steelwave.App
 import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.ModalEditProjectBinding
 import ru.steelwave.steelwave.domain.entity.project.ProjectModel
 import ru.steelwave.steelwave.presentation.base.CustomToast
-import ru.steelwave.steelwave.presentation.base.ViewModelFactory
 import ru.steelwave.steelwave.presentation.main.project.ProjectState
 import ru.steelwave.steelwave.presentation.main.project.ProjectViewModel
 import java.util.Calendar
 import java.util.Date
-import javax.inject.Inject
 
 
 class EditProjectModal : BottomSheetDialogFragment() {
 
     private val args by navArgs<EditProjectModalArgs>()
 
-    private val component by lazy{
-        (requireActivity().application as App).component
-    }
-
     private var _binding: ModalEditProjectBinding? = null
     private val binding: ModalEditProjectBinding
         get() = _binding ?: throw RuntimeException("ModalEditProjectBinding == null")
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    private val viewModel by lazy{
-        ViewModelProvider(this,viewModelFactory)[ProjectViewModel::class.java]
-    }
+    private val viewModel by viewModels<ProjectViewModel>()
 
     private val storagePermissionRequestLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission(),
@@ -70,11 +57,6 @@ class EditProjectModal : BottomSheetDialogFragment() {
 
     private var selectedImageBitmap: Bitmap? = null
     private var selectedDate = System.currentTimeMillis()
-
-    override fun onAttach(context: Context) {
-        component.inject(this)
-        super.onAttach(context)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -97,10 +79,10 @@ class EditProjectModal : BottomSheetDialogFragment() {
     }
 
 
-    private fun observeViewModel(){
-        with(viewModel){
+    private fun observeViewModel() {
+        with(viewModel) {
             getProjectItem(args.projectId)
-            projectItem.observe(viewLifecycleOwner){ project ->
+            projectItem.observe(viewLifecycleOwner) { project ->
                 choiceProject = project
                 binding.etNameProject.setText(project.name)
                 selectedImageBitmap = project.previewImage
@@ -108,15 +90,17 @@ class EditProjectModal : BottomSheetDialogFragment() {
                 selectedDate = project.dateRelease
                 setDate(selectedDate)
             }
-            state.observe(viewLifecycleOwner){
-                when(it){
+            state.observe(viewLifecycleOwner) {
+                when (it) {
                     is ProjectState.ErrorImage -> {
                         CustomToast.toastDefault(requireContext(), "Выберите обложку")
                         binding.ivError.visibility = View.VISIBLE
                     }
+
                     is ProjectState.ErrorInputName -> {
                         binding.etNameProject.error = "Введите название проекта"
                     }
+
                     is ProjectState.ShouldCloseScreen -> {
                         dismissNow()
                     }
@@ -125,7 +109,7 @@ class EditProjectModal : BottomSheetDialogFragment() {
         }
     }
 
-    private fun setDate(date: Long){
+    private fun setDate(date: Long) {
         val calendar = Calendar.getInstance()
         calendar.time = Date(date)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
@@ -134,8 +118,8 @@ class EditProjectModal : BottomSheetDialogFragment() {
         setDateInView(day, month, year)
     }
 
-    private fun setDateInView(day: Int, month: Int, year: Int){
-        with(binding){
+    private fun setDateInView(day: Int, month: Int, year: Int) {
+        with(binding) {
             tvDateDay.text = day.toString()
             tvDateMonth.text = month.toString()
             tvDateYear.text = year.toString()
@@ -150,7 +134,7 @@ class EditProjectModal : BottomSheetDialogFragment() {
             clChoiceDate.setOnClickListener {
                 openDatePicker()
             }
-            btnEdit.setOnClickListener{
+            btnEdit.setOnClickListener {
                 val name = binding.etNameProject.text.toString()
                 viewModel.editProject(
                     inputName = name,
@@ -169,21 +153,21 @@ class EditProjectModal : BottomSheetDialogFragment() {
     }
 
 
-    private fun openDatePicker(){
+    private fun openDatePicker() {
         val picker = MaterialDatePicker.Builder.datePicker()
             .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
             .setTitleText("Дата создание проекта")
             .build()
         picker.show(childFragmentManager, TAG_DIALOG_DATE_PICKER)
 
-        picker.addOnPositiveButtonClickListener{ selectedDate ->
+        picker.addOnPositiveButtonClickListener { selectedDate ->
             this.selectedDate = selectedDate
             setDate(this.selectedDate)
         }
 
     }
 
-    private fun pickImage(){
+    private fun pickImage() {
         imagePickerLauncher.launch(
             PickVisualMediaRequest(
                 ActivityResultContracts.PickVisualMedia.ImageOnly
@@ -192,15 +176,16 @@ class EditProjectModal : BottomSheetDialogFragment() {
     }
 
     private fun setImage(uri: Uri) {
-        selectedImageBitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
+        selectedImageBitmap =
+            MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
         binding.ivPreview.setImageBitmap(selectedImageBitmap)
     }
 
-    private fun onGotPermissionResultForStorage(granted: Boolean){
-        if (granted){
+    private fun onGotPermissionResultForStorage(granted: Boolean) {
+        if (granted) {
             pickImage()
         } else {
-            if (!shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE)){
+            if (!shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 askUserOpenAppSettingsPermission()
             } else {
                 CustomToast.toastDefault(requireContext(), "Permission denied")
@@ -209,7 +194,7 @@ class EditProjectModal : BottomSheetDialogFragment() {
 
     }
 
-    private fun askUserOpenAppSettingsPermission(){
+    private fun askUserOpenAppSettingsPermission() {
         val appSettingIntent = Intent(
             Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
             Uri.fromParts("package", requireContext().packageName, null)
@@ -217,13 +202,14 @@ class EditProjectModal : BottomSheetDialogFragment() {
         if (requireContext().packageManager.resolveActivity(
                 appSettingIntent,
                 PackageManager.MATCH_DEFAULT_ONLY
-            ) == null){
+            ) == null
+        ) {
             CustomToast.toastDefault(requireContext(), "Permission are denied forever")
         } else {
             AlertDialog.Builder(requireContext())
                 .setTitle("Разрешение отменено")
                 .setMessage(getString(R.string.requestPermissionInAlertDialog))
-                .setPositiveButton("Open"){ _, _ ->
+                .setPositiveButton("Open") { _, _ ->
                     startActivity(appSettingIntent)
                 }.create()
                 .show()
@@ -236,7 +222,7 @@ class EditProjectModal : BottomSheetDialogFragment() {
         _binding = null
     }
 
-    companion object{
+    companion object {
         private const val TAG_DIALOG_DATE_PICKER = "tag_dialog_date_picker"
     }
 

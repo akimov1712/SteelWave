@@ -1,7 +1,7 @@
 package ru.steelwave.steelwave.data.repository.traffic
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import ru.steelwave.steelwave.data.database.dao.traffic.VisitionDao
 import ru.steelwave.steelwave.data.mapper.traffic.VisitionMapper
 import ru.steelwave.steelwave.domain.entity.traffic.VisitionModel
@@ -14,8 +14,8 @@ class VisitionRepositoryImpl @Inject constructor(
     private val dao: VisitionDao
 ) : VisitionRepository {
 
-    override fun getVisitionUseCase(projectId: Int, date: Date): LiveData<VisitionModel> {
-        return Transformations.map(dao.getVisition(projectId, date.time)){
+    override fun getVisitionUseCase(projectId: Int, date: Date): Flow<VisitionModel> {
+        return dao.getVisition(projectId, date.time).map {
             mapper.mapDbModelToEntity(it)
         }
     }

@@ -1,48 +1,33 @@
 package ru.steelwave.steelwave.presentation.main.project
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import ru.steelwave.steelwave.App
 import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.FragmentProjectBinding
-import ru.steelwave.steelwave.presentation.base.ViewModelFactory
 import ru.steelwave.steelwave.presentation.main.project.projectAdapter.ProjectAdapter
-import javax.inject.Inject
 
+@AndroidEntryPoint
 class ProjectFragment : Fragment() {
-
-    private val component by lazy{
-        (requireActivity().application as App).component
-    }
 
     private var _binding: FragmentProjectBinding? = null
     private val binding: FragmentProjectBinding
-    get() = _binding ?: throw RuntimeException("FragmentProjectBinding == null")
+        get() = _binding ?: throw RuntimeException("FragmentProjectBinding == null")
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    private val viewModel by lazy{
-        ViewModelProvider(this, viewModelFactory)[ProjectViewModel::class.java]
-    }
+    private val viewModel by viewModels<ProjectViewModel>()
 
     private val projectAdapter by lazy {
         ProjectAdapter()
-    }
-
-    override fun onAttach(context: Context) {
-        component.inject(this)
-        super.onAttach(context)
     }
 
     override fun onCreateView(
@@ -60,45 +45,49 @@ class ProjectFragment : Fragment() {
         setupViewModel()
     }
 
-    private fun setupViewModel(){
+    private fun setupViewModel() {
         observeViewModel()
 
     }
 
-    private fun observeViewModel(){
-        with(viewModel){
-            projectList.observe(viewLifecycleOwner){
+    private fun observeViewModel() {
+        lifecycleScope.launch {
+            viewModel.projectList.collect {
                 projectAdapter.submitList(it)
                 binding.tvCountProjects.text = it.size.toString()
             }
         }
     }
 
-    private fun setupViews(){
+    private fun setupViews() {
         setListenersInView()
         refreshFragment()
     }
 
-    private fun initRecyclerView(){
+    private fun initRecyclerView() {
         setRecyclerViewListeners()
         setupProjectAdapter()
     }
 
-    private fun setRecyclerViewListeners(){
+    private fun setRecyclerViewListeners() {
         projectAdapter.onClickEditProjectListener = {
-            findNavController().navigate(ProjectFragmentDirections.actionProjectFragmentToEditProjectModal(it.id))
+            findNavController().navigate(
+                ProjectFragmentDirections.actionProjectFragmentToEditProjectModal(
+                    it.id
+                )
+            )
         }
     }
 
-    private fun setupProjectAdapter(){
+    private fun setupProjectAdapter() {
         binding.rvProjects.adapter = projectAdapter
     }
 
-    private fun refreshFragment(){
-        with(binding.swipeRefresh){
+    private fun refreshFragment() {
+        with(binding.swipeRefresh) {
             setColorSchemeResources(R.color.sw_purple)
             setOnRefreshListener {
-                CoroutineScope(Dispatchers.IO).launch{
+                CoroutineScope(Dispatchers.IO).launch {
                     delay(300)
                     isRefreshing = false
                 }
@@ -106,8 +95,8 @@ class ProjectFragment : Fragment() {
         }
     }
 
-    private fun setListenersInView(){
-        with(binding){
+    private fun setListenersInView() {
+        with(binding) {
             btnAddProject.setOnClickListener {
                 findNavController().navigate(ProjectFragmentDirections.actionProjectFragmentToAddProjectModal())
             }

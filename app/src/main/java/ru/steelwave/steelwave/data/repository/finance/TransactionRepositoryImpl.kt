@@ -1,8 +1,7 @@
 package ru.steelwave.steelwave.data.repository.finance
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
-import ru.steelwave.steelwave.Loger
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import ru.steelwave.steelwave.data.database.dao.finance.TransactionDao
 import ru.steelwave.steelwave.data.mapper.finance.TransactionMapper
 import ru.steelwave.steelwave.domain.entity.finance.TransactionModel
@@ -13,13 +12,13 @@ import javax.inject.Inject
 class TransactionRepositoryImpl @Inject constructor(
     private val mapper: TransactionMapper,
     private val dao: TransactionDao
-): TransactionRepository {
+) : TransactionRepository {
 
     override fun getTransactionList(
         projectId: Int,
         date: Date
-    ): LiveData<List<TransactionModel>> {
-        return Transformations.map(dao.getTransactionList(projectId, date.time)){
+    ): Flow<List<TransactionModel>> {
+        return dao.getTransactionList(projectId, date.time).map {
             mapper.mapListDbModelToListEntity(it)
         }
     }

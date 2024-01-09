@@ -1,6 +1,5 @@
 package ru.steelwave.steelwave.presentation.main.ads.modals
 
-import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -13,35 +12,24 @@ import android.view.ViewGroup
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
-import ru.steelwave.steelwave.App
+import dagger.hilt.android.AndroidEntryPoint
 import ru.steelwave.steelwave.databinding.ModalAddPartnerBinding
-import ru.steelwave.steelwave.presentation.base.ViewModelFactory
 import ru.steelwave.steelwave.presentation.main.ads.AdsViewModel
 import java.util.Calendar
 import java.util.Date
-import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class AddPartnerModal : DialogFragment() {
-
-    private val component by lazy{
-        (requireActivity().application as App).component
-    }
 
     private var _binding: ModalAddPartnerBinding? = null
     private val binding: ModalAddPartnerBinding
         get() = _binding ?: throw RuntimeException("ModalAddPartnerBinding == null")
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    private val viewModel by lazy{
-        ViewModelProvider(this,viewModelFactory)[AdsViewModel::class.java]
-    }
+    private val viewModel by viewModels<AdsViewModel>()
 
     private val imagePickerLauncher =
         registerForActivityResult(
@@ -52,11 +40,6 @@ class AddPartnerModal : DialogFragment() {
 
     private var selectedImageBitmap: Bitmap? = null
     private var selectedDate = System.currentTimeMillis()
-
-    override fun onAttach(context: Context) {
-        component.inject(this)
-        super.onAttach(context)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -79,13 +62,13 @@ class AddPartnerModal : DialogFragment() {
         setDate(selectedDate)
     }
 
-    private fun observeViewModel(){
-        with(viewModel){
+    private fun observeViewModel() {
+        with(viewModel) {
 
         }
     }
 
-    private fun setDate(date: Long){
+    private fun setDate(date: Long) {
         val date = Date(date)
         val calendar = Calendar.getInstance()
         calendar.time = date
@@ -95,8 +78,8 @@ class AddPartnerModal : DialogFragment() {
         setDateInView(day, month, year)
     }
 
-    private fun setDateInView(day: Int, month: Int, year: Int){
-        with(binding){
+    private fun setDateInView(day: Int, month: Int, year: Int) {
+        with(binding) {
             tvDateDay.text = day.toString()
             tvDateMonth.text = month.toString()
             tvDateYear.text = year.toString()
@@ -114,9 +97,10 @@ class AddPartnerModal : DialogFragment() {
         }
     }
 
-    private fun openDatePicker(){
+    private fun openDatePicker() {
         val constraintsBuilder = CalendarConstraints.Builder().setValidator(
-            DateValidatorPointForward.from(System.currentTimeMillis()))
+            DateValidatorPointForward.from(System.currentTimeMillis())
+        )
         val picker = MaterialDatePicker.Builder.datePicker()
             .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
             .setTitleText("Дата окончание контракта")
@@ -124,13 +108,13 @@ class AddPartnerModal : DialogFragment() {
             .build()
         picker.show(childFragmentManager, TAG_DIALOG_DATE_PICKER)
 
-        picker.addOnPositiveButtonClickListener{ selectedDate ->
+        picker.addOnPositiveButtonClickListener { selectedDate ->
             this.selectedDate = selectedDate
             setDate(this.selectedDate)
         }
     }
 
-    private fun pickImage(){
+    private fun pickImage() {
         imagePickerLauncher.launch(
             PickVisualMediaRequest(
                 ActivityResultContracts.PickVisualMedia.ImageOnly
@@ -139,7 +123,8 @@ class AddPartnerModal : DialogFragment() {
     }
 
     private fun setImage(uri: Uri) {
-        selectedImageBitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
+        selectedImageBitmap =
+            MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
         binding.ivPreview.setImageBitmap(selectedImageBitmap)
     }
 
@@ -149,7 +134,7 @@ class AddPartnerModal : DialogFragment() {
         _binding = null
     }
 
-    companion object{
+    companion object {
         private const val TAG_DIALOG_DATE_PICKER = "tag_dialog_date_picker"
     }
 

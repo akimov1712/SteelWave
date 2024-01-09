@@ -1,8 +1,7 @@
 package ru.steelwave.steelwave.data.repository.user
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
-import ru.steelwave.steelwave.Const
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import ru.steelwave.steelwave.data.database.dao.user.UserDao
 import ru.steelwave.steelwave.data.mapper.user.UserMapper
 import ru.steelwave.steelwave.domain.entity.user.UserModel
@@ -12,7 +11,7 @@ import javax.inject.Inject
 class UserRepositoryImpl @Inject constructor(
     private val mapper: UserMapper,
     private val dao: UserDao
-): UserRepository {
+) : UserRepository {
 
     override suspend fun getCountUsersUseCase(projectId: Int): Int {
         return dao.getCountUsers(projectId)
@@ -29,10 +28,10 @@ class UserRepositoryImpl @Inject constructor(
     override suspend fun getUserUseCase(userId: Int) =
         mapper.mapDbModelToEntity(dao.getUser(userId))
 
-    override fun getAllUserUseCase(projectId: Int, limit: Int): LiveData<List<UserModel>> =
-            Transformations.map(dao.getUserList(projectId, limit)){
-                mapper.mapListDbModelToListEntity(it)
-            }
+    override fun getAllUserUseCase(projectId: Int, limit: Int): Flow<List<UserModel>> =
+        dao.getUserList(projectId, limit).map {
+            mapper.mapListDbModelToListEntity(it)
+        }
 
     override suspend fun getTotalSalary(projectId: Int) = dao.getTotalSalary(projectId)
 }

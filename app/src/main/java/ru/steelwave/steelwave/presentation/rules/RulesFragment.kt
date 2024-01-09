@@ -5,10 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import dagger.hilt.android.AndroidEntryPoint
 import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.FragmentRulesBinding
 
-
+@AndroidEntryPoint
 class RulesFragment : Fragment() {
 
     private var _binding: FragmentRulesBinding? = null

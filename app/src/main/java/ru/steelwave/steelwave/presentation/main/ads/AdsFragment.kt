@@ -1,49 +1,34 @@
 package ru.steelwave.steelwave.presentation.main.ads
 
-import android.content.Context
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import ru.steelwave.steelwave.App
 import ru.steelwave.steelwave.Const
 import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.FragmentAdsBinding
-import ru.steelwave.steelwave.presentation.base.ViewModelFactory
-import javax.inject.Inject
 
+@AndroidEntryPoint
 class AdsFragment : Fragment() {
 
     private val args by navArgs<AdsFragmentArgs>()
     private var projectId = Const.UNDEFINED_ID
 
-    private val component by lazy {
-        (requireActivity().application as App).component
-    }
-
     private var _binding: FragmentAdsBinding? = null
     private val binding: FragmentAdsBinding
         get() = _binding ?: throw RuntimeException("FragmentAdsBinding == null")
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    private val viewModel by lazy {
-        ViewModelProvider(this, viewModelFactory)[AdsViewModel::class.java]
-    }
-
-    override fun onAttach(context: Context) {
-        component.inject(this)
-        super.onAttach(context)
-    }
+    private val viewModel by viewModels<AdsViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,7 +43,7 @@ class AdsFragment : Fragment() {
         setupViews()
     }
 
-    private fun setupViews(){
+    private fun setupViews() {
         setListenersInView()
         refreshFragment()
         setViewErrors()
@@ -66,25 +51,34 @@ class AdsFragment : Fragment() {
         observeViewModel()
     }
 
-    private fun observeViewModel(){
-        with(viewModel){
-            with(binding){
-                if (projectId != Const.UNDEFINED_ID) {
-                    getProjectItem(projectId)
-                }
-                projectItem.observe(viewLifecycleOwner) {
-                    switchScreensAdding()
-                    tvProjectPartner.text = it.name
+    private fun observeViewModel() {
+        lifecycleScope.launch {
+            with(viewModel) {
+                with(binding) {
+                    if (projectId != Const.UNDEFINED_ID) {
+                        getProjectItem(projectId)
+                    }
+                    state.collect {
+                        when(it){
+                            is AdsState.Loading -> {
+
+                            }
+                            is AdsState.ProjectItem -> {
+                                switchScreensAdding()
+                                tvProjectPartner.text = it.project.name
+                            }
+                        }
+                    }
                 }
             }
         }
     }
 
-    private fun refreshFragment(){
-        with(binding.swipeRefresh){
+    private fun refreshFragment() {
+        with(binding.swipeRefresh) {
             setColorSchemeResources(R.color.sw_purple)
             setOnRefreshListener {
-                CoroutineScope(Dispatchers.IO).launch{
+                CoroutineScope(Dispatchers.IO).launch {
                     delay(300)
                     isRefreshing = false
                 }
@@ -93,8 +87,8 @@ class AdsFragment : Fragment() {
     }
 
     private fun switchScreensAdding() {
-        with(binding){
-            if (projectId != Const.UNDEFINED_ID){
+        with(binding) {
+            if (projectId != Const.UNDEFINED_ID) {
                 tvChoiceProject.visibility = View.GONE
                 clAds.visibility = View.VISIBLE
             } else {
@@ -108,8 +102,8 @@ class AdsFragment : Fragment() {
         projectId = args.projectId
     }
 
-    private fun setViewErrors(){
-        with(binding){
+    private fun setViewErrors() {
+        with(binding) {
             inclErrorAds.tvNotFound.text = "Партнеров у проекта\nне обнаружено"
         }
     }
@@ -125,11 +119,15 @@ class AdsFragment : Fragment() {
         }
     }
 
-    private fun openModalAddPartner(projectId: Int){
-        findNavController().navigate(AdsFragmentDirections.actionAdsFragmentToAddPartnerModal(projectId))
+    private fun openModalAddPartner(projectId: Int) {
+        findNavController().navigate(
+            AdsFragmentDirections.actionAdsFragmentToAddPartnerModal(
+                projectId
+            )
+        )
     }
 
-    private fun openModalChoiceProject(){
+    private fun openModalChoiceProject() {
         findNavController().navigate(
             AdsFragmentDirections.actionAdsFragmentToChoiceProjectModal(
                 Const.MODE_CHOICE_PROJECT_ADS

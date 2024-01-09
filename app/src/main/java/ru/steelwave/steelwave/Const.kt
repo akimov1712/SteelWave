@@ -18,3 +18,4 @@ object Const {
     const val MODE_CHOICE_PROJECT_ADS = "mode_choice_project_ads"
 
 }
+

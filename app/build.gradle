@@ -1,34 +1,33 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'com.google.devtools.ksp'
     id 'kotlin-parcelize'
-    id 'kotlin-kapt'
     id 'androidx.navigation.safeargs.kotlin'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
     namespace 'ru.steelwave.steelwave'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "ru.steelwave.steelwave"
         minSdk 24
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        ksp {
+            arg('room.schemaLocation', "$projectDir/schemas")
+        }
     }
 
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-    kapt {
-        arguments {
-            arg("room.schemaLocation", "$projectDir/schemas")
         }
     }
     compileOptions {
@@ -45,17 +44,19 @@ android {
 
 dependencies {
 
-    def room_version = "2.5.1"
-    def nav_version = "2.5.3"
-    def dagger2 = "2.28.3"
+    def room_version = "2.6.1"
+    def nav_version = "2.7.6"
+    def hilt = "2.48.1"
+    def viewModel = "2.4.1"
 
-//    Dagger
-    implementation "com.google.dagger:dagger:$dagger2"
-    kapt "com.google.dagger:dagger-compiler:$dagger2"
+//    Hilt
+    implementation "com.google.dagger:hilt-android:$hilt"
+    ksp "com.google.dagger:hilt-compiler:$hilt"
 
 //    JSON
-    implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0'
-    implementation 'com.google.code.gson:gson:2.9.0'
+    implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
+    implementation ("com.google.code.gson:gson:2.10.1")
+    implementation 'org.jsoup:jsoup:1.16.2'
 
 //    Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
@@ -63,11 +64,12 @@ dependencies {
 
 //    Room
     implementation("androidx.room:room-runtime:$room_version")
-    kapt("androidx.room:room-compiler:$room_version")
+    ksp("androidx.room:room-compiler:$room_version")
     implementation("androidx.room:room-ktx:$room_version")
 
 //    ViewModel
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModel")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$viewModel")
 
 //    View
     implementation 'com.mikhaellopez:circularprogressbar:3.1.0'
@@ -80,9 +82,9 @@ dependencies {
 
 
 //    Default
-    implementation 'androidx.core:core-ktx:1.10.1'
+    implementation 'androidx.core:core-ktx:1.12.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'com.google.android.material:material:1.11.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

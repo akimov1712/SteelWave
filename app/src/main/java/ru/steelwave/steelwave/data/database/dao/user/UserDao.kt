@@ -6,6 +6,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 import ru.steelwave.steelwave.data.database.model.user.UserDbModel
 import ru.steelwave.steelwave.domain.entity.user.UserModel
 
@@ -13,7 +14,7 @@ import ru.steelwave.steelwave.domain.entity.user.UserModel
 interface UserDao {
 
     @Query("SELECT * FROM users WHERE projectId = :projectId LIMIT :limit")
-    fun getUserList(projectId: Int, limit: Int): LiveData<List<UserDbModel>>
+    fun getUserList(projectId: Int, limit: Int): Flow<List<UserDbModel>>
 
     @Query("SELECT COUNT(*) FROM users WHERE projectId = :projectId")
     suspend fun getCountUsers(projectId: Int): Int

@@ -1,7 +1,5 @@
 package ru.steelwave.steelwave.data.repository.finance
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import ru.steelwave.steelwave.data.database.dao.finance.YearIncomeDao
 import ru.steelwave.steelwave.data.mapper.finance.YearIncomeMapper
 import ru.steelwave.steelwave.domain.entity.finance.YearIncomeModel

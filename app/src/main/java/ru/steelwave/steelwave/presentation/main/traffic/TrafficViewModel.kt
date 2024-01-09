@@ -1,30 +1,26 @@
 package ru.steelwave.steelwave.presentation.main.traffic
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import ru.steelwave.steelwave.Loger
-import ru.steelwave.steelwave.domain.entity.project.ProjectModel
-import ru.steelwave.steelwave.domain.entity.traffic.TransferModel
-import ru.steelwave.steelwave.domain.entity.traffic.VisitionModel
 import ru.steelwave.steelwave.domain.useCase.project.GetProjectUseCase
 import ru.steelwave.steelwave.domain.useCase.traffic.GetTransferListUseCase
 import ru.steelwave.steelwave.domain.useCase.traffic.GetVisitionUseCase
-import ru.steelwave.steelwave.presentation.main.finance.FinanceState
 import java.util.Date
 import javax.inject.Inject
 
+@HiltViewModel
 class TrafficViewModel @Inject constructor(
     private val getProjectUseCase: GetProjectUseCase,
     private val getTransferListUseCase: GetTransferListUseCase,
     private val getVisitionUseCase: GetVisitionUseCase
 ) : ViewModel() {
 
-    private val _state = MutableLiveData<TrafficState>()
-    val state: LiveData<TrafficState>
-        get() = _state
+    private val _state = MutableStateFlow<TrafficState>(TrafficState.Loading)
+    val state = _state.asStateFlow()
 
     fun getProjectItem(projectItemId: Int) {
         viewModelScope.launch {
@@ -33,25 +29,28 @@ class TrafficViewModel @Inject constructor(
         }
     }
 
-    fun getVisition(projectId: Int, date: Date){
+    fun getVisition(projectId: Int, date: Date) {
         viewModelScope.launch {
-            val item = getVisitionUseCase(projectId, date)
-            item.value?.let {
+            getVisitionUseCase(projectId, date).collect {
                 _state.value = TrafficState.VisitionItem(it)
             }
         }
     }
 
-    fun getTransferList(projectId: Int, startDate: Date, endDate: Date){
+    fun getTransferList(projectId: Int, startDate: Date, endDate: Date) {
         viewModelScope.launch {
-            val item = getTransferListUseCase(projectId, startDate, endDate)
-            item.value?.let{
+            getTransferListUseCase(projectId, startDate, endDate).collect {
                 _state.value = TrafficState.TransferList(it)
             }
         }
     }
 
-    fun getDate(projectId: Int, visitionDate: Date, startDateTransfer: Date, endDateTransfer: Date){
+    fun getDate(
+        projectId: Int,
+        visitionDate: Date,
+        startDateTransfer: Date,
+        endDateTransfer: Date
+    ) {
         getVisition(projectId, visitionDate)
         getTransferList(projectId, startDateTransfer, endDateTransfer)
     }

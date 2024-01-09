@@ -11,12 +11,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import ru.steelwave.steelwave.App
 import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.ModalConfirmKickEmployeeBinding
-import ru.steelwave.steelwave.presentation.base.ViewModelFactory
 import ru.steelwave.steelwave.presentation.main.employees.EmployeesState
 import ru.steelwave.steelwave.presentation.main.employees.EmployeesViewModel
 import ru.steelwave.steelwave.utils.formatName
@@ -24,27 +24,13 @@ import javax.inject.Inject
 
 class KickEmployeeModal : DialogFragment() {
 
-    private val component by lazy {
-        (requireActivity().application as App).component
-    }
-
     private val args by navArgs<KickEmployeeModalArgs>()
 
     private var _binding: ModalConfirmKickEmployeeBinding? = null
     private val binding: ModalConfirmKickEmployeeBinding
         get() = _binding ?: throw RuntimeException("ModalConfirmKickEmployeeBinding == null")
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    private val viewModel by lazy {
-        ViewModelProvider(this, viewModelFactory)[EmployeesViewModel::class.java]
-    }
-
-    override fun onAttach(context: Context) {
-        component.inject(this)
-        super.onAttach(context)
-    }
+    private val viewModel by viewModels<EmployeesViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,

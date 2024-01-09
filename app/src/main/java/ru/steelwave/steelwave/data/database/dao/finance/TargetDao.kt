@@ -6,6 +6,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 import ru.steelwave.steelwave.data.database.model.finance.TargetDbModel
 
 @Dao
@@ -13,7 +14,7 @@ interface TargetDao {
 
 
     @Query("SELECT * FROM targets WHERE projectId=:projectId")
-    fun getAllTarget(projectId: Int): LiveData<List<TargetDbModel>>
+    fun getAllTarget(projectId: Int): Flow<List<TargetDbModel>>
 
     @Query("SELECT * FROM targets WHERE id=:targetId LIMIT 1")
     suspend fun getTargetItem(targetId: Int): TargetDbModel

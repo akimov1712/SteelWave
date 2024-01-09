@@ -3,6 +3,7 @@ package ru.steelwave.steelwave.data.database.dao.traffic
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 import ru.steelwave.steelwave.data.database.model.traffic.TransferDbModel
 import ru.steelwave.steelwave.domain.entity.traffic.TransferModel
 import java.util.Date
@@ -16,6 +17,6 @@ interface TransferDao {
         projectId: Int,
         startDate: Long,
         endDate: Long
-    ): LiveData<List<TransferDbModel>>
+    ): Flow<List<TransferDbModel>>
 
 }

@@ -4,6 +4,7 @@ import ru.steelwave.steelwave.domain.entity.project.ProjectModel
 
 sealed class AdsState{
 
-    class ProjectItem(val project: ProjectModel): AdsState()
+    data object Loading: AdsState()
+    data class ProjectItem(val project: ProjectModel): AdsState()
 
 }

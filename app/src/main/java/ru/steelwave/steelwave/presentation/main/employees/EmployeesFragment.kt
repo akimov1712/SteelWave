@@ -1,55 +1,38 @@
 package ru.steelwave.steelwave.presentation.main.employees
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import ru.steelwave.steelwave.App
 import ru.steelwave.steelwave.Const
 import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.FragmentEmployeesBinding
 import ru.steelwave.steelwave.domain.entity.user.UserModel
-import ru.steelwave.steelwave.presentation.base.ViewModelFactory
 import ru.steelwave.steelwave.presentation.main.employees.adapters.userAdapter.UserAdapter
-import javax.inject.Inject
 
+@AndroidEntryPoint
 class EmployeesFragment : Fragment() {
 
     private val args by navArgs<EmployeesFragmentArgs>()
     private var projectId = Const.UNDEFINED_ID
 
-    private val component by lazy {
-        (requireActivity().application as App).component
-    }
-
     private var _binding: FragmentEmployeesBinding? = null
     private val binding: FragmentEmployeesBinding
         get() = _binding ?: throw RuntimeException("FragmentEmployeesBinding == null")
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    private val viewModel by lazy {
-        ViewModelProvider(this, viewModelFactory)[EmployeesViewModel::class.java]
-    }
+    private val viewModel by viewModels<EmployeesViewModel>()
 
     private val userAdapter by lazy { UserAdapter() }
-
-    override fun onAttach(context: Context) {
-        component.inject(this)
-        super.onAttach(context)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -188,26 +171,34 @@ class EmployeesFragment : Fragment() {
         popup.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.menu_personal_data -> {
-                    findNavController().navigate(EmployeesFragmentDirections
-                        .actionEmployeesFragmentToChangePersonalDataModal(user.id))
+                    findNavController().navigate(
+                        EmployeesFragmentDirections
+                            .actionEmployeesFragmentToChangePersonalDataModal(user.id)
+                    )
                     true
                 }
 
                 R.id.menu_position -> {
-                    findNavController().navigate(EmployeesFragmentDirections
-                        .actionEmployeesFragmentToChangePositionModal(user.id))
+                    findNavController().navigate(
+                        EmployeesFragmentDirections
+                            .actionEmployeesFragmentToChangePositionModal(user.id)
+                    )
                     true
                 }
 
                 R.id.menu_salary -> {
-                    findNavController().navigate(EmployeesFragmentDirections
-                        .actionEmployeesFragmentToChangeSalaryModal(user.id))
+                    findNavController().navigate(
+                        EmployeesFragmentDirections
+                            .actionEmployeesFragmentToChangeSalaryModal(user.id)
+                    )
                     true
                 }
 
                 R.id.menu_report -> {
-                    findNavController().navigate(EmployeesFragmentDirections
-                        .actionEmployeesFragmentToReportFragment(projectId, user.id))
+                    findNavController().navigate(
+                        EmployeesFragmentDirections
+                            .actionEmployeesFragmentToReportFragment(projectId, user.id)
+                    )
                     true
                 }
 
