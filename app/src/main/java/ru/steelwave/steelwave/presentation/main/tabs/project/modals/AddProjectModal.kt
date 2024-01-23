@@ -13,8 +13,12 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import ru.steelwave.steelwave.databinding.ModalAddProjectBinding
 import ru.steelwave.steelwave.presentation.base.CustomToast
 import ru.steelwave.steelwave.presentation.main.project.ProjectState
@@ -25,12 +29,12 @@ import java.util.Date
 @AndroidEntryPoint
 class AddProjectModal : DialogFragment() {
 
-
     private var _binding: ModalAddProjectBinding? = null
     private val binding: ModalAddProjectBinding
         get() = _binding ?: throw RuntimeException("ModalAddProjectBinding == null")
 
     private val viewModel by viewModels<ProjectViewModel>()
+//    private val viewModel by lazy{ ViewModelProvider(this)[ProjectViewModel::class.java] }
 
     private val imagePickerLauncher =
         registerForActivityResult(
@@ -65,24 +69,28 @@ class AddProjectModal : DialogFragment() {
     }
 
     private fun observeViewModel() {
-        with(viewModel) {
-            state.observe(viewLifecycleOwner) {
-                when (it) {
-                    is ProjectState.ErrorImage -> {
-                        CustomToast.toastDefault(requireContext(), "Выберите обложку")
-                        binding.ivError.visibility = View.VISIBLE
-                    }
+        lifecycleScope.launch {
+            with(viewModel) {
+                state.collect {
+                    when (it) {
+                        is ProjectState.ErrorImage -> {
+                            CustomToast.toastDefault(requireContext(), "Выберите обложку")
+                            binding.ivError.visibility = View.VISIBLE
+                        }
 
-                    is ProjectState.ErrorInputName -> {
-                        binding.etNameProject.error = "Введите название проекта"
-                    }
+                        is ProjectState.ErrorInputName -> {
+                            binding.etNameProject.error = "Введите название проекта"
+                        }
 
-                    is ProjectState.ShouldCloseScreen -> {
-                        dismiss()
+                        is ProjectState.ShouldCloseScreen -> {
+                            dismiss()
+                        }
+                        else -> {}
                     }
                 }
             }
         }
+
     }
 
     private fun setDate(date: Long) {

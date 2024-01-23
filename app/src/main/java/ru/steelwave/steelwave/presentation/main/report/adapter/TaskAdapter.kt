@@ -36,7 +36,7 @@ class TaskAdapter(private val context: Context): ListAdapter<TaskModel, TaskView
                 ivStateTask.setImageResource(R.drawable.icon_check_mark)
                 cvTask.outlineSpotShadowColor = ContextCompat.getColor(context, R.color.sw_green)
             }
-            tvTextTask.setOnClickListener {
+            holder.itemView.setOnClickListener {
                 val lines = tvTextTask.maxLines
                 if (lines == MIN_LINES){
                     tvTextTask.maxLines = MAX_LINES

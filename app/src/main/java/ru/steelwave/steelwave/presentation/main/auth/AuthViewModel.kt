@@ -1,4 +1,4 @@
-package ru.steelwave.steelwave.presentation.auth
+package ru.steelwave.steelwave.presentation.main.auth
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

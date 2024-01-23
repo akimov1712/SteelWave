@@ -1,4 +1,4 @@
-package ru.steelwave.steelwave.presentation.rules
+package ru.steelwave.steelwave.presentation.main.rules
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

@@ -1,4 +1,4 @@
-package ru.steelwave.steelwave.presentation.modals
+package ru.steelwave.steelwave.presentation.main.modals
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -9,14 +9,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import ru.steelwave.steelwave.Const
 import ru.steelwave.steelwave.databinding.ModalChoiceProjectBinding
 import ru.steelwave.steelwave.domain.entity.project.ProjectModel
 import ru.steelwave.steelwave.presentation.main.finance.FinanceViewModel
-import ru.steelwave.steelwave.presentation.modals.choiceProjectAdapter.ChoiceProjectAdapter
+import ru.steelwave.steelwave.presentation.main.modals.choiceProjectAdapter.ChoiceProjectAdapter
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -51,12 +54,15 @@ class ChoiceProjectModal : DialogFragment() {
     }
 
     private fun observeViewModel(){
-        with(viewModel){
-            projectList.observe(viewLifecycleOwner){
-                choiceProjectAdapter.submitList(it)
-                setTitle(it)
+        lifecycleScope.launch {
+            with(viewModel){
+                projectList.collect{
+                    choiceProjectAdapter.submitList(it)
+                    setTitle(it)
+                }
             }
         }
+
     }
 
     private fun setupViews(){

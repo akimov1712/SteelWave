@@ -1,4 +1,4 @@
-package ru.steelwave.steelwave.presentation.modals
+package ru.steelwave.steelwave.presentation.main.modals
 
 import android.content.Intent
 import android.graphics.Color

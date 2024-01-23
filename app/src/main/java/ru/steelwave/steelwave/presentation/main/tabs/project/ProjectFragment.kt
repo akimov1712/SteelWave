@@ -47,14 +47,18 @@ class ProjectFragment : Fragment() {
 
     private fun setupViewModel() {
         observeViewModel()
-
     }
 
     private fun observeViewModel() {
         lifecycleScope.launch {
-            viewModel.projectList.collect {
-                projectAdapter.submitList(it)
-                binding.tvCountProjects.text = it.size.toString()
+            viewModel.state.collect {
+                when(it){
+                    is ProjectState.ProjectList -> {
+                        projectAdapter.submitList(it.projectList)
+                        binding.tvCountProjects.text = it.projectList.size.toString()
+                    } else -> {}
+                }
+
             }
         }
     }

@@ -15,7 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.ActivityAuthBinding
 import ru.steelwave.steelwave.databinding.ActivityMainBinding
-import ru.steelwave.steelwave.presentation.modals.ConfirmExitAccountModal
+import ru.steelwave.steelwave.presentation.main.modals.ConfirmExitAccountModal
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

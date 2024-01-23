@@ -1,4 +1,4 @@
-package ru.steelwave.steelwave.presentation.modals.choiceProjectAdapter
+package ru.steelwave.steelwave.presentation.main.modals.choiceProjectAdapter
 
 import androidx.recyclerview.widget.DiffUtil
 import ru.steelwave.steelwave.domain.entity.project.ProjectModel

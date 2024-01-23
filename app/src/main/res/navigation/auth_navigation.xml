@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/authFragment"
-        android:name="ru.steelwave.steelwave.presentation.auth.AuthFragment"
+        android:name="ru.steelwave.steelwave.presentation.main.auth.AuthFragment"
         android:label="fragment_auth"
         tools:layout="@layout/fragment_auth" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/rulesFragment"
-        android:name="ru.steelwave.steelwave.presentation.rules.RulesFragment"
+        android:name="ru.steelwave.steelwave.presentation.main.rules.RulesFragment"
         android:label="fragment_rules"
         tools:layout="@layout/fragment_rules" />
 </navigation>

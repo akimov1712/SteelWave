@@ -11,15 +11,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.ModalConfirmDeleteProjectBinding
 import ru.steelwave.steelwave.presentation.main.project.ProjectState
 import ru.steelwave.steelwave.presentation.main.project.ProjectViewModel
 
+@AndroidEntryPoint
 class DeleteProjectModal : DialogFragment() {
-
 
     private val args by navArgs<DeleteProjectModalArgs>()
 
@@ -51,17 +55,19 @@ class DeleteProjectModal : DialogFragment() {
     }
 
     private fun observeViewModel() {
-        with(viewModel) {
-            state.observe(viewLifecycleOwner) {
-                when (it) {
-                    is ProjectState.ShouldCloseScreen -> {
-                        findNavController().navigate(DeleteProjectModalDirections.actionDeleteProjectModalToProjectFragment())
+        lifecycleScope.launch {
+            with(viewModel) {
+                state.collect {
+                    when (it) {
+                        is ProjectState.ShouldCloseScreen -> {
+                            findNavController().navigate(R.id.action_deleteProjectModal_to_projectFragment)
+                        }
+                        else -> {}
                     }
-
-                    else -> {}
                 }
             }
         }
+
     }
 
     private fun setTextConfirm() {

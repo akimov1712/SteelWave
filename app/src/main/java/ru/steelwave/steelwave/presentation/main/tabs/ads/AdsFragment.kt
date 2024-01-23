@@ -67,6 +67,8 @@ class AdsFragment : Fragment() {
                                 switchScreensAdding()
                                 tvProjectPartner.text = it.project.name
                             }
+
+                            else -> {}
                         }
                     }
                 }

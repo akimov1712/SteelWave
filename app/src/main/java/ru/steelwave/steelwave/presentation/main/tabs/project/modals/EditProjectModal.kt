@@ -11,16 +11,21 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.Settings
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.datepicker.MaterialDatePicker
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.ModalEditProjectBinding
 import ru.steelwave.steelwave.domain.entity.project.ProjectModel
@@ -30,7 +35,7 @@ import ru.steelwave.steelwave.presentation.main.project.ProjectViewModel
 import java.util.Calendar
 import java.util.Date
 
-
+@AndroidEntryPoint
 class EditProjectModal : BottomSheetDialogFragment() {
 
     private val args by navArgs<EditProjectModalArgs>()
@@ -80,29 +85,33 @@ class EditProjectModal : BottomSheetDialogFragment() {
 
 
     private fun observeViewModel() {
-        with(viewModel) {
-            getProjectItem(args.projectId)
-            projectItem.observe(viewLifecycleOwner) { project ->
-                choiceProject = project
-                binding.etNameProject.setText(project.name)
-                selectedImageBitmap = project.previewImage
-                binding.ivPreview.setImageBitmap(selectedImageBitmap)
-                selectedDate = project.dateRelease
-                setDate(selectedDate)
-            }
-            state.observe(viewLifecycleOwner) {
-                when (it) {
-                    is ProjectState.ErrorImage -> {
-                        CustomToast.toastDefault(requireContext(), "Выберите обложку")
-                        binding.ivError.visibility = View.VISIBLE
-                    }
+        lifecycleScope.launch {
+            with(viewModel) {
+                getProjectItem(args.projectId)
+                state.collect {
+                    when (it) {
+                        is ProjectState.ErrorImage -> {
+                            CustomToast.toastDefault(requireContext(), "Выберите обложку")
+                            binding.ivError.visibility = View.VISIBLE
+                        }
 
-                    is ProjectState.ErrorInputName -> {
-                        binding.etNameProject.error = "Введите название проекта"
-                    }
+                        is ProjectState.ErrorInputName -> {
+                            binding.etNameProject.error = "Введите название проекта"
+                        }
 
-                    is ProjectState.ShouldCloseScreen -> {
-                        dismissNow()
+                        is ProjectState.ShouldCloseScreen -> {
+                            findNavController().popBackStack()
+                        }
+
+                        is ProjectState.ProjectItem -> {
+                            choiceProject = it.item
+                            binding.etNameProject.setText(it.item.name)
+                            selectedImageBitmap = it.item.previewImage
+                            binding.ivPreview.setImageBitmap(selectedImageBitmap)
+                            selectedDate = it.item.dateRelease
+                            setDate(selectedDate)
+                        }
+                        else -> {}
                     }
                 }
             }

@@ -105,7 +105,7 @@
     </fragment>
     <fragment
         android:id="@+id/rulesFragmentInMain"
-        android:name="ru.steelwave.steelwave.presentation.rules.RulesFragment"
+        android:name="ru.steelwave.steelwave.presentation.main.rules.RulesFragment"
         android:label="fragment_rules"
         tools:layout="@layout/fragment_rules" />
     <dialog
@@ -123,9 +123,23 @@
             android:id="@+id/action_editProjectModal_to_deleteProjectModal"
             app:destination="@id/deleteProjectModal" />
     </dialog>
+
+    <dialog
+        android:id="@+id/deleteProjectModal"
+        android:name="ru.steelwave.steelwave.presentation.main.project.modals.DeleteProjectModal"
+        android:label="DeleteProjectModal" >
+        <argument
+            android:name="projectModel"
+            app:argType="ru.steelwave.steelwave.domain.entity.project.ProjectModel" />
+        <action
+            android:id="@+id/action_deleteProjectModal_to_projectFragment"
+            app:destination="@id/projectFragment"
+            app:popUpTo="@id/projectFragment"
+            app:popUpToInclusive="true" />
+    </dialog>
     <dialog
         android:id="@+id/choiceProjectModal"
-        android:name="ru.steelwave.steelwave.presentation.modals.ChoiceProjectModal"
+        android:name="ru.steelwave.steelwave.presentation.main.modals.ChoiceProjectModal"
         android:label="ChoiceProjectModal" >
         <action
             android:id="@+id/action_choiceProjectModal_to_financeFragment"
@@ -193,18 +207,7 @@
             android:name="projectId"
             app:argType="integer" />
     </dialog>
-    <dialog
-        android:id="@+id/deleteProjectModal"
-        android:name="ru.steelwave.steelwave.presentation.main.project.modals.DeleteProjectModal"
-        android:label="DeleteProjectModal" >
-        <argument
-            android:name="projectModel"
-            app:argType="ru.steelwave.steelwave.domain.entity.project.ProjectModel" />
-        <action
-            android:id="@+id/action_deleteProjectModal_to_projectFragment"
-            app:destination="@id/projectFragment"
-            app:popUpToInclusive="false" />
-    </dialog>
+
     <dialog
         android:id="@+id/addPartnerModal"
         android:name="ru.steelwave.steelwave.presentation.main.ads.modals.AddPartnerModal"

@@ -9,10 +9,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import dagger.hilt.android.AndroidEntryPoint
 import ru.steelwave.steelwave.databinding.ModalControlLossBinding
 import ru.steelwave.steelwave.presentation.main.finance.FinanceState
 import ru.steelwave.steelwave.presentation.main.finance.FinanceViewModel
 
+@AndroidEntryPoint
 class AddLossModal : DialogFragment() {
 
     private val args by navArgs<AddLossModalArgs>()

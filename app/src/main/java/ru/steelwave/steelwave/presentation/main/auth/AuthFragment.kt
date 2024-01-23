@@ -1,4 +1,4 @@
-package ru.steelwave.steelwave.presentation.auth
+package ru.steelwave.steelwave.presentation.main.auth
 
 import android.content.Intent
 import android.os.Bundle

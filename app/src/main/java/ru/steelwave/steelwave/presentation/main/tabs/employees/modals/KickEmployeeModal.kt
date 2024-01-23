@@ -14,6 +14,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
+import dagger.hilt.android.AndroidEntryPoint
 import ru.steelwave.steelwave.App
 import ru.steelwave.steelwave.R
 import ru.steelwave.steelwave.databinding.ModalConfirmKickEmployeeBinding
@@ -22,6 +23,7 @@ import ru.steelwave.steelwave.presentation.main.employees.EmployeesViewModel
 import ru.steelwave.steelwave.utils.formatName
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class KickEmployeeModal : DialogFragment() {
 
     private val args by navArgs<KickEmployeeModalArgs>()
